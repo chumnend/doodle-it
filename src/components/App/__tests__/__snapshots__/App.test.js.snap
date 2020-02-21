@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`APP COMPONENT expects to render a component 1`] = `
+<div>
+  <div
+    class="App"
+  >
+    <h1>
+      MERN React Template
+    </h1>
+    <h4>
+      By Nicholas Chumney
+    </h4>
+  </div>
+</div>
+`;
