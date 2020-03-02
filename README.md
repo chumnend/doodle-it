@@ -1,2 +1,2 @@
-# mern-template-ui
-A react template for a MERN application
+# Doodle It
+An in browser application for creating images
