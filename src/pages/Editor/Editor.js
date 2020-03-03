@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import  { fabric } from "fabric";
+import { CompactPicker as ColorPicker } from "react-color";
 import "./Editor.scss";
 
 // globally accessible fabricCanvas instance
@@ -11,12 +12,15 @@ function Editor () {
     const [activeObject, setActiveObject] = useState(null);
     const [title, setTitle] = useState("Untitled");
     const [freeMode, setFreeMode] = useState(false);
+    const [color, setColor] = useState("#FF0000");
+    const [showPicker, setShowPicker] = useState(false);
+    const [penWidth, setPenWidth] = useState(1);
     
     useEffect( () => {
         fabricCanvas.initialize(cRef.current, {
             width: 500,
             height: 500,
-            backgroundColor: "white",
+            backgroundColor: "#f2f2f2",
         });
         
         fabricCanvas.on("mouse:up", () => {
@@ -57,7 +61,7 @@ function Editor () {
     function clearCanvas () {
         // clears contents of the canvas
         fabricCanvas.clear();
-        fabricCanvas.setBackgroundColor("#FFF");
+        fabricCanvas.setBackgroundColor("#f2f2f2");
         fabricCanvas.fire("save");
     }
     
@@ -72,6 +76,8 @@ function Editor () {
             // turn free drawing mode on
             setFreeMode(true);
             fabricCanvas.isDrawingMode = true;
+            fabricCanvas.freeDrawingBrush.color = color;
+            fabricCanvas.freeDrawingBrush.width = penWidth;
         }
         else {
             setFreeMode(false);
@@ -83,11 +89,10 @@ function Editor () {
         // add a circle element to the canvas
         let circle = new fabric.Circle({ 
             radius: 20,
-            fill: "blue",
+            fill: color,
         });
         
         fabricCanvas.add(circle);
-        fabricCanvas.setActiveObject(fabricCanvas.getObjects()[0]);
         fabricCanvas.fire("save");
     }
     
@@ -96,24 +101,39 @@ function Editor () {
         let rect = new fabric.Rect({
             width: 50,
             height: 50,
-            fill: "blue",
+            fill: color,
         });
         
         fabricCanvas.add(rect);
-        fabricCanvas.setActiveObject(fabricCanvas.getObjects()[0]);
         fabricCanvas.fire("save");
     }
     
-    function setRed () {
-        fabricCanvas.getActiveObject().set("fill", "red");
+    function handleColorChange (color) {
+        // update color state
+        setColor(color.hex);
+        
+        
+        if(freeMode) {
+            // change pen color
+            fabricCanvas.freeDrawingBrush.color = color.hex;
+        } else {
+            // change active object color 
+            fabricCanvas.getActiveObject().set("fill", color.hex);
+        }
+    
+        // save color change
+        fabricCanvas.fire('save');
+    }
+    
+    function handlePenWidthChange (e) {
+        // change the pen width
+        setPenWidth(e.target.value);
+        fabricCanvas.freeDrawingBrush.width = e.target.value;
         fabricCanvas.fire("save");
     }
     
-    function setBlue () {
-        fabricCanvas.getActiveObject().set("fill", "blue");
-        fabricCanvas.fire("save");
-    }
     function removeObject () {
+        // remove current active object from the canvas
         fabricCanvas.remove(fabricCanvas.getActiveObject());
         fabricCanvas.fire('save');
     }
@@ -141,22 +161,37 @@ function Editor () {
                     <button onClick={toggleMode}>
                         {freeMode ? "Free" : "Select"}
                     </button>
-                    <button onClick={addCircle}>Circle</button>
-                    <button onClick={addRect}>Rect</button>
+                    <button onClick={addCircle} disabled={freeMode}>Circle</button>
+                    <button onClick={addRect} disabled={freeMode}>Rect</button>
                 </aside>
                 <section className="Editor-section">
                     <section className="Editor-section-context">
                         {activeObject &&
                             <div>
                                 <div className="Editor-context-left">
-                                    <div>Fill: {activeObject.get("fill")}</div>
+                                    <div 
+                                        /* NOTE: fill does not exist for path objects */
+                                        style={{ 
+                                            height: 30, 
+                                            width: 30, 
+                                            background: activeObject.get("fill") 
+                                        }}
+                                        onClick={ () => setShowPicker(!showPicker) }
+                                    />
+                                    <div>{activeObject.get("fill").toUpperCase()}</div>
+                                    {showPicker &&
+                                        <div style={{ position: "absolute", zIndex: 2, top: 45 }}>
+                                            <ColorPicker
+                                                color={color} 
+                                                onChange={handleColorChange} 
+                                            />
+                                        </div>
+                                    }
+                                </div>
+                                <div className="Editor-context-right">
                                     <div>Top: {activeObject.get("top")}</div>
                                     <div>Left: {activeObject.get("left")}</div>
                                     <div>Angle: {activeObject.get("angle")}</div>
-                                </div>
-                                <div className="Editor-context-right">
-                                    <button onClick={setRed}>Set Red</button>
-                                    <button onClick={setBlue}>Set Blue</button>
                                     <button onClick={removeObject}>Remove</button>
                                 </div>
                             </div>
@@ -164,18 +199,42 @@ function Editor () {
                         {freeMode && 
                             <div>
                                 <div className="Editor-context-left">
-                                    <div>Pen Color: {fabricCanvas.freeDrawingBrush.color}</div>
-                                    <div>Pen Size: {fabricCanvas.freeDrawingBrush.width}</div>
+                                    <div 
+                                        style={{ 
+                                            height: 30, 
+                                            width: 30, 
+                                            background: fabricCanvas.freeDrawingBrush.color 
+                                        }}
+                                        onClick={ () => setShowPicker(!showPicker) }
+                                    />
+                                    <div>{fabricCanvas.freeDrawingBrush.color.toUpperCase()}</div>
+                                    {showPicker &&
+                                        <div style={{ position: "absolute", zIndex: 2, top: 45 }}>
+                                            <ColorPicker
+                                                color={color} 
+                                                onChange={handleColorChange} 
+                                            />
+                                        </div>
+                                    }
                                 </div>
                                 <div className="Editor-context-right">
+                                    <div>Pen Size: {penWidth}</div>
+                                    <div>
+                                        <input
+                                            type="range"
+                                            id="penSlider"
+                                            min={1} max={10}
+                                            step={1}
+                                            value={penWidth}
+                                            onChange={handlePenWidthChange}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         }
                     </section>
                     <section className="Editor-section-canvas">
-                        <canvas id="Editor-canvas" ref={cRef}>
-                            Not Supported by browser.
-                        </canvas>
+                        <canvas ref={cRef}>Not Supported by browser.</canvas>
                     </section>
                 </section>
             </main>

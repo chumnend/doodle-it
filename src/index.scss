@@ -1,3 +1,5 @@
+@import "./styles/theme.scss";
+
 * {
     box-sizing: border-box;
 }
@@ -11,4 +13,7 @@ body,
     height: 100%;
     position: relative;
     z-index: 0;
+    font-family: $fontFamily;
+    color: $black;
+    font-size: $fontSize;
 }
