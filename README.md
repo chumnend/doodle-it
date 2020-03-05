@@ -1,2 +1,2 @@
-# mern-template-api
-A node server template for a MERN application
+# Doodle It Backend
+A web application for drawing in the browser
