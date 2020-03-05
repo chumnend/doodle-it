@@ -1,12 +1,12 @@
 {
   "name": "doodle-it-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a web application for drawing in the browser",
   "private": true,
   "main": "src/app.js",
   "scripts": {
-    "start": "NODE_ENV=production node src/app.js",
-    "dev": "NODE_ENV=development nodemon src/app.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "test": "NODE_ENV=test mocha --timeout 10000 './src/**/*.test.js'"
   },
   "keywords": [],
