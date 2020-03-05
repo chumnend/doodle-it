@@ -1,5 +1,7 @@
 "use strict";
 
 module.exports = {
-    handleError: require("./handleError")  
+    checkQuery: require("./checkQuery"),
+    handleError: require("./handleError"),
+    verifyUser: require("./verifyUser"),
 };

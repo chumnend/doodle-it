@@ -1,7 +1,8 @@
 {
-  "name": "mern-template-api",
+  "name": "doodle-it-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "a web application for drawing in the browser",
+  "private": true,
   "main": "src/app.js",
   "scripts": {
     "start": "NODE_ENV=production node src/app.js",
@@ -12,9 +13,12 @@
   "author": "Nicholas Chumney",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.3",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
