@@ -23,10 +23,11 @@ function Editor () {
             backgroundColor: "#f2f2f2",
         });
         
-        fabricCanvas.on("mouse:up", () => {
+        fabricCanvas.on("mouse:up", (options) => {
             // on mouse up, update contents of the canvas
             setFabricData(fabricCanvas.toObject()); 
             setActiveObject(fabricCanvas.getActiveObject());
+            setShowPicker(false);
         });
         
         fabricCanvas.on("save", () => {
@@ -69,20 +70,33 @@ function Editor () {
         // set canvas for free drawing or select mode
         if(!freeMode) {
             // deselect any active objects
-            setActiveObject(null);
             fabricCanvas.discardActiveObject();
             fabricCanvas.renderAll();
+            setActiveObject(null);
             
             // turn free drawing mode on
-            setFreeMode(true);
             fabricCanvas.isDrawingMode = true;
             fabricCanvas.freeDrawingBrush.color = color;
             fabricCanvas.freeDrawingBrush.width = penWidth;
+            setFreeMode(true);
         }
         else {
-            setFreeMode(false);
             fabricCanvas.isDrawingMode = false;
+            setFreeMode(false);
         }
+    }
+    
+    function addLine () {
+        // add a line element to the canvas
+        let coords = [0, 0, 100 , 100];
+        let line = new fabric.Line(coords, {
+            fill: color,
+            stroke: color,
+            strokeWidth: 2,
+        });
+    
+        fabricCanvas.add(line);
+        fabricCanvas.fire("save");
     }
     
     function addCircle () {
@@ -108,27 +122,50 @@ function Editor () {
         fabricCanvas.fire("save");
     }
     
+    function addTriangle () {
+        // add a triangle to the canvas
+        let triangle = new fabric.Triangle({
+            width: 50,
+            height: 50,
+            fill: color,
+        });
+        
+        fabricCanvas.add(triangle);
+        fabricCanvas.fire("save");
+    }
+    
+    function addText () {
+        // add text box to the page
+        let text = new fabric.Text("Hello", {
+            fill: color,
+        });
+
+        fabricCanvas.add(text);
+        fabricCanvas.fire("save");
+    }
+    
     function handleColorChange (color) {
-        // update color state
-        setColor(color.hex);
-        
-        
         if(freeMode) {
             // change pen color
             fabricCanvas.freeDrawingBrush.color = color.hex;
         } else {
             // change active object color 
-            fabricCanvas.getActiveObject().set("fill", color.hex);
+            if(activeObject.type === "path" || activeObject.type === "line") {
+                fabricCanvas.getActiveObject().set("stroke", color.hex);
+            } else {
+                fabricCanvas.getActiveObject().set("fill", color.hex);
+            }
         }
     
         // save color change
+        setColor(color.hex);
         fabricCanvas.fire('save');
     }
     
     function handlePenWidthChange (e) {
-        // change the pen width
-        setPenWidth(e.target.value);
-        fabricCanvas.freeDrawingBrush.width = e.target.value;
+        let newPenWidth = parseInt(e.target.value); // convert string to number
+        fabricCanvas.freeDrawingBrush.width = newPenWidth;
+        setPenWidth(newPenWidth);
         fabricCanvas.fire("save");
     }
     
@@ -161,8 +198,11 @@ function Editor () {
                     <button onClick={toggleMode}>
                         {freeMode ? "Free" : "Select"}
                     </button>
+                    <button onClick={addLine} disabled={freeMode}>Line</button>
                     <button onClick={addCircle} disabled={freeMode}>Circle</button>
                     <button onClick={addRect} disabled={freeMode}>Rect</button>
+                    <button onClick={addTriangle} disabled={freeMode}>Tri</button>
+                    <button onClick={addText} disabled={freeMode}>Text</button>
                 </aside>
                 <section className="Editor-section">
                     <section className="Editor-section-context">
@@ -170,15 +210,19 @@ function Editor () {
                             <div>
                                 <div className="Editor-context-left">
                                     <div 
-                                        /* NOTE: fill does not exist for path objects */
                                         style={{ 
                                             height: 30, 
                                             width: 30, 
-                                            background: activeObject.get("fill") 
+                                            background: activeObject.get("fill") || activeObject.get("stroke")
                                         }}
                                         onClick={ () => setShowPicker(!showPicker) }
                                     />
-                                    <div>{activeObject.get("fill").toUpperCase()}</div>
+                                    <div>
+                                        {activeObject.get("fill") !== null 
+                                            ? activeObject.get("fill").toUpperCase()
+                                            : activeObject.get("stroke").toUpperCase()
+                                        }
+                                    </div>
                                     {showPicker &&
                                         <div style={{ position: "absolute", zIndex: 2, top: 45 }}>
                                             <ColorPicker
@@ -189,9 +233,6 @@ function Editor () {
                                     }
                                 </div>
                                 <div className="Editor-context-right">
-                                    <div>Top: {activeObject.get("top")}</div>
-                                    <div>Left: {activeObject.get("left")}</div>
-                                    <div>Angle: {activeObject.get("angle")}</div>
                                     <button onClick={removeObject}>Remove</button>
                                 </div>
                             </div>

@@ -1,2 +1,2 @@
 # Doodle It
-An in browser application for creating images
+A web application for drawing in the browser
