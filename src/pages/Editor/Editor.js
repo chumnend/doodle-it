@@ -10,11 +10,12 @@ function Editor () {
     const cRef = useRef();
     const [fabricData, setFabricData] = useState(null);
     const [activeObject, setActiveObject] = useState(null);
-    const [title, setTitle] = useState("Untitled");
+    const [title, setTitle] = useState("");
     const [freeMode, setFreeMode] = useState(false);
     const [color, setColor] = useState("#FF0000");
     const [showPicker, setShowPicker] = useState(false);
     const [penWidth, setPenWidth] = useState(1);
+    const [showPenSlider, setShowPenSlider] = useState(false);
     
     useEffect( () => {
         fabricCanvas.initialize(cRef.current, {
@@ -179,41 +180,67 @@ function Editor () {
         <div className="Editor">
             <header className="Editor-header">
                 <section className="Editor-header-left">
+                    <a href="/">
+                        <i class="material-icons">home</i>
+                    </a>
                     <input 
                         type="text" 
                         id="title"
                         name="title"
+                        placeholder="Untitled"
                         value={title}
                         onChange={ (e) => setTitle(e.target.value) }
                     />
                 </section>
                 <section className="Editor-header-right">
-                    <button onClick={resizeCanvas}>Resize</button>
-                    <button onClick={saveCanvas}>Save</button>
-                    <button onClick={clearCanvas}>Clear</button>
+                    <button onClick={resizeCanvas} title="Resize Canvas">
+                        <i class="material-icons">photo_size_select_large</i>
+                    </button>
+                    <button onClick={saveCanvas} title="Save Canvas">
+                        <i class="material-icons">save</i>
+                    </button>
+                    <button onClick={clearCanvas} title="Clear Canvas">
+                        <i class="material-icons">delete_sweep</i>
+                    </button>
                 </section>
             </header>
             <main className="Editor-main">
                 <aside className="Editor-aside">
-                    <button onClick={toggleMode}>
-                        {freeMode ? "Free" : "Select"}
+                    <button onClick={toggleMode} title="Activate the brush">
+                        <span className={freeMode ? "" : "inactive"}>
+                            <i class="material-icons">edit</i> 
+                            Draw
+                        </span>
                     </button>
-                    <button onClick={addLine} disabled={freeMode}>Line</button>
-                    <button onClick={addCircle} disabled={freeMode}>Circle</button>
-                    <button onClick={addRect} disabled={freeMode}>Rect</button>
-                    <button onClick={addTriangle} disabled={freeMode}>Tri</button>
-                    <button onClick={addText} disabled={freeMode}>Text</button>
+                    <button onClick={addLine} disabled={freeMode} title="Add a line element">
+                        <span className="line" />
+                    </button>
+                    <button onClick={addCircle} disabled={freeMode} title="Add a circle element">
+                        <span className="circle"/>
+                    </button>
+                    <button onClick={addRect} disabled={freeMode} title="Add a rectangle element">
+                        <span className="rectangle"/>
+                    </button>
+                    <button onClick={addTriangle} disabled={freeMode} title="Add a triangle element">
+                        <span className="triangle" />
+                    </button>
+                    <button onClick={addText} disabled={freeMode} title="Add a text element">
+                        <span>
+                            <i class="material-icons">title</i>
+                        </span>
+                    </button>
                 </aside>
                 <section className="Editor-section">
                     <section className="Editor-section-context">
                         {activeObject &&
                             <div>
-                                <div className="Editor-context-left">
+                                <div className="Editor-context-item">
                                     <div 
                                         style={{ 
                                             height: 30, 
                                             width: 30, 
-                                            background: activeObject.get("fill") || activeObject.get("stroke")
+                                            background: activeObject.get("fill") || activeObject.get("stroke"),
+                                            cursor: "pointer",
                                         }}
                                         onClick={ () => setShowPicker(!showPicker) }
                                     />
@@ -232,25 +259,32 @@ function Editor () {
                                         </div>
                                     }
                                 </div>
-                                <div className="Editor-context-right">
-                                    <button onClick={removeObject}>Remove</button>
+                                <div className="Editor-context-item">
+                                    <button onClick={removeObject}>
+                                        <i class="material-icons">delete</i>
+                                    </button>
                                 </div>
                             </div>
                         }
                         {freeMode && 
                             <div>
-                                <div className="Editor-context-left">
+                                <div className="Editor-context-item">
                                     <div 
                                         style={{ 
                                             height: 30, 
                                             width: 30, 
-                                            background: fabricCanvas.freeDrawingBrush.color 
+                                            background: fabricCanvas.freeDrawingBrush.color,
+                                            cursor: "pointer",
                                         }}
                                         onClick={ () => setShowPicker(!showPicker) }
                                     />
                                     <div>{fabricCanvas.freeDrawingBrush.color.toUpperCase()}</div>
                                     {showPicker &&
-                                        <div style={{ position: "absolute", zIndex: 2, top: 45 }}>
+                                        <div style={{ 
+                                            position: "absolute", 
+                                            zIndex: 2, 
+                                            top: 45 
+                                        }}>
                                             <ColorPicker
                                                 color={color} 
                                                 onChange={handleColorChange} 
@@ -258,18 +292,31 @@ function Editor () {
                                         </div>
                                     }
                                 </div>
-                                <div className="Editor-context-right">
-                                    <div>Pen Size: {penWidth}</div>
-                                    <div>
-                                        <input
-                                            type="range"
-                                            id="penSlider"
-                                            min={1} max={10}
-                                            step={1}
-                                            value={penWidth}
-                                            onChange={handlePenWidthChange}
-                                        />
-                                    </div>
+                                <div className="Editor-context-item">
+                                    <button onClick={ () => setShowPenSlider(!showPenSlider) }>
+                                        <i class="material-icons">line_weight</i>
+                                    </button>
+                                    {showPenSlider &&
+                                        <div style={{ 
+                                            position: "absolute", 
+                                            zIndex: 2, 
+                                            top: 45,
+                                            right: 0,
+                                            background: "white",
+                                            padding: "5px",
+                                            fontSize: "14px"
+                                        }}>
+                                            <div>Pen Size: {penWidth}</div>
+                                            <input
+                                                type="range"
+                                                id="penSlider"
+                                                min={1} max={10}
+                                                step={1}
+                                                value={penWidth}
+                                                onChange={handlePenWidthChange}
+                                            />
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         }

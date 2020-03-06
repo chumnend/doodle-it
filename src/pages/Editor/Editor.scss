@@ -8,19 +8,59 @@
     flex-wrap: nowrap;
 }
 
-
 .Editor-header {
     width: 100%;
     height: 45px;
-    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: $ebony;
 }
 
-.Editor-header-left {}
-.Editor-header-right {}
+.Editor-header-left, 
+.Editor-header-right {
+    height: 45px;
+    display: flex;
+}
+
+.Editor-header-left {
+    a {
+        width: 50px;
+        height: 45px;
+        color: $white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+            background: $white;
+            color: $ebony;
+        }
+    }
+    input[type="text"] {
+        margin: 0.5em;
+        padding: 0.5rem;
+        background: none;
+        border: 1px solid $ebony;
+        color: $white;
+        &:hover {
+            border: 1px solid $white;
+        }
+    }    
+}
+
+.Editor-header-right {
+    button {
+        color: $white;
+        background: none;
+        border: none;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+        &:hover {
+            background: $white;
+            color: $ebony;
+        }
+    }
+}
 
 .Editor-main {
     width: 100%;
@@ -34,7 +74,63 @@
     background: $ebony;
     button {
         width: 50px;
-        height: 50px;
+        height: 45px;
+        color: $white;
+        font-size: 11px;
+        font-family: $fontFamily;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &:disabled {
+            color: $darkgrey;
+            & > .line, .circle, .rectangle {
+                background: $darkgrey;
+            }
+            & > .triangle {
+                border-bottom-color: $darkgrey;
+            }
+        }
+        &:hover {
+            background: $white;
+            color: $ebony;
+            & > .line, .circle, .rectangle {
+                background: $ebony;
+            }
+            & > .triangle {
+                border-bottom-color: $ebony;
+            }
+        }
+    }
+    .line {
+        width: 2px;
+        height: 25px;
+        transform: rotate(45deg);
+        background: $white;
+    }
+    .circle {
+        height: 20px; 
+        width: 20px; 
+        background: $white;
+        border-radius: 50%;
+    }
+    .rectangle {
+        height: 20px;
+        width: 20px;
+        background: $white;;
+    }
+    .triangle {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+    	border-bottom: 20px solid $white;;
+    }
+    .inactive {
+        color: $darkgrey;
     }
 }
 
@@ -51,6 +147,7 @@
     align-items: center;
     & > div {
         width: 100%;
+        height: 100%;
         padding: 0 5px;
         display: flex;
         justify-content: space-between;
@@ -58,22 +155,27 @@
     }
 }
 
-.Editor-context-left,
-.Editor-context-right {
-    & > div {
-        margin: 5px;
-    }
-}
-
-.Editor-context-left {
+.Editor-context-item {
+    height: 100%;
     display: flex;
     align-items: center;
     position: relative;
-}
-
-.Editor-context-right {
-    display: flex;
-    align-items: center;
+    & > div {
+        margin: 5px;
+    }
+    button {
+        color: $ebony;
+        font-family: $fontFamily;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        margin: 0 0.25rem;
+        cursor: pointer;
+        &:hover {
+            background: $ebony;
+            color: $white;
+        }
+    }
 }
 
 .Editor-section-canvas {
