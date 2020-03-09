@@ -9,10 +9,10 @@ function Modal ({ className, show, close, children, ...props}) {
     
     return (
         <div 
-            className={classNames(className, "Modal", { "Modal-hide": !show })} 
+            className={classNames("Modal", { "Modal-hide": !show })} 
             onClick={close}
         >
-            <div className="Modal-main" onClick={noAction}>
+            <div className={classNames(className, "Modal-main")} onClick={noAction}>
                 {children}
             </div>
         </div>
@@ -27,7 +27,6 @@ Modal.propTypes = {
     className: PropTypes.string,
     show: PropTypes.bool.isRequired,
     close: PropTypes.func.isRequired,
-    children: PropTypes.instanceOf(Array).isRequired,   
 };
 
 export default Modal;

@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import  { fabric } from "fabric";
 import { CompactPicker as ColorPicker } from "react-color";
+import { Modal, Button } from "../../components";
+import { useInput, useToggle } from "../../hooks";
 import "./Editor.scss";
 
 // globally accessible fabricCanvas instance
@@ -16,6 +18,9 @@ function Editor () {
     const [showPicker, setShowPicker] = useState(false);
     const [penWidth, setPenWidth] = useState(1);
     const [showPenSlider, setShowPenSlider] = useState(false);
+    const [resizeWidth, changeResizeWidth] = useInput();
+    const [resizeHeight, changeResizeHeight] = useInput();
+    const [showModal, toggleModal] = useToggle(false);
     
     useEffect( () => {
         fabricCanvas.initialize(cRef.current, {
@@ -41,18 +46,17 @@ function Editor () {
         setFabricData(fabricCanvas);
     }, []);
     
+    function validateResize () {
+        return (resizeWidth > 0 && resizeHeight > 0);
+    }
+    
     function resizeCanvas () {
         // set new size for the canvas
-        let newWidth = prompt("Enter new canvas width", 500);
-        let newHeight = prompt("Enter new canvas height", 500);
-        
-        if(newWidth > 0 && newHeight > 0) {
-            fabricCanvas.setWidth(newWidth);
-            fabricCanvas.setHeight(newHeight);
-            fabricCanvas.fire("save");
-        } else {
-            alert("Invalid Entry");
-        }
+        fabricCanvas.setWidth(resizeWidth);
+        fabricCanvas.setHeight(resizeHeight);
+        fabricCanvas.fire("save");
+
+        toggleModal();
     }
     
     function saveCanvas () {
@@ -181,7 +185,7 @@ function Editor () {
             <header className="Editor-header">
                 <section className="Editor-header-left">
                     <a href="/">
-                        <i class="material-icons">home</i>
+                        <i className="material-icons">home</i>
                     </a>
                     <input 
                         type="text" 
@@ -193,14 +197,14 @@ function Editor () {
                     />
                 </section>
                 <section className="Editor-header-right">
-                    <button onClick={resizeCanvas} title="Resize Canvas">
-                        <i class="material-icons">photo_size_select_large</i>
+                    <button onClick={toggleModal} title="Resize Canvas">
+                        <i className="material-icons">photo_size_select_large</i>
                     </button>
                     <button onClick={saveCanvas} title="Save Canvas">
-                        <i class="material-icons">save</i>
+                        <i className="material-icons">save</i>
                     </button>
                     <button onClick={clearCanvas} title="Clear Canvas">
-                        <i class="material-icons">delete_sweep</i>
+                        <i className="material-icons">delete_sweep</i>
                     </button>
                 </section>
             </header>
@@ -208,7 +212,7 @@ function Editor () {
                 <aside className="Editor-aside">
                     <button onClick={toggleMode} title="Activate the brush">
                         <span className={freeMode ? "" : "inactive"}>
-                            <i class="material-icons">edit</i> 
+                            <i className="material-icons">edit</i> 
                             Draw
                         </span>
                     </button>
@@ -226,7 +230,7 @@ function Editor () {
                     </button>
                     <button onClick={addText} disabled={freeMode} title="Add a text element">
                         <span>
-                            <i class="material-icons">title</i>
+                            <i className="material-icons">title</i>
                         </span>
                     </button>
                 </aside>
@@ -261,7 +265,7 @@ function Editor () {
                                 </div>
                                 <div className="Editor-context-item">
                                     <button onClick={removeObject}>
-                                        <i class="material-icons">delete</i>
+                                        <i className="material-icons">delete</i>
                                     </button>
                                 </div>
                             </div>
@@ -326,6 +330,59 @@ function Editor () {
                     </section>
                 </section>
             </main>
+            
+            <Modal 
+                className="Editor-resize"
+                show={showModal} 
+                close={toggleModal}
+            >
+                <header>
+                    <h1>Enter a new canvas size</h1>
+                </header>
+                <section>
+                    <div className="Editor-resize-input">
+                        <label htmlFor="resize-width">
+                            New Width
+                        </label>
+                        <input 
+                            type="number"
+                            id="resize-width"
+                            name="resize-width"
+                            placeholder="Enter new width..."
+                            value={resizeWidth}
+                            onChange={changeResizeWidth}
+                        />
+                    </div>
+                    
+                    <div className="Editor-resize-input">
+                        <label htmlFor="resize-height">
+                            New Height
+                        </label>
+                        <input 
+                            type="number"
+                            id="resize-height"
+                            name="resize-height"
+                            value={resizeHeight}
+                            placeholder="Enter new height..."
+                            onChange={changeResizeHeight}
+                        />
+                    </div>
+                    
+                    <div>
+                        <Button 
+                            onClick={resizeCanvas} 
+                            disabled={!validateResize()}
+                        >
+                            Resize
+                        </Button>
+                        <Button 
+                            onClick={toggleModal}
+                        >
+                            Cancel
+                        </Button>
+                    </div>
+                </section>
+            </Modal>
         </div>
     );
 }

@@ -179,10 +179,48 @@
 }
 
 .Editor-section-canvas {
-    padding: 15px;
+    padding: 20px;
     flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     background: $grey;
+}
+
+.Editor-resize {
+    width: 50%;
+    background: $white;
+}
+
+.Editor-resize header {
+    background: $ebony;
+    color: $white;
+    h1 {
+        margin: 0;
+        padding: 0.4rem;
+        font-size: 1.5rem; 
+        text-transform: capitalize;
+    }
+}
+
+.Editor-resize section {
+    padding: 10px;
+}
+
+.Editor-resize-input {
+    margin: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    label {
+        margin: 0.5rem;
+        font-size: 0.9rem;
+        font-family: inherit;
+    }
+    input {
+        padding: 0.4rem;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid $ebony;
+    }
 }

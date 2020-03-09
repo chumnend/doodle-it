@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
-import "./App.scss"
+import "./App.scss";
 
 import Auth from "./pages/Auth";
 import Editor from "./pages/Editor";
