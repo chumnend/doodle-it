@@ -4,12 +4,12 @@ const router = require("express").Router();
 const fn = require("./functions");
 
 router.route("/")
-    .get(fn.listDoodles)
-    .post(fn.createDoodle);
+    .get(fn.getAll)
+    .post(fn.create);
 
 router.route("/:id")
-    .get(fn.getDoodle)
-    .put(fn.updateDoodle)
-    .delete(fn.removeDoodle);
+    .get(fn.getOne)
+    .put(fn.update)
+    .delete(fn.remove);
 
 module.exports = router;

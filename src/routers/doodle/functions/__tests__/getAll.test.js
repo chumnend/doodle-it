@@ -1,33 +1,34 @@
 "use strict";
 
 const Doodle = require("../../models/doodle");
-const removeDoodle = require("../removeDoodle");
+const getAll = require("../getAll");
 const chai = require("chai");
 const expect = chai.expect;
 const sinon = require("sinon");
 const faker = require("faker");
 
-describe("DOODLE UNIT TEST - REMOVE", function () {
+describe("DOODLE UNIT TEST - LIST", function () {
     let userId = faker.random.uuid();
-    let stubModel = {
+    let stubModel = [{
         title: faker.random.word(),
         content: faker.image.imageUrl(),
         author: userId,
-    };
+    }, {
+        title: faker.random.word(),
+        content: faker.image.imageUrl(),
+        author: userId,
+    }];
     
     afterEach(function () {
         sinon.restore();
     });
     
-    it("expects to remove a doodle", async function () {
+    it("expects to list all of a user's doodles", async function () {
         // setup test
-        sinon.stub(Doodle, "findByIdAndDelete").returns(stubModel);
+        sinon.stub(Doodle, "find").returns(stubModel);
         
         let req = {
             body: {},
-            params: {
-              id: faker.random.uuid(),  
-            },
             query: {
                 userId
             },
@@ -46,7 +47,7 @@ describe("DOODLE UNIT TEST - REMOVE", function () {
         let next = sinon.spy();
         
         // start test
-        await removeDoodle(req, res, next);
+        await getAll(req, res, next);
         expect(next.notCalled).to.be.true;
         expect(res.statusCode).to.be.equal(200);
         expect(res.body).to.be.eql(stubModel);
@@ -54,13 +55,10 @@ describe("DOODLE UNIT TEST - REMOVE", function () {
     
     it("expects db error", async function () {
         // setup test
-        sinon.stub(Doodle, "findByIdAndDelete").throws();
+        sinon.stub(Doodle, "find").throws();
         
        let req = {
-            body: {
-                title: stubModel.title,
-                content: stubModel.content,
-            },
+            body: {},
             query: {
                 userId
             },
@@ -83,7 +81,7 @@ describe("DOODLE UNIT TEST - REMOVE", function () {
         mock.expects("json").never();
         
         // start test
-        await removeDoodle(req, res, next);
+        await getAll(req, res, next);
         expect(next.calledOnce).to.be.true;
         mock.verify();
     });

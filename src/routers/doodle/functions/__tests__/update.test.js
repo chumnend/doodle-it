@@ -1,13 +1,13 @@
 "use strict";
 
 const Doodle = require("../../models/doodle");
-const createDoodle = require("../createDoodle");
+const update = require("../update");
 const chai = require("chai");
 const expect = chai.expect;
 const sinon = require("sinon");
 const faker = require("faker");
 
-describe("DOODLE UNIT TEST - CREATE", function () {
+describe("DOODLE UNIT TEST - GET", function () {
     let userId = faker.random.uuid();
     let stubModel = {
         title: faker.random.word(),
@@ -19,19 +19,21 @@ describe("DOODLE UNIT TEST - CREATE", function () {
         sinon.restore();
     });
     
-    it("expects to create new doodle", async function () {
+    it("expects to update a doodle", async function () {
         // setup test
-        sinon.stub(Doodle, "create").returns(stubModel);
-        sinon.stub(Doodle, "findById").returns(stubModel);
+        sinon.stub(Doodle, "findByIdAndUpdate").returns(stubModel);
         
         let req = {
             body: {
                 title: stubModel.title,
                 content: stubModel.content,
             },
+            params: {
+                id: faker.random.uuid(),
+            },
             query: {
                 userId
-            },
+            }
         };
         let res = {
             statusCode: null,
@@ -47,7 +49,7 @@ describe("DOODLE UNIT TEST - CREATE", function () {
         let next = sinon.spy();
         
         // start test
-        await createDoodle(req, res, next);
+        await update(req, res, next);
         expect(next.notCalled).to.be.true;
         expect(res.statusCode).to.be.equal(200);
         expect(res.body).to.be.eql(stubModel);
@@ -55,16 +57,19 @@ describe("DOODLE UNIT TEST - CREATE", function () {
     
     it("expects db error", async function () {
         // setup test
-        sinon.stub(Doodle, "create").throws();
+        sinon.stub(Doodle, "findByIdAndUpdate").throws();
         
-       let req = {
+        let req = {
             body: {
                 title: stubModel.title,
                 content: stubModel.content,
             },
+            params: {
+                id: faker.random.uuid(),
+            },
             query: {
                 userId
-            },
+            }
         };
         let res = {
             statusCode: null,
@@ -84,7 +89,7 @@ describe("DOODLE UNIT TEST - CREATE", function () {
         mock.expects("json").never();
         
         // start test
-        await createDoodle(req, res, next);
+        await update(req, res, next);
         expect(next.calledOnce).to.be.true;
         mock.verify();
     });

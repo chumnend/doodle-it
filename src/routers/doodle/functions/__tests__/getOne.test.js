@@ -1,7 +1,7 @@
 "use strict";
 
 const Doodle = require("../../models/doodle");
-const getDoodle = require("../getDoodle");
+const getOne = require("../getOne");
 const chai = require("chai");
 const expect = chai.expect;
 const sinon = require("sinon");
@@ -45,7 +45,7 @@ describe("DOODLE UNIT TEST - GET", function () {
         let next = sinon.spy();
         
         // start test
-        await getDoodle(req, res, next);
+        await getOne(req, res, next);
         expect(next.notCalled).to.be.true;
         expect(res.statusCode).to.be.equal(200);
         expect(res.body).to.be.eql(stubModel);
@@ -82,7 +82,7 @@ describe("DOODLE UNIT TEST - GET", function () {
         mock.expects("json").never();
         
         // start test
-        await getDoodle(req, res, next);
+        await getOne(req, res, next);
         expect(next.calledOnce).to.be.true;
         mock.verify();
     });
