@@ -12,6 +12,8 @@ describe("DOODLE UNIT TEST - REMOVE", function () {
     let stubModel = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
+        width: faker.random.number(),
+        height: faker.random.number(),
         author: userId,
     };
     
@@ -57,10 +59,7 @@ describe("DOODLE UNIT TEST - REMOVE", function () {
         sinon.stub(Doodle, "findByIdAndDelete").throws();
         
        let req = {
-            body: {
-                title: stubModel.title,
-                content: stubModel.content,
-            },
+            body: stubModel,
             query: {
                 userId
             },

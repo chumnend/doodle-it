@@ -8,6 +8,8 @@ module.exports = async function(req, res, next) {
         let newItem = await Doodle.create({
             title: req.body.title,
             content: req.body.content,
+            width: req.body.width,
+            height: req.body.height,
             author: req.query.userId,
         });
         

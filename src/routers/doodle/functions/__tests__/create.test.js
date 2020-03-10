@@ -12,6 +12,8 @@ describe("DOODLE UNIT TEST - CREATE", function () {
     let stubModel = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
+        width: faker.random.number(),
+        height: faker.random.number(),
         author: userId,
     };
     
@@ -25,10 +27,7 @@ describe("DOODLE UNIT TEST - CREATE", function () {
         sinon.stub(Doodle, "findById").returns(stubModel);
         
         let req = {
-            body: {
-                title: stubModel.title,
-                content: stubModel.content,
-            },
+            body: stubModel,
             query: {
                 userId
             },
@@ -61,6 +60,8 @@ describe("DOODLE UNIT TEST - CREATE", function () {
             body: {
                 title: stubModel.title,
                 content: stubModel.content,
+                width: stubModel.width,
+                height: stubModel.height,
             },
             query: {
                 userId

@@ -12,6 +12,8 @@ describe("DOODLE UNIT TEST - GET", function () {
     let stubModel = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
+        width: faker.random.number(),
+        height: faker.random.number(),
         author: userId,
     };
     

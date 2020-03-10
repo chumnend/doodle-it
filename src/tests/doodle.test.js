@@ -31,6 +31,8 @@ describe("DOODLE INTEGRATION TEST", function () {
         item = await db.Doodle.create({
             title: faker.random.word(),
             content: faker.image.imageUrl(),
+            width: faker.random.number(),
+            height: faker.random.number(),
             author: user.id,
         });
     });
@@ -81,6 +83,8 @@ describe("DOODLE INTEGRATION TEST", function () {
             let newItem = {
                 title: faker.random.word(),
                 content: faker.image.imageUrl(),
+                width: faker.random.number(),
+                height: faker.random.number(),
             };  
 
             chai.request(app)
@@ -199,6 +203,8 @@ describe("DOODLE INTEGRATION TEST", function () {
             let updatedItem = {
                 title: faker.random.word(),
                 content: faker.image.imageUrl(),
+                width: faker.random.number(),
+                height: faker.random.number(),
             };
             
             chai.request(app)

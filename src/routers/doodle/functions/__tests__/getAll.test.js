@@ -12,10 +12,14 @@ describe("DOODLE UNIT TEST - LIST", function () {
     let stubModel = [{
         title: faker.random.word(),
         content: faker.image.imageUrl(),
+        width: faker.random.number(),
+        height: faker.random.number(),
         author: userId,
     }, {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
+        width: faker.random.number(),
+        height: faker.random.number(),
         author: userId,
     }];
     
