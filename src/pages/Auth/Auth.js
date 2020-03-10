@@ -52,7 +52,7 @@ function Auth (props) {
     }
     
     return (
-        <main className="Auth">
+        <div className="Auth">
             <section className="Auth-left">
                 <h1>Doodle It</h1>
                 <p>
@@ -135,7 +135,7 @@ function Auth (props) {
                     </form>
                 </section>
             </section>
-        </main>
+        </div>
     );
 }
 

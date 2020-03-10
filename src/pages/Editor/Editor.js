@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import  { fabric } from "fabric";
 import { CompactPicker as ColorPicker } from "react-color";
 import { Modal, Button } from "../../components";
@@ -8,7 +9,7 @@ import "./Editor.scss";
 // globally accessible fabricCanvas instance
 const fabricCanvas = new fabric.Canvas();
 
-function Editor () {
+function Editor (props) {
     const cRef = useRef();
     const [fabricData, setFabricData] = useState(null);
     const [activeObject, setActiveObject] = useState(null);
@@ -184,9 +185,9 @@ function Editor () {
         <div className="Editor">
             <header className="Editor-header">
                 <section className="Editor-header-left">
-                    <a href="/">
+                    <Link to="/console">
                         <i className="material-icons">home</i>
-                    </a>
+                    </Link>
                     <input 
                         type="text" 
                         id="title"
@@ -208,7 +209,7 @@ function Editor () {
                     </button>
                 </section>
             </header>
-            <main className="Editor-main">
+            <section className="Editor-main">
                 <aside className="Editor-aside">
                     <button onClick={toggleMode} title="Activate the brush">
                         <span className={freeMode ? "" : "inactive"}>
@@ -329,7 +330,7 @@ function Editor () {
                         <canvas ref={cRef}>Not Supported by browser.</canvas>
                     </section>
                 </section>
-            </main>
+            </section>
             
             <Modal 
                 className="Editor-resize"
