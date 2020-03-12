@@ -21,7 +21,7 @@ function Editor (props) {
     const cRef = useRef();
     const [fabricData, setFabricData] = useState(null);
     const [activeObject, setActiveObject] = useState(null);
-    const [title, setTitle] = useState("");
+    const [title, setTitle] = useState("Untitled");
     const [width, setWidth] = useState(DEFAULT_WIDTH);
     const [height, setHeight] = useState(DEFAULT_HEIGHT);
     const [freeMode, setFreeMode] = useState(false);
@@ -71,6 +71,8 @@ function Editor (props) {
                 
                 // load content tp the fabric canvas
                 setTitle(loaded.title);
+                setWidth(loaded.width);
+                setHeight(loaded.height);
                 fabricCanvas.loadFromJSON(loaded.content);
             } else {
                 // initialize fabric canvas
@@ -408,12 +410,15 @@ function Editor (props) {
                         }
                     </section>
                     <section className="Editor-section-canvas">
-                        <canvas className={isLoading ? "hide" : ""} ref={cRef}>Not Supported by browser.</canvas>
-                        <div className={isLoading ? "Editor-loader" : "hide"} />
+                        <canvas ref={cRef}>Not Supported by browser.</canvas>
+                        {isLoading && 
+                            <div className="Editor-loader-container"> 
+                                <div className="Editor-loader" />
+                            </div>
+                        }
                     </section>
                 </section>
             </section>
-            
             <Modal 
                 className="Editor-resize"
                 show={showModal} 
