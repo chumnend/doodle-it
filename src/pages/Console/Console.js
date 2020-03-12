@@ -23,7 +23,6 @@ function Console (props) {
         try {
             await Doodle.remove(props.user.id, id);
             setDoodles( doodles.filter(d => d._id !== id) );
-            alert("Doodle deleted");
         } catch (e) {
             alert(e);
         }

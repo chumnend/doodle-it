@@ -8,53 +8,99 @@ import { useInput, useToggle } from "../../hooks";
 import queryString from 'query-string';
 import "./Editor.scss";
 
+const DEFAULT_WIDTH = 500;
+const DEFAULT_HEIGHT = 500;
+const DEFAULT_COLOR = "#000002";
+const DEFAULT_PEN_THICKNESS = 2;
+const DEFAULT_BACK_COLOR = "#f2f2f2";
+
 // globally accessible fabricCanvas instance
 const fabricCanvas = new fabric.Canvas();
 
 function Editor (props) {
-    const params = queryString.parse(props.location.search);
     const cRef = useRef();
     const [fabricData, setFabricData] = useState(null);
     const [activeObject, setActiveObject] = useState(null);
     const [title, setTitle] = useState("");
-    const [width, setWidth] = useState(500);
-    const [height, setHeight] = useState(500);
+    const [width, setWidth] = useState(DEFAULT_WIDTH);
+    const [height, setHeight] = useState(DEFAULT_HEIGHT);
     const [freeMode, setFreeMode] = useState(false);
-    const [color, setColor] = useState("#FF0000");
+    const [color, setColor] = useState(DEFAULT_COLOR);
     const [showPicker, setShowPicker] = useState(false);
-    const [penWidth, setPenWidth] = useState(1);
+    const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
     const [showPenSlider, setShowPenSlider] = useState(false);
     const [resizeWidth, changeResizeWidth] = useInput();
     const [resizeHeight, changeResizeHeight] = useInput();
     const [showModal, toggleModal] = useToggle(false);
+    const [isLoading, setIsLoading] = useState(true);
     
     useEffect( () => {
-        fabricCanvas.initialize(cRef.current, {
-            width,
-            height,
-            backgroundColor: "#f2f2f2",
-        });
+        async function init() {
+            let params = queryString.parse(props.location.search);
+            
+            if(params.id !== undefined) {
+                // load doodle from doodle API
+                let loaded;
+                
+                try {
+                    loaded = await Doodle.getOne(props.user.id, params.id);
+                } catch(e) {
+                    alert(e);
+                }
+                
+                // initialize fabric canvas
+                fabricCanvas.initialize(cRef.current, {
+                    width: loaded.width,
+                    height: loaded.height,
+                    backgroundColor: DEFAULT_BACK_COLOR,    
+                });
+            
+                fabricCanvas.on("mouse:up", (options) => {
+                    // on mouse up, update contents of the canvas
+                    setFabricData(fabricCanvas.toObject()); 
+                    setActiveObject(fabricCanvas.getActiveObject());
+                    setShowPicker(false);
+                });
+            
+                fabricCanvas.on("save", () => {
+                    // save the state of the canvas when prompted
+                    setFabricData(fabricCanvas.toObject()); 
+                    setActiveObject(fabricCanvas.getActiveObject());
+                    fabricCanvas.renderAll();
+                });
+                
+                // load content tp the fabric canvas
+                setTitle(loaded.title);
+                fabricCanvas.loadFromJSON(loaded.content);
+            } else {
+                // initialize fabric canvas
+                fabricCanvas.initialize(cRef.current, {
+                    width,
+                    height,
+                    backgroundColor: DEFAULT_BACK_COLOR,    
+                });
+            
+                fabricCanvas.on("mouse:up", (options) => {
+                    // on mouse up, update contents of the canvas
+                    setFabricData(fabricCanvas.toObject()); 
+                    setActiveObject(fabricCanvas.getActiveObject());
+                    setShowPicker(false);
+                });
+            
+                fabricCanvas.on("save", () => {
+                    // save the state of the canvas when prompted
+                    setFabricData(fabricCanvas.toObject()); 
+                    setActiveObject(fabricCanvas.getActiveObject());
+                    fabricCanvas.renderAll();
+                });
+            }
+            
+            // save initial canvas
+            setFabricData(fabricCanvas);
+            setIsLoading(false);
+        }
         
-        fabricCanvas.on("mouse:up", (options) => {
-            // on mouse up, update contents of the canvas
-            setFabricData(fabricCanvas.toObject()); 
-            setActiveObject(fabricCanvas.getActiveObject());
-            setShowPicker(false);
-        });
-        
-        fabricCanvas.on("save", () => {
-            // save the state of the canvas when prompted
-            setFabricData(fabricCanvas.toObject()); 
-            setActiveObject(fabricCanvas.getActiveObject());
-            fabricCanvas.renderAll();
-        });
-        
-        
-        // save initial canvas
-        setFabricData(fabricCanvas);
-        
-        // TODO ====
-        if(params.id !== undefined) {} // if query string passed, load doodle from API
+        init();
     }, []);
     
     function validateResize () {
@@ -73,6 +119,9 @@ function Editor (props) {
     }
     
     async function saveCanvas () {
+        setIsLoading(true);
+        
+        let params = queryString.parse(props.location.search);
         let payload = {
             title,
             content: JSON.stringify(fabricData),
@@ -81,17 +130,26 @@ function Editor (props) {
         };
         
         try {
-            await Doodle.create(props.user.id, payload);
-            alert("Doodle saved.");
+            if(params.id !== undefined) {
+                // update doodle
+                await Doodle.update(props.user.id, params.id, payload);
+                alert("Doodle updated.");
+            } else {
+                // save new doodle
+                await Doodle.create(props.user.id, payload);
+                alert("Doodle saved.");
+            }
         } catch(e) {
             alert(e);
         }
+        
+        setIsLoading(false);
     }
     
     function clearCanvas () {
         // clears contents of the canvas
         fabricCanvas.clear();
-        fabricCanvas.setBackgroundColor("#f2f2f2");
+        fabricCanvas.setBackgroundColor(DEFAULT_BACK_COLOR);
         fabricCanvas.fire("save");
     }
     
@@ -350,7 +408,8 @@ function Editor (props) {
                         }
                     </section>
                     <section className="Editor-section-canvas">
-                        <canvas ref={cRef}>Not Supported by browser.</canvas>
+                        <canvas className={isLoading ? "hide" : ""} ref={cRef}>Not Supported by browser.</canvas>
+                        <div className={isLoading ? "Editor-loader" : "hide"} />
                     </section>
                 </section>
             </section>
