@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Auth } from "../../services";
+import { Auth, Doodle } from "../../services";
 import "./Console.scss";
 
 function Console (props) {
+    const [doodles, setDoodles] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    
+    useEffect( () => {
+        async function loadDoodles () {
+            let res = await Doodle.getAll(props.user.id);  
+            setDoodles(res);
+            setIsLoading(false);
+        }
+        
+        loadDoodles();
+    }, [props.user.id]); 
+    
+    async function handleDelete(id) {
+        setIsLoading(true);
+        
+        try {
+            await Doodle.remove(props.user.id, id);
+            setDoodles( doodles.filter(d => d._id !== id) );
+            alert("Doodle deleted");
+        } catch (e) {
+            alert(e);
+        }
+        
+        setIsLoading(false);
+    }
     
     function handleLogout() {
         Auth.logout();
@@ -25,19 +51,51 @@ function Console (props) {
                     </div>
                 </section>
                 <Link 
-                    className="Console-doodle-btn"
+                    className="Console-create-btn"
                     to="/editor"
                 >
                     New Doodle
                 </Link>
                 <ul className="Console-nav">
-                    <li>Home</li>
-                    <li>Your Doodles</li>
-                    <li>Settings</li>
                 </ul>
             </aside>
             <div className="Console-aside-shadow" />
             <section className="Console-content">
+                <header>
+                    <div className="Console-content-1">
+                        Title
+                    </div>
+                    <div className="Console-content-2">
+                        Created
+                    </div>
+                    <div className="Console-content-3">
+                        Options
+                    </div>
+                </header>
+                {isLoading 
+                    ? <div className="Console-loader"/>
+                    : <React.Fragment> 
+                        {doodles.map(d =>
+                            <section key={d._id}>
+                                <div className="Console-content-1">
+                                    <i className="material-icons">image</i>
+                                    {d.title}
+                                </div>
+                                <div className="Console-content-2">
+                                    {d.created}
+                                </div>
+                                <div className="Console-content-3">
+                                    <Link to={`/editor?id=${d._id}`}>
+                                        <i className="material-icons">edit</i>
+                                    </Link>
+                                    <button onClick={ () => handleDelete(d._id) }>
+                                        <i className="material-icons">delete</i>
+                                    </button>
+                                </div>
+                            </section>
+                        )}
+                    </React.Fragment>
+                }
             </section>
         </div>
     );

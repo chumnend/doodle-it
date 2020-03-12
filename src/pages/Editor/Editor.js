@@ -1,19 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import  { fabric } from "fabric";
+import { fabric } from "fabric";
 import { CompactPicker as ColorPicker } from "react-color";
+import { Doodle } from "../../services";
 import { Modal, Button } from "../../components";
 import { useInput, useToggle } from "../../hooks";
+import queryString from 'query-string';
 import "./Editor.scss";
 
 // globally accessible fabricCanvas instance
 const fabricCanvas = new fabric.Canvas();
 
 function Editor (props) {
+    const params = queryString.parse(props.location.search);
     const cRef = useRef();
     const [fabricData, setFabricData] = useState(null);
     const [activeObject, setActiveObject] = useState(null);
     const [title, setTitle] = useState("");
+    const [width, setWidth] = useState(500);
+    const [height, setHeight] = useState(500);
     const [freeMode, setFreeMode] = useState(false);
     const [color, setColor] = useState("#FF0000");
     const [showPicker, setShowPicker] = useState(false);
@@ -25,8 +30,8 @@ function Editor (props) {
     
     useEffect( () => {
         fabricCanvas.initialize(cRef.current, {
-            width: 500,
-            height: 500,
+            width,
+            height,
             backgroundColor: "#f2f2f2",
         });
         
@@ -44,7 +49,12 @@ function Editor (props) {
             fabricCanvas.renderAll();
         });
         
+        
+        // save initial canvas
         setFabricData(fabricCanvas);
+        
+        // TODO ====
+        if(params.id !== undefined) {} // if query string passed, load doodle from API
     }, []);
     
     function validateResize () {
@@ -55,14 +65,27 @@ function Editor (props) {
         // set new size for the canvas
         fabricCanvas.setWidth(resizeWidth);
         fabricCanvas.setHeight(resizeHeight);
+        setWidth(resizeWidth);
+        setHeight(resizeHeight);
         fabricCanvas.fire("save");
 
         toggleModal();
     }
     
-    function saveCanvas () {
-        // TODO: saves fabric canvas information to db 
-        console.log(JSON.stringify(fabricData));
+    async function saveCanvas () {
+        let payload = {
+            title,
+            content: JSON.stringify(fabricData),
+            width,
+            height,
+        };
+        
+        try {
+            await Doodle.create(props.user.id, payload);
+            alert("Doodle saved.");
+        } catch(e) {
+            alert(e);
+        }
     }
     
     function clearCanvas () {

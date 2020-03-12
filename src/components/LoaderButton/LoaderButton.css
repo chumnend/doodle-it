@@ -2,3 +2,18 @@
     margin-top: 1rem;
     padding: 0.5rem 2rem;
 }
+
+.LoaderButton-loader {
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    border: 5px solid #c2c2c2; /* Light grey */
+    border-top: 5px solid #000000; /* Blue */
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

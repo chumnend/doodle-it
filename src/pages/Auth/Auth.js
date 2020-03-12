@@ -129,7 +129,10 @@ function Auth (props) {
                                 label="Confirm Password"
                             />
                         }
-                        <LoaderButton disabled={!validateForm() || isLoading}>
+                        <LoaderButton 
+                            isLoading={isLoading}
+                            disabled={!validateForm() || isLoading}
+                        >
                             {activeTab === 1 ? "Register" : "Login"}
                         </LoaderButton>
                     </form>

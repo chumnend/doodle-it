@@ -22,7 +22,7 @@
 }
 
 .Console-aside-shadow {
-    width: 200px;
+    min-width: 200px;
 }
 
 .Console-profile {
@@ -59,7 +59,7 @@
     }
 }
 
-.Console-doodle-btn {
+.Console-create-btn {
     margin: 1rem;
     width: 90%;
     height: 40px;
@@ -79,19 +79,77 @@
 .Console-nav {
     flex: 1 1 0;
     width: 100%;
-    li {
-        margin: 0;
-        padding: 0.5rem;
-        border-radius: 10px;
-        cursor: pointer;
-        text-align: left;
-        &:hover {
-            background: $darkgrey;
+}
+
+.Console-content {
+    flex: 1 0 0;
+    background: $white;
+}
+
+.Console-content header,
+.Console-content section {
+    height: 2rem;
+}
+
+.Console-content header {
+    display: flex;
+    background: $ebony;
+    color: $white;
+    font-weight: 700;
+}
+
+.Console-content section {
+    display: flex;
+    background: $grey;
+    .Console-content-3 {
+        display: flex;
+        justify-content: center;
+        a {
+            &:hover {
+                color: $white;
+            }
+        }
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            &:hover {
+                color: $white;
+            }
         }
     }
 }
 
-.Console-content {
-    flex-grow: 1;
-    padding: 20px;
+.Console-content-1,
+.Console-content-2,
+.Console-content-3 {
+    display: flex;
+    align-items: center;
+}
+
+.Console-content-1 {
+    width: 40%;
+}
+
+.Console-content-2 {
+    width: 45%;
+}
+
+.Console-content-3 {
+    width: 15%;
+}
+
+.Console-loader {
+    margin: 20px auto;
+    width: 50px;
+    height: 50px;
+    border: 8px solid $darkgrey;
+    border-top: 8px solid $ebony;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
