@@ -5,38 +5,17 @@
     height: 100%;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.Auth-left {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    text-align: left;
-    h1 {
-        margin: 0;
-        font-size: 3rem;
-    }
-}
-
-.Auth-right {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-}
-
-.Auth-form-container {
-    width: 90%;
-    max-width: 420px;
+.Auth-container {
+    width: 420px;
     margin: 0 auto;
 }
 
-.Auth-form-container header {
+.Auth-container header {
     width: 100%;
     background: $ebony;
     text-align: center;
@@ -49,11 +28,19 @@
     }
 }
 
-.Auth-form-tab {
+.Auth-tab {
     flex: 1 1 auto;
     padding: 0.5rem;
     width: 50%;
+    border: none;
     text-transform: uppercase;
+    cursor: pointer;
+    &:disabled {
+        cursor: not-allowed;
+        color: $white;
+        font-weight: 700;
+        background: $ebony;
+    }
 }
 
 .Auth-form {
@@ -70,7 +57,6 @@
         border-bottom: 1px solid $white;
     }
 }
-
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 800px) {

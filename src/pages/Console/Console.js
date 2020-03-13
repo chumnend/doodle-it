@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import { Auth, Doodle } from "../../services";
 import "./Console.scss";
 
@@ -13,7 +14,7 @@ function Console (props) {
             setDoodles(res);
             setIsLoading(false);
         }
-        
+    
         loadDoodles();
     }, [props.user.id]); 
     
@@ -81,13 +82,19 @@ function Console (props) {
                                     {d.title}
                                 </div>
                                 <div className="Console-content-2">
-                                    {d.created}
+                                    {moment(d.created).format("MMMM Do YYYY hh:mm:ss")}
                                 </div>
                                 <div className="Console-content-3">
-                                    <Link to={`/editor?id=${d._id}`}>
+                                    <Link 
+                                        to={`/editor?id=${d._id}`} 
+                                        title="Edit this doodle"
+                                    >
                                         <i className="material-icons">edit</i>
                                     </Link>
-                                    <button onClick={ () => handleDelete(d._id) }>
+                                    <button 
+                                        onClick={ () => handleDelete(d._id) } 
+                                        title="Delete this doodle"
+                                    >
                                         <i className="material-icons">delete</i>
                                     </button>
                                 </div>

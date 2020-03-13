@@ -77,8 +77,8 @@ function Editor (props) {
             } else {
                 // initialize fabric canvas
                 fabricCanvas.initialize(cRef.current, {
-                    width,
-                    height,
+                    width: DEFAULT_WIDTH,
+                    height: DEFAULT_HEIGHT,
                     backgroundColor: DEFAULT_BACK_COLOR,    
                 });
             
@@ -103,7 +103,7 @@ function Editor (props) {
         }
         
         init();
-    }, []);
+    }, [props.user.id, props.location.search]);
     
     function validateResize () {
         return (resizeWidth > 0 && resizeHeight > 0);
@@ -135,11 +135,9 @@ function Editor (props) {
             if(params.id !== undefined) {
                 // update doodle
                 await Doodle.update(props.user.id, params.id, payload);
-                alert("Doodle updated.");
             } else {
                 // save new doodle
                 await Doodle.create(props.user.id, payload);
-                alert("Doodle saved.");
             }
         } catch(e) {
             alert(e);
@@ -319,6 +317,11 @@ function Editor (props) {
                     </button>
                 </aside>
                 <section className="Editor-section">
+                    {isLoading && 
+                        <div className="Editor-section-loader"> 
+                            <div className="Editor-loader" />
+                        </div>
+                    }
                     <section className="Editor-section-context">
                         {activeObject &&
                             <div>
@@ -411,11 +414,6 @@ function Editor (props) {
                     </section>
                     <section className="Editor-section-canvas">
                         <canvas ref={cRef}>Not Supported by browser.</canvas>
-                        {isLoading && 
-                            <div className="Editor-loader-container"> 
-                                <div className="Editor-loader" />
-                            </div>
-                        }
                     </section>
                 </section>
             </section>
