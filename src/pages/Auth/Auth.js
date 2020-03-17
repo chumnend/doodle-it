@@ -53,17 +53,17 @@ function Auth (props) {
     
     return (
         <div className="Auth">
-            <section className="Auth-container">
-                <header>
+            <section className="Auth-form">
+                <header className="Auth-form__header">
                     <button 
-                        className="Auth-tab"  
+                        className="Auth-form__tab"  
                         disabled={activeTab === 0} 
                         onClick={() => setActiveTab(0)}
                     >
                         Login
                     </button>
                     <button 
-                        className="Auth-tab" 
+                        className="Auth-form__tab" 
                         disabled={activeTab === 1} 
                         onClick={() => setActiveTab(1)}
                     >
@@ -73,9 +73,9 @@ function Auth (props) {
                         {activeTab === 1 ? "Let's get started!" : "Welcome back!"}
                     </h1>
                 </header>
-                <form className="Auth-form" onSubmit={handleSubmit}>
+                <form className="Auth-form__form" onSubmit={handleSubmit}>
                     <FormInput 
-                        className="Auth-form-input"
+                        className="Auth-form__input"
                         id="username"
                         type="text"
                         value={fields.username}
@@ -85,7 +85,7 @@ function Auth (props) {
                     />
                     {activeTab === 1 &&
                         <FormInput
-                            className="Auth-form-input"
+                            className="Auth-form__input"
                             id="email"
                             type="email"
                             value={fields.email}
@@ -95,7 +95,7 @@ function Auth (props) {
                         />
                     }
                     <FormInput 
-                        className="Auth-form-input"
+                        className="Auth-form__input"
                         type="password"
                         id="password"
                         value={fields.password}
@@ -105,7 +105,7 @@ function Auth (props) {
                     />
                     {activeTab === 1 &&
                         <FormInput
-                            className="Auth-form-input"
+                            className="Auth-form__input"
                             type="password"
                             id="confirmPassword"
                             value={fields.confirmPassword}

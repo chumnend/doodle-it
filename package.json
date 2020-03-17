@@ -1,6 +1,6 @@
 {
   "name": "doodle-it-frontend",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "a web application for drawing in the browser",
   "private": true,
   "dependencies": {

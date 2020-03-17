@@ -4,144 +4,84 @@
     width: 100%;
     height: 100%;
     position: relative;
-    display: flex;
+    z-index: 0;
 }
 
-.Console-aside {
-    margin: 0;
-    padding: 0.5rem;
-    width: 200px;
-    height: 100%;
-    background: $ebony;
-    color: $white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.Console-header {
+    width: 100%;
+    height: 45px;
+    padding: 0 12px;
     position: fixed;
-    z-index: 2;
-}
-
-.Console-aside-shadow {
-    min-width: 200px;
-}
-
-.Console-profile {
-    width: 100%;
-    height: 52px;
-    padding: 0 0.5rem;
+    top: 0;
+    left: 0;
+    z-index: 1;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-}
-
-.Console-profile-avatar {
-    height: 100%;
-}
-
-.Console-profile-name {
-    flex-grow: 1;
-    padding: 0 0.2rem;
-    text-align: center;
-    p {
-        margin: 0;
-        padding: 0;
-    }
-    button {
-        margin: 0;
-        padding: 0;
-        background: transparent;
-        border: none;
-        color: inherit;
-        text-decoration: underline;
-        cursor: pointer;
-        &:hover {
-            color: $grey;
-        }
-    }
-}
-
-.Console-create-btn {
-    margin: 1rem;
-    width: 90%;
-    height: 40px;
-    background: $white;
-    color: $ebony;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    &:hover {
-        color: $white;
-        background: $ebony;
-        border: 1px solid $white;
-    }
-}
-
-.Console-nav {
-    flex: 1 1 0;
-    width: 100%;
-}
-
-.Console-content {
-    min-width: 500px;
-    flex: 1 0 0;
-    background: $white;
-}
-
-.Console-content header,
-.Console-content section {
-    height: 2rem;
-}
-
-.Console-content header {
-    display: flex;
     background: $ebony;
-    color: $white;
-    font-weight: 700;
 }
 
-.Console-content section {
+.Console-header__button {
+    background: none;
+    padding: 2px 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    &:hover {
+        color: $grey;
+    }
+}
+
+.Console-list {
+    width: 100%;
+    transform: translateY(45px);
+    overflow-y: auto;
+}
+
+.Console-list__header {
+    background: $white;
     display: flex;
-    background: $grey;
-    .Console-content-3 {
+    align-items: center;
+    div {
+        flex: 0 0 33.33%;
         display: flex;
         justify-content: center;
-        a {
-            &:hover {
-                color: $white;
-            }
+        align-items: center;
+        font-weight: 800;
+        padding: 0.2rem 0;
+    }
+}
+
+.Console-list__item {
+    display: flex;
+    align-items: center;
+    background: $white;
+    div {
+        flex: 0 0 33.33%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.2rem 0;
+        font-size: 0.9rem;
+        overflow: hide;
+    }
+    a {
+        &:hover {
+            color: $white;
         }
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            &:hover {
-                color: $white;
-            }
+    }
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        &:hover {
+            color: $white;
         }
     }
 }
 
-.Console-content-1,
-.Console-content-2,
-.Console-content-3 {
-    display: flex;
-    align-items: center;
-}
-
-.Console-content-1 {
-    width: 40%;
-}
-
-.Console-content-2 {
-    width: 45%;
-}
-
-.Console-content-3 {
-    width: 15%;
-}
-
-.Console-loader {
-    margin: 20px auto;
+.Console-list__loader {
+    margin: 60px auto;
     width: 50px;
     height: 50px;
     border: 8px solid $darkgrey;
@@ -153,4 +93,121 @@
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+        
+.Console-menu {
+    width: 100%;
+    height: 100%;
+    background: $ebony;
+    padding-bottom: 24px;
+    color: $white;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform .7s cubic-bezier(0, .52, 0, 1);
+}
+
+.Console-menu__shadow {
+    width: 0;
+}
+
+.Console-menu.show {
+    transform: translate3d(0, 0, 0);
+}
+
+.Console-menu.hide {
+    transform: translate3d(-100vw, 0, 0);
+}
+
+.Console-menu__header {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.Console-menu__close-button {
+    background: none;
+    padding: 2px 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    &:hover {
+        color: $grey;
+    }
+}
+
+.Console-menu__user {
+    p {
+        margin: 0;
+    }
+}
+
+.Console-menu__create {
+    margin: 1rem;
+    width: 90%;
+    max-width: 320px;
+    height: 40px;
+    background: $blue;
+    color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        color: $ebony;
+        background: $white;
+    }
+}
+
+.Console-menu__nav {
+    flex: 1 0 0;
+    width: 100%;
+}
+
+.Console-menu__logout {
+    width: 85%;
+    max-width: 300px;
+    height: 40px;
+    background: none;
+    border: 1px solid $white;
+    color: $white;
+    cursor: pointer;
+    &:hover {
+        background: $white;
+        color: $ebony;
+    }
+}
+
+/* MEDIA QUERIES */
+@media all and (min-width: 870px) {
+    .Console {
+        display: flex;
+    }
+    .Console-header {
+        display: none;
+    }
+    .Console-list {
+        flex-grow: 1;
+        transform: none;
+    }
+    .Console-list__header {
+        background: $ebony;
+        color: $white;
+        height: 45px;
+    }
+    .Console-menu,
+    .Console-menu__shadow {
+        width: 250px;
+    }
+    .Console-menu__close-button {
+        display: none;
+    }
+    .Console-menu.hide,
+    .Console-menu.show {
+        transform: none;
+    }
 }

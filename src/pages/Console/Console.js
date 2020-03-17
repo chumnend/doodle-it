@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { Auth, Doodle } from "../../services";
+import { useToggle } from "../../hooks";
 import "./Console.scss";
 
 function Console (props) {
     const [doodles, setDoodles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [showMenu, setShowMenu] = useToggle(false);
     
     useEffect( () => {
         async function loadDoodles () {
@@ -40,69 +42,59 @@ function Console (props) {
     
     return (
         <div className="Console">
-            <aside className="Console-aside">
-                <section className="Console-profile">
-                    <div className="Console-profile-avatar">
-                        <i className="material-icons md-48">account_circle</i>
-                    </div>
-                    <div className="Console-profile-name">
-                        <p>{props.user.username}</p>
-                        <button onClick={handleLogout}>Logout</button>
-                    </div>
+            <header className="Console-header">
+                <button className="Console-header__button" onClick={setShowMenu}>
+                    <i className="material-icons md-36">menu</i>
+                </button>
+            </header>
+            <aside className={showMenu ? "Console-menu show" : "Console-menu hide"}>
+                <header className="Console-menu__header">
+                    <button className="Console-menu__close-button" onClick={setShowMenu}>
+                        <i className="material-icons md-36">menu_open</i>
+                    </button>
+                </header>
+                <section className="Console-menu__user">
+                    <i className="material-icons md-48">account_circle</i>
+                    <p>{props.user.username}</p>
                 </section>
-                <Link 
-                    className="Console-create-btn"
-                    to="/editor"
-                >
+                <Link className="Console-menu__create" to="/editor">
                     New Doodle
                 </Link>
-                <ul className="Console-nav">
-                </ul>
+                <nav className="Console-menu__nav">
+                </nav>
+                <button className="Console-menu__logout" onClick={handleLogout}>
+                    Logout
+                </button>
             </aside>
-            <div className="Console-aside-shadow" />
-            <section className="Console-content">
-                <header>
-                    <div className="Console-content-1">
-                        Title
-                    </div>
-                    <div className="Console-content-2">
-                        Created
-                    </div>
-                    <div className="Console-content-3">
-                        Options
-                    </div>
-                </header>
-                {isLoading 
-                    ? <div className="Console-loader"/>
-                    : <React.Fragment> 
-                        {doodles.map(d =>
-                            <section key={d._id}>
-                                <div className="Console-content-1">
-                                    <i className="material-icons">image</i>
-                                    {d.title}
-                                </div>
-                                <div className="Console-content-2">
-                                    {moment(d.created).format("MMMM Do YYYY hh:mm:ss")}
-                                </div>
-                                <div className="Console-content-3">
-                                    <Link 
-                                        to={`/editor?id=${d._id}`} 
-                                        title="Edit this doodle"
-                                    >
-                                        <i className="material-icons">edit</i>
-                                    </Link>
-                                    <button 
-                                        onClick={ () => handleDelete(d._id) } 
-                                        title="Delete this doodle"
-                                    >
-                                        <i className="material-icons">delete</i>
-                                    </button>
-                                </div>
-                            </section>
-                        )}
-                    </React.Fragment>
-                }
-            </section>
+            <div className="Console-menu__shadow" />
+            {isLoading 
+                ? <div className="Console-list__loader" />
+                : <main className="Console-list">
+                    <section className="Console-list__header">
+                        <div>Title</div>
+                        <div>Created</div>
+                        <div>Options</div>
+                    </section>
+                    {doodles.map( d => 
+                        <section key={d._id} className="Console-list__item">
+                            <div>
+                                {d.title}
+                            </div>
+                            <div>
+                                {moment(d.created).format("YYYY/MM/DD")}
+                            </div>
+                            <div>
+                                <Link to={`/editor?id=${d._id}`} title="Edit this doodle">
+                                    <i className="material-icons">edit</i>
+                                </Link>
+                                <button onClick={ () => handleDelete(d._id) } title="Delete this doodle">
+                                    <i className="material-icons">delete</i>
+                                </button>
+                            </div>
+                        </section>
+                    )}
+                  </main>
+            }
         </div>
     );
 }
