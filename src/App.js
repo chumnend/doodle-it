@@ -8,7 +8,7 @@ import Editor from "./pages/Editor";
 import NotFound from "./pages/NotFound";
 
 function App() {
-    const [loggedIn, hasLoggedIn] = useState(true);
+    const [loggedIn, hasLoggedIn] = useState(false);
     const [user, setUser] = useState({});
 
     const appProps = { loggedIn, hasLoggedIn, user, setUser };
@@ -41,7 +41,7 @@ function App() {
                     path="/" 
                     render={ props => 
                         loggedIn
-                            ? <Redirect to="/editor" />
+                            ? <Redirect to="/console" />
                             : <Redirect to="/auth" />
                     }
                 />
