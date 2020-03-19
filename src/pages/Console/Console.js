@@ -50,7 +50,7 @@ function Console (props) {
             <aside className={showMenu ? "Console-menu show" : "Console-menu hide"}>
                 <header className="Console-menu__header">
                     <button className="Console-menu__close-button" onClick={setShowMenu}>
-                        <i className="material-icons md-36">menu_open</i>
+                        <i className="material-icons md-36">clear</i>
                     </button>
                 </header>
                 <section className="Console-menu__user">

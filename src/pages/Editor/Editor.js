@@ -3,13 +3,23 @@ import { Link } from "react-router-dom";
 import { fabric } from "fabric";
 import { CompactPicker as ColorPicker } from "react-color";
 import { Doodle } from "../../services";
-import { Modal, Button } from "../../components";
 import { useInput, useToggle } from "../../hooks";
+import { FormInput, Modal } from "../../components";
 import queryString from 'query-string';
 import "./Editor.scss";
 
-const DEFAULT_WIDTH = 500;
-const DEFAULT_HEIGHT = 500;
+// calulate starting canvas size based on screen size
+let calcSize;
+let { innerWidth, innerHeight } = window;
+if(innerWidth > innerHeight) {
+    calcSize = innerHeight > 500 ? 500 : innerHeight * 0.8;
+} else {
+    calcSize = innerWidth > 500 ? 500 : innerWidth * 0.8; 
+}
+
+// default canvas values
+const DEFAULT_WIDTH = calcSize;
+const DEFAULT_HEIGHT = calcSize;
 const DEFAULT_COLOR = "#000002";
 const DEFAULT_PEN_THICKNESS = 2;
 const DEFAULT_BACK_COLOR = "#f2f2f2";
@@ -29,10 +39,11 @@ function Editor (props) {
     const [showPicker, setShowPicker] = useState(false);
     const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
     const [showPenSlider, setShowPenSlider] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [showMenu, toggleShowMenu] = useToggle(false);
+    const [showResizeModal, toggleResizeModal] = useToggle(false);
     const [resizeWidth, changeResizeWidth] = useInput();
     const [resizeHeight, changeResizeHeight] = useInput();
-    const [showModal, toggleModal] = useToggle(false);
-    const [isLoading, setIsLoading] = useState(true);
     
     useEffect( () => {
         async function init() {
@@ -105,6 +116,15 @@ function Editor (props) {
         init();
     }, [props.user.id, props.location.search]);
     
+    function closeMenu () {
+        // makes sure resize modal does not appear if menu closed without finishing action
+        if(showResizeModal) {
+            toggleResizeModal();
+        }
+        
+        toggleShowMenu();
+    }
+    
     function validateResize () {
         return (resizeWidth > 0 && resizeHeight > 0);
     }
@@ -117,7 +137,12 @@ function Editor (props) {
         setHeight(resizeHeight);
         fabricCanvas.fire("save");
 
-        toggleModal();
+        toggleResizeModal();
+        
+        // close menu if on mobile view
+        if(showMenu) {
+            toggleShowMenu();
+        }
     }
     
     async function saveCanvas () {
@@ -144,6 +169,11 @@ function Editor (props) {
         }
         
         setIsLoading(false);
+        
+        // close menu if on mobile view
+        if(showMenu) {
+            toggleShowMenu();
+        }
     }
     
     function clearCanvas () {
@@ -151,6 +181,11 @@ function Editor (props) {
         fabricCanvas.clear();
         fabricCanvas.setBackgroundColor(DEFAULT_BACK_COLOR);
         fabricCanvas.fire("save");
+
+        // close menu if on mobile view
+        if(showMenu) {
+            toggleShowMenu();
+        }
     }
     
     function toggleMode () {
@@ -265,11 +300,12 @@ function Editor (props) {
     return (
         <div className="Editor">
             <header className="Editor-header">
-                <section className="Editor-header-left">
-                    <Link to="/console">
+                <div className="Editor-header__group">
+                    <Link className="Editor-header__link" to="/console">
                         <i className="material-icons">home</i>
                     </Link>
                     <input 
+                        className="Editor-header__input"
                         type="text" 
                         id="title"
                         name="title"
@@ -277,198 +313,327 @@ function Editor (props) {
                         value={title}
                         onChange={ (e) => setTitle(e.target.value) }
                     />
-                </section>
-                <section className="Editor-header-right">
-                    <button onClick={toggleModal} title="Resize Canvas">
+                </div>
+                <button 
+                    className="Editor-header__button Editor-header_menu-button" 
+                    onClick={toggleShowMenu}
+                >
+                    <i className="material-icons md-36">menu</i>
+                </button>
+                <div className="Editor-header__group Editor-header_menu-bar">
+                    <button 
+                        className="Editor-header__button" 
+                        onClick={toggleResizeModal} 
+                        title="Resize Canvas"
+                    >
                         <i className="material-icons">photo_size_select_large</i>
+                        <span>Resize</span>
                     </button>
-                    <button onClick={saveCanvas} title="Save Canvas">
+                    <button 
+                        className="Editor-header__button" 
+                        onClick={saveCanvas} 
+                        title="Save Canvas"
+                    >
                         <i className="material-icons">save</i>
+                        <span>Save</span>
                     </button>
-                    <button onClick={clearCanvas} title="Clear Canvas">
-                        <i className="material-icons">delete_sweep</i>
+                    <button 
+                        className="Editor-header__button" 
+                        onClick={clearCanvas} 
+                        title="Clear Canvas"
+                    >
+                        <i className="material-icons">clear_all</i>
+                        <span>Clear</span>
                     </button>
-                </section>
+                </div>
             </header>
-            <section className="Editor-main">
-                <aside className="Editor-aside">
-                    <button onClick={toggleMode} title="Activate the brush">
-                        <span className={freeMode ? "" : "inactive"}>
-                            <i className="material-icons">edit</i> 
-                            Draw
-                        </span>
+            <section className={showMenu ? "Editor-menu show" : "Editor-menu hide"}>
+                <header className="Editor-menu__header">
+                    <button 
+                        className="Editor-menu__close-button" 
+                        onClick={closeMenu}
+                    >
+                        <i className="material-icons md-36">clear</i>
                     </button>
-                    <button onClick={addLine} disabled={freeMode} title="Add a line element">
-                        <span className="line" />
-                    </button>
-                    <button onClick={addCircle} disabled={freeMode} title="Add a circle element">
-                        <span className="circle"/>
-                    </button>
-                    <button onClick={addRect} disabled={freeMode} title="Add a rectangle element">
-                        <span className="rectangle"/>
-                    </button>
-                    <button onClick={addTriangle} disabled={freeMode} title="Add a triangle element">
-                        <span className="triangle" />
-                    </button>
-                    <button onClick={addText} disabled={freeMode} title="Add a text element">
-                        <span>
-                            <i className="material-icons">title</i>
-                        </span>
-                    </button>
-                </aside>
-                <section className="Editor-section">
-                    {isLoading && 
-                        <div className="Editor-section-loader"> 
-                            <div className="Editor-loader" />
-                        </div>
-                    }
-                    <section className="Editor-section-context">
-                        {activeObject &&
-                            <div>
-                                <div className="Editor-context-item">
-                                    <div 
-                                        style={{ 
-                                            height: 30, 
-                                            width: 30, 
-                                            background: activeObject.get("fill") || activeObject.get("stroke"),
-                                            cursor: "pointer",
-                                        }}
-                                        onClick={ () => setShowPicker(!showPicker) }
-                                    />
-                                    <div>
-                                        {activeObject.get("fill") !== null 
-                                            ? activeObject.get("fill").toUpperCase()
-                                            : activeObject.get("stroke").toUpperCase()
-                                        }
-                                    </div>
-                                    {showPicker &&
-                                        <div style={{ position: "absolute", zIndex: 2, top: 45 }}>
-                                            <ColorPicker
-                                                color={color} 
-                                                onChange={handleColorChange} 
-                                            />
-                                        </div>
-                                    }
-                                </div>
-                                <div className="Editor-context-item">
-                                    <button onClick={removeObject}>
-                                        <i className="material-icons">delete</i>
-                                    </button>
-                                </div>
-                            </div>
-                        }
-                        {freeMode && 
-                            <div>
-                                <div className="Editor-context-item">
-                                    <div 
-                                        style={{ 
-                                            height: 30, 
-                                            width: 30, 
-                                            background: fabricCanvas.freeDrawingBrush.color,
-                                            cursor: "pointer",
-                                        }}
-                                        onClick={ () => setShowPicker(!showPicker) }
-                                    />
-                                    <div>{fabricCanvas.freeDrawingBrush.color.toUpperCase()}</div>
-                                    {showPicker &&
-                                        <div style={{ 
-                                            position: "absolute", 
-                                            zIndex: 2, 
-                                            top: 45 
-                                        }}>
-                                            <ColorPicker
-                                                color={color} 
-                                                onChange={handleColorChange} 
-                                            />
-                                        </div>
-                                    }
-                                </div>
-                                <div className="Editor-context-item">
-                                    <button onClick={ () => setShowPenSlider(!showPenSlider) }>
-                                        <i class="material-icons">line_weight</i>
-                                    </button>
-                                    {showPenSlider &&
-                                        <div style={{ 
-                                            position: "absolute", 
-                                            zIndex: 2, 
-                                            top: 45,
-                                            right: 0,
-                                            background: "white",
-                                            padding: "5px",
-                                            fontSize: "14px"
-                                        }}>
-                                            <div>Pen Size: {penWidth}</div>
-                                            <input
-                                                type="range"
-                                                id="penSlider"
-                                                min={1} max={10}
-                                                step={1}
-                                                value={penWidth}
-                                                onChange={handlePenWidthChange}
-                                            />
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        }
-                    </section>
-                    <section className="Editor-section-canvas">
-                        <canvas ref={cRef}>Not Supported by browser.</canvas>
-                    </section>
-                </section>
-            </section>
-            <Modal 
-                className="Editor-resize"
-                show={showModal} 
-                close={toggleModal}
-            >
-                <header>
-                    <h1>Enter a new canvas size</h1>
                 </header>
-                <section>
-                    <div className="Editor-resize-input">
-                        <label htmlFor="resize-width">
-                            New Width
-                        </label>
-                        <input 
-                            type="number"
-                            id="resize-width"
-                            name="resize-width"
-                            placeholder="Enter new width..."
-                            value={resizeWidth}
-                            onChange={changeResizeWidth}
-                        />
-                    </div>
-                    
-                    <div className="Editor-resize-input">
-                        <label htmlFor="resize-height">
-                            New Height
-                        </label>
-                        <input 
-                            type="number"
-                            id="resize-height"
-                            name="resize-height"
-                            value={resizeHeight}
-                            placeholder="Enter new height..."
-                            onChange={changeResizeHeight}
-                        />
-                    </div>
-                    
+                <button 
+                    className="Editor-menu__button" 
+                    onClick={toggleResizeModal} 
+                    title="Resize Canvas"
+                    disabled={showResizeModal}
+                >
+                    <i className="material-icons">photo_size_select_large</i>
+                    <span>Resize</span>
+                </button>
+                <button 
+                    className="Editor-menu__button" 
+                    onClick={saveCanvas} 
+                    title="Save Canvas"
+                >
+                    <i className="material-icons">save</i>
+                    <span>Save</span>
+                </button>
+                <button 
+                    className="Editor-menu__button" 
+                    onClick={clearCanvas} 
+                    title="Clear Canvas"
+                >
+                    <i className="material-icons">clear_all</i>
+                    <span>Clear</span>
+                </button>
+                {showResizeModal &&
+                    <section className="Editor-resize">
+                        <header className="Editor-resize__header">
+                            <h1>Enter a new canvas size</h1>
+                        </header>
+                        <section className="Editor-resize__body">
+                            <div className="Editor-resize__current">
+                                Current: {width} x {height}
+                            </div>
+                            <FormInput 
+                                className="Editor-resize__input"
+                                type="number"
+                                id="resize-width"
+                                name="resize-width"
+                                placeholder="Enter new width..."
+                                value={resizeWidth}
+                                onChange={changeResizeWidth}
+                                label="Width"
+                            />
+                            <FormInput 
+                                className="Editor-resize__input"
+                                type="number"
+                                id="resize-height"
+                                name="resize-height"
+                                value={resizeHeight}
+                                placeholder="Enter new height..."
+                                onChange={changeResizeHeight}
+                                label="Height"
+                            />
+                            <button 
+                                className="Editor-resize__button"
+                                onClick={resizeCanvas} 
+                                disabled={!validateResize()}
+                            >
+                                Confirm
+                            </button>
+                            <button 
+                                className="Editor-resize__button"
+                                onClick={toggleResizeModal}
+                            >
+                                Cancel
+                            </button>
+                        </section>
+                    </section>
+                }
+            </section>
+            <section className="Editor-objects">
+                <button 
+                    className="Editor-objects__button" 
+                    onClick={toggleMode} 
+                    title="Activate the brush"
+                >
+                    <span className={freeMode ? "" : "inactive"}>
+                        <i className="material-icons">edit</i> 
+                        Draw
+                    </span>
+                </button>
+                <button 
+                    className="Editor-objects__button" 
+                    onClick={addLine} 
+                    disabled={freeMode} 
+                    title="Add a line element"
+                >
+                    <span className="line" />
+                </button>
+                <button 
+                    className="Editor-objects__button" 
+                    onClick={addCircle} 
+                    disabled={freeMode} 
+                    title="Add a circle element"
+                >
+                    <span className="circle"/>
+                </button>
+                <button 
+                    className="Editor-objects__button" 
+                    onClick={addRect} 
+                    disabled={freeMode} 
+                    title="Add a rectangle element"
+                >
+                    <span className="rectangle"/>
+                </button>
+                <button 
+                    className="Editor-objects__button" 
+                    onClick={addTriangle} 
+                    disabled={freeMode} 
+                    title="Add a triangle element"
+                >
+                    <span className="triangle" />
+                </button>
+                <button 
+                    className="Editor-objects__button" 
+                    onClick={addText} 
+                    disabled={freeMode} 
+                    title="Add a text element"
+                >
+                    <span>
+                        <i className="material-icons">title</i>
+                    </span>
+                </button>
+            </section>
+            <section className="Editor-context">
+                {activeObject &&
                     <div>
-                        <Button 
-                            onClick={resizeCanvas} 
-                            disabled={!validateResize()}
-                        >
-                            Resize
-                        </Button>
-                        <Button 
-                            onClick={toggleModal}
-                        >
-                            Cancel
-                        </Button>
+                        <div className="Editor-context__item">
+                            <div 
+                                style={{ 
+                                    height: 30, 
+                                    width: 30, 
+                                    background: activeObject.get("fill") || activeObject.get("stroke"),
+                                    cursor: "pointer",
+                                }}
+                                onClick={ () => setShowPicker(!showPicker) }
+                            />
+                            <div>
+                                {activeObject.get("fill") !== null 
+                                    ? activeObject.get("fill").toUpperCase()
+                                    : activeObject.get("stroke").toUpperCase()
+                                }
+                            </div>
+                            {showPicker &&
+                                <div style={{ position: "absolute", zIndex: 2, top: 45 }}>
+                                    <ColorPicker
+                                        color={color} 
+                                        onChange={handleColorChange} 
+                                    />
+                                </div>
+                            }
+                        </div>
+                        <div className="Editor-context__item">
+                            <button onClick={removeObject}>
+                                <i className="material-icons">delete</i>
+                            </button>
+                        </div>
                     </div>
-                </section>
-            </Modal>
+                }
+                {freeMode && 
+                    <div>
+                        <div className="Editor-context__item">
+                            <div 
+                                style={{ 
+                                    height: 30, 
+                                    width: 30, 
+                                    background: fabricCanvas.freeDrawingBrush.color,
+                                    cursor: "pointer",
+                                }}
+                                onClick={ () => setShowPicker(!showPicker) }
+                            />
+                            <div>{fabricCanvas.freeDrawingBrush.color.toUpperCase()}</div>
+                            {showPicker &&
+                                <div style={{ 
+                                    position: "absolute", 
+                                    zIndex: 2, 
+                                    top: 45 
+                                }}>
+                                    <ColorPicker
+                                        color={color} 
+                                        onChange={handleColorChange} 
+                                    />
+                                </div>
+                            }
+                        </div>
+                        <div className="Editor-context__item">
+                            <button onClick={ () => setShowPenSlider(!showPenSlider) }>
+                                <i class="material-icons">line_weight</i>
+                            </button>
+                            {showPenSlider &&
+                                <div style={{ 
+                                    position: "absolute", 
+                                    zIndex: 2, 
+                                    top: 45,
+                                    right: 0,
+                                    background: "white",
+                                    padding: "5px",
+                                    fontSize: "14px"
+                                }}>
+                                    <div>Pen Size: {penWidth}</div>
+                                    <input
+                                        type="range"
+                                        id="penSlider"
+                                        min={1} max={10}
+                                        step={1}
+                                        value={penWidth}
+                                        onChange={handlePenWidthChange}
+                                    />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </section>
+            <section className="Editor-canvas">
+                <canvas ref={cRef}>Not Supported by browser.</canvas>
+            </section>
+            {isLoading && 
+                <Modal 
+                    className="Editor-modal__loader"
+                    show={true}
+                    close={() => {}}
+                >
+                    <div className="Editor-loader" />
+                </Modal>
+            }
+            {!showMenu && showResizeModal &&
+                <Modal 
+                    className="Editor-modal__resize" 
+                    show={true} 
+                    close={toggleResizeModal}
+                >
+                    <section className="Editor-resize">
+                        <header className="Editor-resize__header">
+                            <h1>Enter a new canvas size</h1>
+                        </header>
+                        <section className="Editor-resize__body">
+                            <div className="Editor-resize__current">
+                                Current: {width} x {height}
+                            </div>
+                            <FormInput 
+                                className="Editor-resize__input"
+                                type="number"
+                                id="resize-width"
+                                name="resize-width"
+                                placeholder="Enter new width..."
+                                value={resizeWidth}
+                                onChange={changeResizeWidth}
+                                label="Width"
+                            />
+                            <FormInput 
+                                className="Editor-resize__input"
+                                type="number"
+                                id="resize-height"
+                                name="resize-height"
+                                value={resizeHeight}
+                                placeholder="Enter new height..."
+                                onChange={changeResizeHeight}
+                                label="Height"
+                            />
+                            <button 
+                                className="Editor-resize__button"
+                                onClick={resizeCanvas} 
+                                disabled={!validateResize()}
+                            >
+                                Confirm
+                            </button>
+                            <button 
+                                className="Editor-resize__button"
+                                onClick={toggleResizeModal}
+                            >
+                                Cancel
+                            </button>
+                        </section>
+                    </section>
+                </Modal>
+            }
         </div>
     );
 }
