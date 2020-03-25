@@ -84,10 +84,16 @@ function Console (props) {
                                 {moment(d.created).format("YYYY/MM/DD")}
                             </div>
                             <div>
-                                <Link to={`/editor?id=${d._id}`} title="Edit this doodle">
+                                <Link 
+                                    to={`/editor?id=${d._id}`} 
+                                    title="Edit this doodle"
+                                >
                                     <i className="material-icons">edit</i>
                                 </Link>
-                                <button onClick={ () => handleDelete(d._id) } title="Delete this doodle">
+                                <button 
+                                    onClick={ () => handleDelete(d._id) } 
+                                    title="Delete this doodle"
+                                >
                                     <i className="material-icons">delete</i>
                                 </button>
                             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fabric } from "fabric";
-import { CompactPicker as ColorPicker } from "react-color";
+import { BlockPicker as ColorPicker } from "react-color";
 import { Doodle } from "../../services";
 import { useInput, useToggle } from "../../hooks";
 import { FormInput, Modal } from "../../components";
@@ -58,29 +58,14 @@ function Editor (props) {
                 } catch(e) {
                     alert(e);
                 }
-                
-                // initialize fabric canvas
+            
+                // load content to the fabric canvas
                 fabricCanvas.initialize(cRef.current, {
                     width: loaded.width,
                     height: loaded.height,
                     backgroundColor: DEFAULT_BACK_COLOR,    
                 });
-            
-                fabricCanvas.on("mouse:up", (options) => {
-                    // on mouse up, update contents of the canvas
-                    setFabricData(fabricCanvas.toObject()); 
-                    setActiveObject(fabricCanvas.getActiveObject());
-                    setShowPicker(false);
-                });
-            
-                fabricCanvas.on("save", () => {
-                    // save the state of the canvas when prompted
-                    setFabricData(fabricCanvas.toObject()); 
-                    setActiveObject(fabricCanvas.getActiveObject());
-                    fabricCanvas.renderAll();
-                });
                 
-                // load content tp the fabric canvas
                 setTitle(loaded.title);
                 setWidth(loaded.width);
                 setHeight(loaded.height);
@@ -92,22 +77,23 @@ function Editor (props) {
                     height: DEFAULT_HEIGHT,
                     backgroundColor: DEFAULT_BACK_COLOR,    
                 });
-            
-                fabricCanvas.on("mouse:up", (options) => {
-                    // on mouse up, update contents of the canvas
-                    setFabricData(fabricCanvas.toObject()); 
-                    setActiveObject(fabricCanvas.getActiveObject());
-                    setShowPicker(false);
-                });
-            
-                fabricCanvas.on("save", () => {
-                    // save the state of the canvas when prompted
-                    setFabricData(fabricCanvas.toObject()); 
-                    setActiveObject(fabricCanvas.getActiveObject());
-                    fabricCanvas.renderAll();
-                });
             }
             
+            // set fabric event listeners
+            fabricCanvas.on("mouse:up", (options) => {
+                // on mouse up, update contents of the canvas
+                setFabricData(fabricCanvas.toObject()); 
+                setActiveObject(fabricCanvas.getActiveObject());
+                setShowPicker(false);
+            });
+            
+            fabricCanvas.on("save", () => {
+                // save the state of the canvas when prompted
+                setFabricData(fabricCanvas.toObject());
+                setActiveObject(fabricCanvas.getActiveObject());
+                fabricCanvas.renderAll();
+            });
+                
             // save initial canvas
             setFabricData(fabricCanvas);
             setIsLoading(false);
@@ -571,8 +557,13 @@ function Editor (props) {
                     </div>
                 }
             </section>
-            <section className="Editor-canvas">
-                <canvas ref={cRef}>Not Supported by browser.</canvas>
+            <section className="Editor-workspace">
+                <canvas 
+                    className="Editor-workspace__canvas" 
+                    ref={cRef}
+                >
+                    Not Supported by browser.
+                </canvas>
             </section>
             {isLoading && 
                 <Modal 
