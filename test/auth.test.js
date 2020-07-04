@@ -108,7 +108,7 @@ describe('Authentication Routes Test', function() {
             done();
         });
     });
-    it('exects to successfully log in given correct username and password', function(done) {
+    it('exepcts to successfully log in given correct username and password', function(done) {
       chai.request(app)
         .post(`/v1/auth/login?apiKey=${process.env.API_LOCK}`)
         .send({

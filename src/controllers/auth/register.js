@@ -1,12 +1,16 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const User = require('../../models/user');
+const db = require('../../models');
 
 module.exports = async function (req, res, next) 
 {
   try {
-    let user = await User.create(req.body);
+    let user = await db.User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+    });
     let { id, email, username } = user;
   
     let token = jwt.sign({ id, email, username }, process.env.SECRET_KEY);
@@ -22,7 +26,7 @@ module.exports = async function (req, res, next)
     
     return next({
       status: 400, 
-      message: 'invalid email and/or password'
+      message: err.message,
     });
   }
 };

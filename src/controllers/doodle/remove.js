@@ -1,11 +1,11 @@
 'use strict';
 
-const Doodle = require('../../models/doodle');
+const db = require('../../models');
 
 module.exports = async function(req, res, next) {
   try {
     // remove doodle from the db
-    let deletedItem = await Doodle.findByIdAndDelete(req.params.id);
+    let deletedItem = await db.Doodle.findByIdAndDelete(req.params.id);
     
     return res.status(200).json(deletedItem);
   } catch(e) {

@@ -1,12 +1,12 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const User = require('../../models/user');
+const db = require('../../models');
 
 module.exports = async function (req, res, next)
 {
   try {
-    let user = await User.findOne({ $or: [{email: req.body.email}, {username: req.body.username}] });
+    let user = await db.User.findOne({ $or: [{email: req.body.email}, {username: req.body.username}] });
     let { id, email, username } = user;
   
     let isMatch = await user.comparePassword(req.body.password);

@@ -10,7 +10,13 @@ const opts = {
   useUnifiedTopology: true,
   useFindAndModify: false, 
   useCreateIndex: true,
+  keepAlive: true,
 };
+
+if(config.env === 'development') {
+  mongoose.set('debug', true);
+}
+mongoose.Promise = Promise;
 mongoose.connect(url, opts);
 
 // export models from routers

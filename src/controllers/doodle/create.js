@@ -1,11 +1,11 @@
 'use strict';
 
-const Doodle = require('../../models/doodle');
+const db = require('../../models');
 
 module.exports = async function(req, res, next) {
   try {
     // create new doodle
-    let newItem = await Doodle.create({
+    let newItem = await db.Doodle.create({
       title: req.body.title,
       content: req.body.content,
       width: req.body.width,
@@ -14,7 +14,7 @@ module.exports = async function(req, res, next) {
     });
     
     // return newly created doodle
-    let foundItem = await Doodle.findById(newItem.id);
+    let foundItem = await db.Doodle.findById(newItem.id);
     
     return res.status(200).json(foundItem);
   } catch(e) {

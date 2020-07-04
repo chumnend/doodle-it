@@ -1,11 +1,11 @@
 'use strict';
 
-const Doodle = require('../../models/doodle');
+const db = require('../../models');
 
 module.exports = async function(req, res, next) {
   try {
     // update doodle item
-    let updatedItem = await Doodle.findByIdAndUpdate(
+    let updatedItem = await db.Doodle.findByIdAndUpdate(
       req.params.id, 
       req.body, 
       { new: true }
