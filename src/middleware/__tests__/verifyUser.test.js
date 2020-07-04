@@ -1,59 +1,59 @@
-"use strict";
+'use strict';
 
-const verifyUser = require("../verifyUser");
-const jwt = require("jsonwebtoken");
-const chai = require("chai");
+const jwt = require('jsonwebtoken');
+const chai = require('chai');
 const expect = chai.expect;
-const sinon = require("sinon");
-const faker = require("faker");
+const sinon = require('sinon');
+const faker = require('faker');
+const verifyUser = require('../verifyUser');
 
-describe("MIDDLEWARE UNIT TEST - VERIFYUSER", function() {
-    let id = faker.random.uuid();
-    let email = faker.internet.email();
-    let username = faker.internet.userName();
-    let token;
+describe('verifyUser - Middleware Unit Test', function() {
+  let id = faker.random.uuid();
+  let email = faker.internet.email();
+  let username = faker.internet.userName();
+  let token;
     
-    before(function() {
-        token = jwt.sign({id, email, username}, process.env.SECRET_KEY);
-    });
+  before(function() {
+    token = jwt.sign({id, email, username}, process.env.SECRET_KEY);
+  });
     
-    afterEach(function() {
-       sinon.restore(); 
-    });
+  afterEach(function() {
+   sinon.restore(); 
+  });
     
-    it("expects to verify a jwt", function() {
-        // setup test
-        let req = {
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
-            query: {
-                userId: id,
-            }
-        };
-        let res = {};
-        let next = sinon.spy();
-        
-        // start test
-        verifyUser(req, res, next);
-        expect(next.calledOnceWithExactly()).to.be.true;
-    });
+  it('expects to verify a jwt', function() {
+    // setup test
+    let req = {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      query: {
+        userId: id,
+      }
+    };
+    let res = {};
+    let next = sinon.spy();
     
-    it("expects to not verify a jwt", function() {
-        // setup test
-        let req = {
-            headers: {
-                authorization: ""
-            },
-            query: {
-                userId: faker.random.uuid(),
-            }
-        };
-        let res = {};
-        let next = sinon.spy();
-        
-        // start test
-        verifyUser(req, res, next);
-        expect(next.calledOnceWith(sinon.match.object)).to.be.true;
-    });
+    // start test
+    verifyUser(req, res, next);
+    expect(next.calledOnceWithExactly()).to.be.true;
+  });
+    
+  it('expects to not verify a jwt', function() {
+    // setup test
+    let req = {
+      headers: {
+        authorization: ''
+      },
+      query: {
+        userId: faker.random.uuid(),
+      }
+    };
+    let res = {};
+    let next = sinon.spy();
+    
+    // start test
+    verifyUser(req, res, next);
+    expect(next.calledOnceWith(sinon.match.object)).to.be.true;
+  });
 });
