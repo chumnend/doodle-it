@@ -1,0 +1,22 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2020": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "rules": {
+        "linebreak-style": ["error", "unix"],
+        "semi-style": ["error", "last"],
+        "quotes": ["error", "single"],
+        "comma-dangle": ["error", "always-multiline"],
+        "indent": ["error", 2],
+        "eol-last": ["error", "always"],
+        
+        // disable
+        "no-unused-vars": "off"
+    }
+}

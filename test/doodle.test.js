@@ -12,39 +12,43 @@ chai.use(chaiHttp);
 
 describe('Doodle Routes Test', function () {
   let user, token, item;
-  before('setting up db', async function() {
-      await db.User.deleteMany();
-      await db.Doodle.deleteMany();
-      
-      user = await db.User.create({
-        email: faker.internet.email(),
-        username: faker.internet.userName(),
-        password: faker.internet.password(),
-      });
-      
-      token = jwt.sign({
-        id: user.id , 
-        email: user.email, 
-        username: user.username,
-      }, process.env.SECRET_KEY);
-      
-      item = await db.Doodle.create({
-        title: faker.random.word(),
-        content: faker.image.imageUrl(),
-        width: faker.random.number(),
-        height: faker.random.number(),
-        author: user.id,
-      });
-  });
-  
-  after('cleaning up db', async function() {
+  before('setting up db', async function () {
     await db.User.deleteMany();
-    await db.Doodle.deleteMany(); 
+    await db.Doodle.deleteMany();
+
+    user = await db.User.create({
+      email: faker.internet.email(),
+      username: faker.internet.userName(),
+      password: faker.internet.password(),
+    });
+
+    token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+      },
+      process.env.SECRET_KEY,
+    );
+
+    item = await db.Doodle.create({
+      title: faker.random.word(),
+      content: faker.image.imageUrl(),
+      width: faker.random.number(),
+      height: faker.random.number(),
+      author: user.id,
+    });
   });
-  
+
+  after('cleaning up db', async function () {
+    await db.User.deleteMany();
+    await db.Doodle.deleteMany();
+  });
+
   describe('GET /v1/doodle', function () {
-    it('expects to get all a user\'s doodles', function (done) {
-      chai.request(app)
+    it("expects to get all a user's doodles", function (done) {
+      chai
+        .request(app)
         .get(`/v1/doodle?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
@@ -55,8 +59,9 @@ describe('Doodle Routes Test', function () {
           done();
         });
     });
-    it('expects to be fail if userId not provided', function(done) {
-      chai.request(app)
+    it('expects to be fail if userId not provided', function (done) {
+      chai
+        .request(app)
         .get(`/v1/doodle?apiKey=${process.env.API_LOCK}`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
@@ -66,8 +71,9 @@ describe('Doodle Routes Test', function () {
           done();
         });
     });
-    it('expects to be denied if user not authorized', function(done) {
-      chai.request(app)
+    it('expects to be denied if user not authorized', function (done) {
+      chai
+        .request(app)
         .get(`/v1/doodle?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
         .end((err, res) => {
           expect(err).to.be.null;
@@ -77,7 +83,7 @@ describe('Doodle Routes Test', function () {
         });
     });
   });
-  
+
   describe('POST /v1/doodle', function () {
     it('expects to create new doodle', function (done) {
       let newItem = {
@@ -85,25 +91,27 @@ describe('Doodle Routes Test', function () {
         content: faker.image.imageUrl(),
         width: faker.random.number(),
         height: faker.random.number(),
-      };  
+      };
 
-    chai.request(app)
-      .post(`/v1/doodle?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
-      .set('Authorization', `Bearer ${token}`)
-      .send(newItem)
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('Object');
-        expect(res.body).to.have.property('_id');
-        expect(res.body).to.have.property('title', newItem.title);
-        expect(res.body).to.have.property('content', newItem.content);
-        expect(res.body).to.have.property('author', user.id);
-        done();
-      });
+      chai
+        .request(app)
+        .post(`/v1/doodle?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send(newItem)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('Object');
+          expect(res.body).to.have.property('_id');
+          expect(res.body).to.have.property('title', newItem.title);
+          expect(res.body).to.have.property('content', newItem.content);
+          expect(res.body).to.have.property('author', user.id);
+          done();
+        });
     });
-    it('expects to fail if title not provided', function(done) {
-      chai.request(app)
+    it('expects to fail if title not provided', function (done) {
+      chai
+        .request(app)
         .post(`/v1/doodle?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -116,8 +124,9 @@ describe('Doodle Routes Test', function () {
           done();
         });
     });
-    it('expects to fail if content not provided', function(done) {
-      chai.request(app)
+    it('expects to fail if content not provided', function (done) {
+      chai
+        .request(app)
         .post(`/v1/doodle?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -130,8 +139,9 @@ describe('Doodle Routes Test', function () {
           done();
         });
     });
-    it('expects to be fail if userId not provided', function(done) {
-      chai.request(app)
+    it('expects to be fail if userId not provided', function (done) {
+      chai
+        .request(app)
         .post(`/v1/doodle?apiKey=${process.env.API_LOCK}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -145,8 +155,9 @@ describe('Doodle Routes Test', function () {
           done();
         });
     });
-    it('expects to be denied if user not authorized', function(done) {
-      chai.request(app)
+    it('expects to be denied if user not authorized', function (done) {
+      chai
+        .request(app)
         .post(`/v1/doodle?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
         .send({
           title: faker.random.word(),
@@ -160,11 +171,14 @@ describe('Doodle Routes Test', function () {
         });
     });
   });
-  
+
   describe('GET /v1/doodle/:id', function () {
-    it('expects to get doodle with given an id', function(done) {
-      chai.request(app)
-        .get(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
+    it('expects to get doodle with given an id', function (done) {
+      chai
+        .request(app)
+        .get(
+          `/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`,
+        )
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(err).to.be.null;
@@ -174,41 +188,48 @@ describe('Doodle Routes Test', function () {
           expect(res.body).to.have.property('title', item.title);
           expect(res.body).to.have.property('content', item.content);
           expect(res.body).to.have.property('author', user.id);
-          done(); 
+          done();
         });
     });
-    it('expects to be fail if userId not provided', function(done) {
-      chai.request(app)
+    it('expects to be fail if userId not provided', function (done) {
+      chai
+        .request(app)
         .get(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(400);
-          done(); 
+          done();
         });
     });
-    it('expects to be denied if user not authorized', function(done) {
-      chai.request(app)
-        .get(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
+    it('expects to be denied if user not authorized', function (done) {
+      chai
+        .request(app)
+        .get(
+          `/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`,
+        )
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(401);
-          done(); 
+          done();
         });
     });
   });
-  
+
   describe('PUT /v1/doodle/:id', function () {
-    it('expects to update doodle with given id', function(done) {
+    it('expects to update doodle with given id', function (done) {
       let updatedItem = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
         width: faker.random.number(),
         height: faker.random.number(),
       };
-        
-      chai.request(app)
-        .put(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
+
+      chai
+        .request(app)
+        .put(
+          `/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`,
+        )
         .set('Authorization', `Bearer ${token}`)
         .send(updatedItem)
         .end((err, res) => {
@@ -219,11 +240,12 @@ describe('Doodle Routes Test', function () {
           expect(res.body).to.have.property('title', updatedItem.title);
           expect(res.body).to.have.property('content', updatedItem.content);
           expect(res.body).to.have.property('author', user.id);
-          done(); 
+          done();
         });
     });
-    it('expects to be fail if userId not provided', function(done) {
-      chai.request(app)
+    it('expects to be fail if userId not provided', function (done) {
+      chai
+        .request(app)
         .put(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -233,12 +255,15 @@ describe('Doodle Routes Test', function () {
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(400);
-          done(); 
+          done();
         });
     });
-    it('expects to be denied if user not authorized', function(done) {
-      chai.request(app)
-        .put(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
+    it('expects to be denied if user not authorized', function (done) {
+      chai
+        .request(app)
+        .put(
+          `/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`,
+        )
         .send({
           title: faker.random.word(),
           content: faker.image.imageUrl(),
@@ -246,15 +271,18 @@ describe('Doodle Routes Test', function () {
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(401);
-          done(); 
+          done();
         });
     });
   });
-  
+
   describe('DELETE /v1/doodle/:id', function () {
-    it('expects to delete doodle with given id', function(done) {
-      chai.request(app)
-        .delete(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
+    it('expects to delete doodle with given id', function (done) {
+      chai
+        .request(app)
+        .delete(
+          `/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`,
+        )
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(err).to.be.null;
@@ -266,23 +294,27 @@ describe('Doodle Routes Test', function () {
           });
         });
     });
-    it('expects to be fail if userId not provided', function(done) {
-      chai.request(app)
+    it('expects to be fail if userId not provided', function (done) {
+      chai
+        .request(app)
         .delete(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(400);
-          done(); 
+          done();
         });
     });
-    it('expects to be denied if user not authorized', function(done) {
-      chai.request(app)
-        .delete(`/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`)
+    it('expects to be denied if user not authorized', function (done) {
+      chai
+        .request(app)
+        .delete(
+          `/v1/doodle/${item.id}?apiKey=${process.env.API_LOCK}&userId=${user.id}`,
+        )
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(401);
-          done(); 
+          done();
         });
     });
   });

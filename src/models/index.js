@@ -8,12 +8,12 @@ const url = config.db;
 const opts = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false, 
+  useFindAndModify: false,
   useCreateIndex: true,
   keepAlive: true,
 };
 
-if(config.env === 'development') {
+if (config.env === 'development') {
   mongoose.set('debug', true);
 }
 mongoose.Promise = Promise;

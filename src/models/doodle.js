@@ -3,8 +3,8 @@
 const mongoose = require('mongoose');
 
 const doodleSchema = new mongoose.Schema({
-  title: { 
-    type: String, 
+  title: {
+    type: String,
     required: true,
   },
   content: {
@@ -17,15 +17,15 @@ const doodleSchema = new mongoose.Schema({
   },
   height: {
     type: Number,
-    required: true,   
+    required: true,
   },
-  author: { 
-    type: mongoose.Schema.Types.ObjectId, 
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  created: { 
-    type: Date, 
-    default: Date.now, 
+  created: {
+    type: Date,
+    default: Date.now,
   },
 });
 

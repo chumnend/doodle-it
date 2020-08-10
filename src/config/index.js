@@ -15,17 +15,11 @@ if (env === 'production') {
 }
 
 // ensure required environment variables exist
-const required = [
-  'NODE_ENV',
-  'PORT',
-  MONGO_URI,
-  'SECRET_KEY',
-  'API_LOCK',
-];
-required.forEach( (name) => {
-  if(!process.env[name]) {
+const required = ['NODE_ENV', 'PORT', MONGO_URI, 'SECRET_KEY', 'API_LOCK'];
+required.forEach((name) => {
+  if (!process.env[name]) {
     throw new Error(`environment variable ${name} not found`);
-  } 
+  }
 });
 
 // load configuration file

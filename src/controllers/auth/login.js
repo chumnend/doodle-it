@@ -3,30 +3,31 @@
 const jwt = require('jsonwebtoken');
 const db = require('../../models');
 
-module.exports = async function (req, res, next)
-{
+module.exports = async function (req, res, next) {
   try {
-    let user = await db.User.findOne({ $or: [{email: req.body.email}, {username: req.body.username}] });
+    let user = await db.User.findOne({
+      $or: [{ email: req.body.email }, { username: req.body.username }],
+    });
     let { id, email, username } = user;
-  
+
     let isMatch = await user.comparePassword(req.body.password);
-    if(isMatch) {
+    if (isMatch) {
       let token = jwt.sign({ id, email, username }, process.env.SECRET_KEY);
       return res.status(200).json({
         id,
         username,
-        token 
+        token,
       });
     } else {
       return next({
-        status: 400, 
-        message: 'invalid email and/or password'
+        status: 400,
+        message: 'invalid email and/or password',
       });
     }
-  } catch(err) {
+  } catch (err) {
     return next({
-      status: 400, 
-      message: 'invalid email and/or password'
+      status: 400,
+      message: 'invalid email and/or password',
     });
   }
 };

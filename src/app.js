@@ -14,21 +14,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(helmet());
-if(config.env !== 'test') {
+if (config.env !== 'test') {
   app.use(morgan('common')); // logging deactivated in testing
 }
 app.use(middleware.checkQuery('apiKey', config.lock));
 
 // setup routers
 app.get('/', (req, res, next) => {
-  res.send('ready to serve requests'); 
+  res.send('ready to serve requests');
 });
 
 app.use(router);
 
 // error handling
 app.all('*', middleware.notFound);
-app.use(middleware.handleError); 
+app.use(middleware.handleError);
 
 // start the server
 app.listen(config.port, () => {

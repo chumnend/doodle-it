@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
+    "lint": "npx eslint 'src/**/*.js'",
+    "format": "prettier --write 'src/**/*.js'",
     "test": "NODE_ENV=test mocha './{,!(node_modules)/**}/*.test.js'"
   },
   "keywords": [],
@@ -18,15 +20,17 @@
     "express": "^4.17.1",
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.4",
+    "mongoose": "^5.9.28",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "eslint": "^7.6.0",
     "faker": "^4.1.0",
     "mocha": "^8.1.1",
     "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
     "sinon": "^8.1.1"
   }
 }
