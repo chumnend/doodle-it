@@ -19,13 +19,30 @@ API for Doodle It application, built with Node.js/Express
 
 ### Prerequistes
 - Install Node.js
-- Install Mongodb
+- Install MongoDB
+
+### Environment
 - Copy env.example into .env and fill out variables
+```
+NODE_ENV=
+PORT=
+SECRET_KEY=
+API_LOCK=
+MONGODB_URI=
+DEV_MONGODB_URI=
+TEST_MONGODB_URI=
+```
 
 ### Start
+Install dependecies,
 ```
 npm install
 npm run dev
+```
+
+### Test
+```
+npm test
 ```
 
 ### Deploy
