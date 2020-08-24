@@ -1,1 +1,1 @@
-export { default } from "./LoaderButton";
+export { default } from './LoaderButton';

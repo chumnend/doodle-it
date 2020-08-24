@@ -1,0 +1,25 @@
+{
+  "extends": ["react-app"],
+  "rules": {
+    "semi-style": [
+      "error",
+      "last"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ]
+  }
+}

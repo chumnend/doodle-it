@@ -1,1 +1,1 @@
-export { default } from "./StaticCanvas";
+export { default } from './StaticCanvas';

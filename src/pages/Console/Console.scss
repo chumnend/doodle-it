@@ -1,216 +1,220 @@
-@import "../../styles/theme.scss";
+@import '../../styles/theme.scss';
 
 .Console {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 0;
 }
 
 .Console-header {
-    width: 100%;
-    height: 45px;
-    padding: 0 12px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: $ebony;
+  width: 100%;
+  height: 45px;
+  padding: 0 12px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $ebony;
 }
 
 .Console-header__button {
-    background: none;
-    padding: 2px 5px;
-    border: none;
-    cursor: pointer;
-    color: $white;
-    &:hover {
-        color: $grey;
-    }
+  background: none;
+  padding: 2px 5px;
+  border: none;
+  cursor: pointer;
+  color: $white;
+  &:hover {
+    color: $grey;
+  }
 }
 
 .Console-list {
-    width: 100%;
-    transform: translateY(45px);
-    overflow-y: auto;
+  width: 100%;
+  transform: translateY(45px);
+  overflow-y: auto;
 }
 
 .Console-list__header {
-    background: $white;
-    display: flex;
-    align-items: center;
-    div {
-        flex: 0 0 33.33%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 800;
-        padding: 0.2rem 0;
-    }
-}
-
-.Console-list__item {
-    display: flex;
-    align-items: center;
-    background: $white;
-    div {
-        flex: 0 0 33.33%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.2rem 0;
-        font-size: 0.9rem;
-        overflow: hide;
-    }
-    a {
-        &:hover {
-            color: $darkgrey;
-        }
-    }
-    button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        &:hover {
-            color: $darkgrey;
-        }
-    }
-}
-
-.Console-list__loader {
-    margin: 60px auto;
-    width: 50px;
-    height: 50px;
-    border: 8px solid $darkgrey;
-    border-top: 8px solid $ebony;
-    border-radius: 50%;
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-        
-.Console-menu {
-    width: 100%;
-    height: 100%;
-    background: $ebony;
-    padding-bottom: 24px;
-    color: $white;
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform .7s cubic-bezier(0, .52, 0, 1);
-}
-
-.Console-menu__shadow {
-    width: 0;
-}
-
-.Console-menu.show {
-    transform: translate3d(0, 0, 0);
-}
-
-.Console-menu.hide {
-    transform: translate3d(-100vw, 0, 0);
-}
-
-.Console-menu__header {
-    width: 100%;
-    height: 45px;
-    display: flex;
-    flex-direction: row-reverse;
-}
-
-.Console-menu__close-button {
-    background: none;
-    padding: 2px 5px;
-    border: none;
-    cursor: pointer;
-    color: $white;
-    &:hover {
-        color: $grey;
-    }
-}
-
-.Console-menu__user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    p {
-        margin: 0;
-    }
-}
-
-.Console-menu__create {
-    margin: 1rem;
-    width: 90%;
-    max-width: 320px;
-    height: 40px;
-    background: $blue;
-    color: $white;
+  background: $white;
+  display: flex;
+  align-items: center;
+  div {
+    flex: 0 0 33.33%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 800;
+    padding: 0.2rem 0;
+  }
+}
+
+.Console-list__item {
+  display: flex;
+  align-items: center;
+  background: $white;
+  div {
+    flex: 0 0 33.33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem 0;
+    font-size: 0.9rem;
+    overflow: hide;
+  }
+  a {
     &:hover {
-        color: $ebony;
-        background: $white;
+      color: $darkgrey;
     }
+  }
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      color: $darkgrey;
+    }
+  }
+}
+
+.Console-list__loader {
+  margin: 60px auto;
+  width: 50px;
+  height: 50px;
+  border: 8px solid $darkgrey;
+  border-top: 8px solid $ebony;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.Console-menu {
+  width: 100%;
+  height: 100%;
+  background: $ebony;
+  padding-bottom: 24px;
+  color: $white;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.7s cubic-bezier(0, 0.52, 0, 1);
+}
+
+.Console-menu__shadow {
+  width: 0;
+}
+
+.Console-menu.show {
+  transform: translate3d(0, 0, 0);
+}
+
+.Console-menu.hide {
+  transform: translate3d(-100vw, 0, 0);
+}
+
+.Console-menu__header {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.Console-menu__close-button {
+  background: none;
+  padding: 2px 5px;
+  border: none;
+  cursor: pointer;
+  color: $white;
+  &:hover {
+    color: $grey;
+  }
+}
+
+.Console-menu__user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  p {
+    margin: 0;
+  }
+}
+
+.Console-menu__create {
+  margin: 1rem;
+  width: 90%;
+  max-width: 320px;
+  height: 40px;
+  background: $blue;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    color: $ebony;
+    background: $white;
+  }
 }
 
 .Console-menu__nav {
-    flex: 1 0 0;
-    width: 100%;
+  flex: 1 0 0;
+  width: 100%;
 }
 
 .Console-menu__logout {
-    width: 85%;
-    max-width: 300px;
-    height: 40px;
-    background: none;
-    border: 1px solid $white;
-    color: $white;
-    cursor: pointer;
-    &:hover {
-        background: $white;
-        color: $ebony;
-    }
+  width: 85%;
+  max-width: 300px;
+  height: 40px;
+  background: none;
+  border: 1px solid $white;
+  color: $white;
+  cursor: pointer;
+  &:hover {
+    background: $white;
+    color: $ebony;
+  }
 }
 
 /* MEDIA QUERIES */
 @media all and (min-width: 870px) {
-    .Console {
-        display: flex;
-    }
-    .Console-header {
-        display: none;
-    }
-    .Console-list {
-        flex-grow: 1;
-        transform: none;
-    }
-    .Console-list__header {
-        background: $ebony;
-        color: $white;
-        height: 45px;
-    }
-    .Console-menu,
-    .Console-menu__shadow {
-        width: 250px;
-    }
-    .Console-menu__close-button {
-        display: none;
-    }
-    .Console-menu.hide,
-    .Console-menu.show {
-        transform: none;
-    }
+  .Console {
+    display: flex;
+  }
+  .Console-header {
+    display: none;
+  }
+  .Console-list {
+    flex-grow: 1;
+    transform: none;
+  }
+  .Console-list__header {
+    background: $ebony;
+    color: $white;
+    height: 45px;
+  }
+  .Console-menu,
+  .Console-menu__shadow {
+    width: 250px;
+  }
+  .Console-menu__close-button {
+    display: none;
+  }
+  .Console-menu.hide,
+  .Console-menu.show {
+    transform: none;
+  }
 }

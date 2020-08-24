@@ -1,4 +1,4 @@
 export default {
-    prefix: process.env.REACT_APP_API_PREFIX,
-    key: process.env.REACT_APP_API_KEY,
+  prefix: process.env.REACT_APP_API_PREFIX,
+  key: process.env.REACT_APP_API_KEY,
 };

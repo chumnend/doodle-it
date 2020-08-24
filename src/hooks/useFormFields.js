@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-function useFormFields (init) {
-    const [fields, setFields] = useState(init);
+function useFormFields(init) {
+  const [fields, setFields] = useState(init);
 
-    function updateFields (event) {
-        setFields({
-            ...fields,
-            [event.target.id]: event.target.value
-        });
-    }
+  function updateFields(event) {
+    setFields({
+      ...fields,
+      [event.target.id]: event.target.value,
+    });
+  }
 
-    return [fields, updateFields];
+  return [fields, updateFields];
 }
 
 export default useFormFields;

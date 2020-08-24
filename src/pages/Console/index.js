@@ -1,1 +1,1 @@
-export { default } from "./Console";
+export { default } from './Console';

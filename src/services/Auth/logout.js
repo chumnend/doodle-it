@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
-function logout () {
-    delete axios.defaults.headers.common["Authorization"];
-    window.localStorage.clear();
+function logout() {
+  delete axios.defaults.headers.common['Authorization'];
+  window.localStorage.clear();
 }
 
 export default logout;

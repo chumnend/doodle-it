@@ -11,9 +11,11 @@
     "classnames": "^2.2.6",
     "express": "^4.17.1",
     "fabric": "^4.1.0",
+    "faker": "^5.0.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
+    "prettier": "^2.1.0",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-color": "^2.18.1",
@@ -21,17 +23,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1"
   },
-  "devDependencies": {
-    "faker": "^4.1.0"
-  },
+  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src",
+    "lint:fix": "prettier --write ./src"
   },
   "browserslist": {
     "production": [

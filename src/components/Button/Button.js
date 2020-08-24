@@ -1,25 +1,22 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import "./Button.css";
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import './Button.css';
 
-function Button ({ className, children, ...props }) {
-    return (
-        <button 
-            className={classNames(className, "Button")}
-            {...props}
-        >
-            {children}
-        </button>
-    );
+function Button({ className, children, ...props }) {
+  return (
+    <button className={classNames(className, 'Button')} {...props}>
+      {children}
+    </button>
+  );
 }
 
 Button.defaultProps = {
-    className: "",
+  className: '',
 };
 
 Button.propTypes = {
-    className: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Button;

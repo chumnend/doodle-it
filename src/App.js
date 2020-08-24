@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Router from './Router';
-import "./App.scss";
+import './App.scss';
 
 function App() {
   const [loggedIn, hasLoggedIn] = useState(false);
@@ -9,7 +9,7 @@ function App() {
   const appProps = { loggedIn, hasLoggedIn, user, setUser };
   return (
     <div className="App">
-      <Router appProps={ appProps } />
+      <Router appProps={appProps} />
     </div>
   );
 }
