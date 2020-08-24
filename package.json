@@ -10,7 +10,7 @@
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "express": "^4.17.1",
-    "fabric": "^4.0.0-rc.1-browser",
+    "fabric": "^4.1.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
