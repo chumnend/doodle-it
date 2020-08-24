@@ -3,17 +3,44 @@ API for Doodle It application, built with Node.js/Express
 
 ## API Documentation
 
-### Required Params
-- ?apiKey=<API KEY> to acccess the api
-- ?userId=<USER ID> to access user items on item routes
-
 ### Authentication Routes
-- /v1/auth/register - create a user
-- /v1/auth/login - log in with credentials
+POST `/v1/auth/register?apiKey=<API_KEY>` (create new user)
+- required body parameters: username, email, password
+- required query parameters: apiKey
+- returns: id, username and jwt
+
+POST `/v1/auth/login?apiKey=<API_KEY>` (acquire jwt for authentication)
+- required body parameters: email or username, password
+- required query parameters: apiKey
+- returns: id, username and jwt
 
 ### Doodle Routes 
-- /v1/doodle - access doodles (requires user id and authorization)
-- /v1/doodle/:id - access specific doodle (requires user id and authorization)
+GET `/v1/doodle?apiKey=<API KEY>&userId=<USER_ID>` (get a user's doodles)
+- required body parameters: none
+- required query parameters: apiKey, userId
+- returns: array of serialized doodles
+
+POST `/v1/doodle?apiKey=<API KEY>&userId=<USER_ID>` (create a doodle)
+- required body parameters: title, content, width, height
+- required query parameters: apiKey, userId
+- returns: id of created doodle
+
+GET `/v1/doodle/:id?apiKey=<API KEY>&userId=<USER_ID>` (find doodle by id)
+- required body parameters: none
+- required query parameters: apiKey, userId
+- returns: serialized doodle
+
+PUT `/v1/doodle/:id?apiKey=<API KEY>&userId=<USER_ID>` (update a doodle by id)
+- required body parameters: none
+- optional body parameters: title, content, width, height
+- required query parameters: apiKey, userId
+- returns: serialized doodle
+
+DELETE `/v1/doodle/:id?apiKey=<API KEY>&userId=<USER_ID>` (remove a doodle by id)
+- required body parameters: none
+- required query parameters: apiKey, userId
+- returns: serialized doodle
+
 
 ## Development Setup
 
@@ -37,6 +64,17 @@ TEST_MONGODB_URI=
 Install dependecies,
 ```
 npm install
+```
+
+Run standalone,
+```
+npm start
+```
+
+or 
+
+Start with watcher,
+```
 npm run dev
 ```
 
