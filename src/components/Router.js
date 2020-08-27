@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
 import Auth from '../views/Auth';
 import Console from '../views/Console';
 import Editor from '../views/Editor';
