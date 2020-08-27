@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
-import Router from './Router';
-import './App.scss';
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-  const [loggedIn, hasLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
-
-  const appProps = { loggedIn, hasLoggedIn, user, setUser };
   return (
     <div className="App">
-      <Router appProps={appProps} />
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
