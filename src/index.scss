@@ -7,10 +7,13 @@
 }
 
 html,
-body {
+body,
+#root {
   background: $grey;
   font-family: $roboto;
   font-size: 100%;
+  position: relative;
+  z-index: 0;
 }
 
 ul {
@@ -25,6 +28,10 @@ a {
 .container {
   width: 90%;
   margin: 0 auto;
+}
+
+.vh { 
+  height: calc(100vh - 64px);
 }
 
 .btn {

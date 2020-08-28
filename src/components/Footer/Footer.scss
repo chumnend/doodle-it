@@ -1,0 +1,21 @@
+@import '../../styles/_theme.scss';
+@import '../../styles/_mixins.scss';
+
+.Footer {
+  width: 100%;
+  background: $ebony;
+  position: relative;
+}
+
+.Footer-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Footer-copyright {
+  color: $white;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
