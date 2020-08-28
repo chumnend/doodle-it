@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from '../Navbar';
 import Router from '../Router';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar appProps={{ loggedIn, hasLoggedIn, user, setUser }} />
       <Router appProps={{ loggedIn, hasLoggedIn, user, setUser }} />
     </div>
   );

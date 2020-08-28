@@ -1,0 +1,75 @@
+@import '../../styles/_theme.scss';
+@import '../../styles/_mixins.scss';
+
+.Navbar {
+  width: 100%;
+  height: 64px;
+  background: $ebony;
+  position: relative;
+  z-index: 0;
+}
+
+.Navbar-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Navbar-logo {
+  font-family: $lily;
+  font-size: 32px;
+  color: $white;
+}
+
+.Navbar-links {
+  display: none;
+  @include md {
+    display: block;
+    a {
+      color: $white;
+    }
+  }
+}
+
+.Navbar-menu-icon {
+  border: none;
+  background: none;
+  color: $white;
+  cursor: pointer;
+  i { 
+    font-size: 36px; 
+  }
+  @include md {
+    display: none;
+  }
+}
+
+.Navbar-menu {
+  background: $ebony;
+  width: 0%;
+  height: calc(100vh - 64px);
+  position: absolute;
+  z-index: 1;
+  top: 64px;
+  right: 0;
+  transition: width 0.2s ease-out;
+  a {
+    display: none;
+  }
+  @include md {
+    display: none;
+  }
+}
+
+.Navbar-menu.showing {
+  width: 70%;
+  a {
+    display: block;
+    width: 100%;
+    padding: 1rem 0;
+    text-align: center;
+    color: $white;
+  }
+}
