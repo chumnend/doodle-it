@@ -4,7 +4,7 @@ import config from '../../config';
 async function login(username, password) {
   try {
     let url = `${config.prefix}/v1/auth/login?apiKey=${config.key}`;
-    let payload = { username, password };
+    let payload = { login: username, password };
 
     let { data } = await axios.post(url, payload);
     let { token, ...user } = data;
