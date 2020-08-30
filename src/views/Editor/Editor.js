@@ -2,7 +2,7 @@ import React from 'react';
 
 function Editor() {
   return (
-    <div className="Editor vh">
+    <div className="Editor view">
       <h1>Editor</h1>
     </div>
   );

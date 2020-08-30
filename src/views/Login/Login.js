@@ -1,8 +1,9 @@
 import React from 'react';
+import './Login.scss';
 
 function Login() {
   return (
-    <div className="Login container vh">
+    <div className="Login container view">
       <h1>Login</h1>
     </div>
   );

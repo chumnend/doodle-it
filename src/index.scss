@@ -30,8 +30,9 @@ a {
   margin: 0 auto;
 }
 
-.vh {
-  height: calc(100vh - 64px);
+.view {
+  height: calc(100vh - 64px - 48px);
+  padding: 1rem 0;
 }
 
 .center {
