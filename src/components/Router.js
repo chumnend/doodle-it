@@ -1,20 +1,32 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Auth from '../views/Auth';
 import Console from '../views/Console';
 import Editor from '../views/Editor';
 import Home from '../views/Home';
+import Login from '../views/Login';
 import NotFound from '../views/NotFound';
+import Register from '../views/Register';
 
 function Router({ appProps }) {
   return (
     <Switch>
       <Route
         exact
-        path="/auth"
+        path="/login"
         render={(props) =>
           !appProps.loggedIn ? (
-            <Auth {...props} {...appProps} />
+            <Login {...props} {...appProps} />
+          ) : (
+            <Redirect to="/" />
+          )
+        }
+      />
+      <Route
+        exact
+        path="/register"
+        render={(props) =>
+          !appProps.loggedIn ? (
+            <Register {...props} {...appProps} />
           ) : (
             <Redirect to="/" />
           )

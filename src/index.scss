@@ -30,8 +30,12 @@ a {
   margin: 0 auto;
 }
 
-.vh { 
+.vh {
   height: calc(100vh - 64px);
+}
+
+.center {
+  text-align: center;
 }
 
 .btn {

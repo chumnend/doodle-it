@@ -7,11 +7,12 @@ function Footer() {
       <div className="Footer-inner container">
         <div></div>
         <p className="Footer-copyright">
-          <span className="material-icons">copyright</span> Nicholas Chumney 2020
+          <span className="material-icons">copyright</span> Nicholas Chumney
+          2020
         </p>
       </div>
     </footer>
-  )
+  );
 }
 
 export default Footer;

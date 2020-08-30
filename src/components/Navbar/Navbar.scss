@@ -27,6 +27,7 @@
     display: block;
     a {
       color: $white;
+      padding: 0 0.7rem;
     }
   }
 }
@@ -36,8 +37,8 @@
   background: none;
   color: $white;
   cursor: pointer;
-  i { 
-    font-size: 36px; 
+  i {
+    font-size: 36px;
   }
   @include md {
     display: none;

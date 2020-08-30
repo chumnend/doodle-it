@@ -8,24 +8,41 @@ function Navbar({ appProps }) {
   return (
     <nav className="Navbar">
       <div className="Navbar-inner container">
-        <Link className="Navbar-logo" to="/">Doodle It</Link>
+        <Link className="Navbar-logo" to="/">
+          Doodle It
+        </Link>
 
         <div className="Navbar-links">
-          {!appProps.loggedIn 
-            ? <Link to="/auth">Log In/Register</Link>
-            : <Link to="/editor">Create</Link>
-          }
+          {!appProps.loggedIn ? (
+            <div>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </div>
+          ) : (
+            <div>
+              <Link to="/editor">Create</Link>
+            </div>
+          )}
         </div>
 
-        <button className="Navbar-menu-icon" onClick={() => setMenu(!menuShowing)}>
+        <button
+          className="Navbar-menu-icon"
+          onClick={() => setMenu(!menuShowing)}
+        >
           <i className="material-icons">menu</i>
         </button>
 
         <div className={menuShowing ? 'Navbar-menu showing' : 'Navbar-menu'}>
-          {!appProps.loggedIn 
-            ? <Link to="/auth">Log In/Register</Link>
-            : <Link to="/editor">Create</Link>
-          }
+          {!appProps.loggedIn ? (
+            <div>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </div>
+          ) : (
+            <div>
+              <Link to="/editor">Create</Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
