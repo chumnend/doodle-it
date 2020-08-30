@@ -6,7 +6,7 @@ const db = require('../../models');
 module.exports = async function (req, res, next) {
   try {
     let user = await db.User.findOne({
-      $or: [{ email: req.body.email }, { username: req.body.username }],
+      $or: [{ email: req.body.login }, { username: req.body.login }],
     });
     let { id, email, username } = user;
 

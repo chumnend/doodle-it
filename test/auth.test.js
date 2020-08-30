@@ -101,7 +101,7 @@ describe('Authentication Routes Test', function () {
         .request(app)
         .post(`/v1/auth/login?apiKey=${process.env.API_LOCK}`)
         .send({
-          email: user.email,
+          login: user.email,
           password: user.password,
         })
         .end((err, res) => {
@@ -118,7 +118,7 @@ describe('Authentication Routes Test', function () {
         .request(app)
         .post(`/v1/auth/login?apiKey=${process.env.API_LOCK}`)
         .send({
-          username: user.username,
+          login: user.username,
           password: user.password,
         })
         .end((err, res) => {

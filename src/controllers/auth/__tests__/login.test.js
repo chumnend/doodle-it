@@ -27,7 +27,7 @@ describe('login - Auth Unit Test', function () {
     sinon.stub(User, 'findOne').returns(stubModel);
     let req = {
       body: {
-        username: stubModel.username,
+        login: stubModel.username,
         password: stubModel.password,
       },
     };
@@ -58,7 +58,7 @@ describe('login - Auth Unit Test', function () {
     sinon.stub(User, 'findOne').throws();
     let req = {
       body: {
-        username: stubModel.username,
+        login: stubModel.username,
         password: 'bad password',
       },
     };
@@ -90,7 +90,7 @@ describe('login - Auth Unit Test', function () {
     sinon.stub(User, 'findOne').returns(stubModel);
     let req = {
       body: {
-        username: stubModel.username,
+        login: stubModel.username,
         password: 'bad password',
       },
     };

@@ -10,7 +10,7 @@ POST `/v1/auth/register?apiKey=<API_KEY>` (create new user)
 - returns: id, username and jwt
 
 POST `/v1/auth/login?apiKey=<API_KEY>` (acquire jwt for authentication)
-- required body parameters: email or username, password
+- required body parameters: login, password
 - required query parameters: apiKey
 - returns: id, username and jwt
 
