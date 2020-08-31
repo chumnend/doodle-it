@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Auth } from '../../services';
 import './Navbar.scss';
 
-function Navbar({ appProps }) {
+function Navbar({ appProps, history }) {
   const [menuShowing, setMenu] = React.useState(false);
 
   const toggleMenu = () => {
@@ -14,13 +14,15 @@ function Navbar({ appProps }) {
     Auth.logout();
     appProps.hasLoggedIn(false);
     appProps.setUser({});
+    history.push('/');
+    toggleMenu();
   }
 
   return (
     <nav className="Navbar">
       <div className="Navbar-inner container">
         <Link className="Navbar-logo" to="/">
-          Doodle It
+          DoodleIt
         </Link>
 
         <div className="Navbar-links">
@@ -32,7 +34,7 @@ function Navbar({ appProps }) {
           ) : (
             <div>
               <Link to="/editor">Create</Link>
-              <button className="btn" onClick={handleLogout}>Logout</button>
+              <button className="Navbar-logout" onClick={handleLogout}>Logout</button>
             </div>
           )}
         </div>
@@ -53,6 +55,7 @@ function Navbar({ appProps }) {
           ) : (
             <div>
               <Link to="/editor">Create</Link>
+              <button className="Navbar-logout" onClick={handleLogout}>Logout</button>
             </div>
           )}
         </div>
@@ -61,4 +64,4 @@ function Navbar({ appProps }) {
   );
 }
 
-export default Navbar;
+export default withRouter(Navbar);

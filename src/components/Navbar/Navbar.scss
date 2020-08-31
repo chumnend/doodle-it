@@ -54,7 +54,7 @@
   top: 64px;
   right: 0;
   transition: width 0.2s ease-out;
-  a {
+  a, .Navbar-logout {
     display: none;
   }
   @include md {
@@ -64,11 +64,19 @@
 
 .Navbar-menu.showing {
   width: 70%;
-  a {
+  a, .Navbar-logout {
     display: block;
     width: 100%;
     padding: 1rem 0;
     text-align: center;
     color: $white;
   }
+}
+
+.Navbar-logout {
+  border: none;
+  background: none;
+  color: $white;
+  font-size: 1rem;
+  cursor: pointer;
 }

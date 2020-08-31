@@ -3,9 +3,11 @@ import './Home.scss';
 
 function Home() {
   return (
-    <div className="Home container view">
-      <h1>Doodle It: Make something wonderful.</h1>
-      <p>With Doodle It, anyone can make fun designs and share them.</p>
+    <div className="Home view">
+      <div className="Home-banner">
+        <h1>Make something wonderful.</h1>
+        <p>With DoodleIt, anyone can make fun designs and share them.</p>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 @import './_theme.scss';
-@import './mixins';
+@import './_mixins';
 
+/* GENERAL */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -23,9 +24,9 @@ ul {
 
 a {
   text-decoration: none;
-  color: inherit;
 }
 
+/* UTILITIES */
 .container {
   width: 90%;
   margin: 0 auto;
@@ -33,32 +34,91 @@ a {
 
 .view {
   height: calc(100vh - 64px - 48px);
-  padding: 1rem 0;
-}
-
-.center {
-  text-align: center;
 }
 
 .link {
   color: $blue;
 }
 
-.btn {
-  text-decoration: none;
-  text-transform: uppercase;
-  text-align: center;
-  background: none;
-  border: 1px solid $white;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  font-family: $roboto;
-  font-size: 0.8rem;
-  font-weight: 700;
+/* GLOBAL CLASSES */
+.auth-form {
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: $ebony;
   color: $white;
-  display: inline-block;
+  border-radius: 10px;
+  @include md {
+    max-width: 480px;
+    padding: 2rem;
+  }
 }
 
-.btn:hover {
+.auth-form h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-form p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.auth-form-group {
+  margin: 0.5rem 0;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  color: $white;
+  label {
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+    font-family: $roboto;
+    color: inherit;
+  }
+  input {
+    height: 2rem;
+    padding: 0.7rem;
+    background: transparent;
+    font-size: 1rem;
+    font-family: $roboto;
+    color: inherit;
+    border: none;
+    border-bottom: 1px solid $white;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.auth-submit {
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
   background: $blue;
+  border: none;
+  font-family: $roboto;
+  color: $white;
+  cursor: pointer;
+  &:hover:not([disabled]) {
+    background: $white;
+    color: $black;
+    font-weight: 700;
+  }
+  &:disabled {
+    background: $grey;
+    color: $white;
+    cursor: not-allowed;
+  }
+}
+
+.auth-errors {
+  background: $red;
+  text-align: center;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
 }

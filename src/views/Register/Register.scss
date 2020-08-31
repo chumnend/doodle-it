@@ -1,2 +1,9 @@
 @import '../../styles/_theme.scss';
 @import '../../styles/_mixins.scss';
+
+.Register {
+  padding-top: 1rem;
+  @include md {
+    padding-top: 2rem;
+  }
+}

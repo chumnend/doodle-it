@@ -1,9 +1,7 @@
 @import '../../styles/_theme.scss';
 @import '../../styles/_mixins.scss';
 
-.Login {
-  padding-top: 1rem;
-  @include md {
-    padding-top: 2rem;
-  }
+.NotFound {
+  padding-top: 4rem;
+  text-align: center;
 }
