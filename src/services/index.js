@@ -1,2 +1,4 @@
-export * as AuthService from './Auth';
-export * as DoodleService from './Doodle';
+import * as Auth from './Auth';
+import * as Doodle from './Doodle';
+
+export { Auth, Doodle };

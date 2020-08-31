@@ -1,3 +1,5 @@
-export { default as login } from './login';
-export { default as logout } from './logout';
-export { default as register } from './register';
+import login from './login';
+import logout from './logout';
+import register from './register';
+
+export { login, logout, register };

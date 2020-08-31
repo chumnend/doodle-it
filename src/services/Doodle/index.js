@@ -1,5 +1,7 @@
-export { default as create } from './create';
-export { default as getOne } from './getOne';
-export { default as getAll } from './getAll';
-export { default as remove } from './remove';
-export { default as update } from './update';
+import create from './create';
+import getOne from './getOne';
+import getAll from './getAll';
+import remove from './remove';
+import update from './update';
+
+export { create, getOne, getAll, remove, update };

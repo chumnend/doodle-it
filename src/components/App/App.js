@@ -7,6 +7,8 @@ function App() {
   const [loggedIn, hasLoggedIn] = React.useState(false);
   const [user, setUser] = React.useState({});
 
+  const appProps = { loggedIn, hasLoggedIn, user, setUser  };
+
   React.useEffect(() => {
     const user = window.localStorage.getItem('dUser');
     if (user !== null) {
@@ -17,8 +19,8 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar appProps={{ loggedIn, hasLoggedIn, user, setUser }} />
-      <Router appProps={{ loggedIn, hasLoggedIn, user, setUser }} />
+      <Navbar appProps={appProps} />
+      <Router appProps={appProps} />
       <Footer />
     </div>
   );
