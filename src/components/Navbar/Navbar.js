@@ -33,7 +33,7 @@ function Navbar({ appProps, history }) {
             </div>
           ) : (
             <div>
-              <Link to="/editor">Create</Link>
+              <Link to="/editor">New Doodle</Link>
               <button className="Navbar-logout" onClick={handleLogout}>Logout</button>
             </div>
           )}

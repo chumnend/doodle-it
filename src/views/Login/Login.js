@@ -24,7 +24,6 @@ function Login(props) {
       const user = await Auth.login(login, password);
       props.setUser(user);
       props.hasLoggedIn(true);
-      window.localStorage.setItem('dUser', user);
       props.history.push('/');
     } catch(error) {
       setErrors([error.message]);

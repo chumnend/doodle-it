@@ -1,19 +1,23 @@
 import React from 'react';
+import { setTokenHeader } from '../../helpers';
 import Navbar from '../Navbar';
 import Router from '../Router';
 import Footer from '../Footer';
 
-function App(props) {
+function App() {
   const [loggedIn, hasLoggedIn] = React.useState(false);
   const [user, setUser] = React.useState({});
 
   const appProps = { loggedIn, hasLoggedIn, user, setUser };
 
   React.useEffect(() => {
-    const user = window.localStorage.getItem('dUser');
-    if (user !== null) {
+    const id = window.localStorage.getItem('id');
+    const username = window.localStorage.getItem('username');
+    const token = window.localStorage.getItem('token');
+    if (token !== null) {
       hasLoggedIn(true);
-      setUser(user);
+      setUser({ id, username, token });
+      setTokenHeader(token);
     }
   }, []);
 

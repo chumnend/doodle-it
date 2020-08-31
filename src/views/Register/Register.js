@@ -29,7 +29,6 @@ function Register(props) {
       const user = await Auth.register(email, username, password1);
       props.setUser(user);
       props.hasLoggedIn(true);
-      window.localStorage.setItem('dUser', user);
       props.history.push('/');
     } catch(error) {
       setErrors([error.message]);
