@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { callAPI, setTokenHeader } from '../../helpers';
+import * as m from '../axios';
 import faker from 'faker';
 import * as Auth from '../auth';
 
-jest.mock('../../helpers/callAPI');
+m.callAPI = jest.fn();
 
 describe('Auth Service Test', () => {
   describe('login', () => {
@@ -19,23 +18,21 @@ describe('Auth Service Test', () => {
           username: testUser,
         },
       };
-      callAPI.mockImplementationOnce(() => Promise.resolve(res));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.resolve(res));
+
       // start test
       await expect(Auth.login(testUser, testPassword)).resolves.toEqual({
         id: res.data.id,
         username: res.data.username,
       });
-      expect(axios.defaults.headers.common.Authorization).toEqual(
-        `Bearer ${res.data.token}`,
-      );
+      expect(m.getTokenHeader()).toEqual(`Bearer ${res.data.token}`);
       expect(window.localStorage.getItem('token')).toEqual(res.data.token);
     });
-  
+
     it('expects to unsuccessfully login a user', async () => {
       // setup test
-      callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
+
       // start test
       await expect(Auth.login(testUser, testPassword)).rejects.toThrow();
     });
@@ -45,7 +42,7 @@ describe('Auth Service Test', () => {
     let testEmail = faker.internet.email();
     let testUser = faker.internet.userName();
     let testPassword = faker.internet.password();
-  
+
     it('expects to successfully create a user', async () => {
       // setup test
       let res = {
@@ -55,25 +52,27 @@ describe('Auth Service Test', () => {
           username: testUser,
         },
       };
-      callAPI.mockImplementationOnce(() => Promise.resolve(res));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.resolve(res));
+
       // start test
-      await expect(Auth.register(testEmail, testUser, testPassword)).resolves.toEqual({
+      await expect(
+        Auth.register(testEmail, testUser, testPassword),
+      ).resolves.toEqual({
         id: res.data.id,
         username: res.data.username,
       });
-      expect(axios.defaults.headers.common.Authorization).toEqual(
-        `Bearer ${res.data.token}`,
-      );
+      expect(m.getTokenHeader()).toEqual(`Bearer ${res.data.token}`);
       expect(window.localStorage.getItem('token')).toEqual(res.data.token);
     });
-  
+
     it('expects to unsuccessfully create a user', async () => {
       // setup test
-      callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
+
       // start test
-      await expect(Auth.register(testEmail, testUser, testPassword)).rejects.toThrow();
+      await expect(
+        Auth.register(testEmail, testUser, testPassword),
+      ).rejects.toThrow();
     });
   });
 
@@ -82,12 +81,12 @@ describe('Auth Service Test', () => {
 
     it('expects to clear login data', async () => {
       // setup test
-      axios.defaults.headers.common['Authorization'] = `Bearer ${testToken}`;
+      m.setTokenHeader(testToken);
       window.localStorage.setItem('token', testToken);
 
       // start test
       Auth.logout();
-      expect(axios.defaults.headers.common.Authorization).toEqual(undefined);
+      expect(m.getTokenHeader()).toEqual(undefined);
       expect(window.localStorage.getItem('token')).toEqual(null);
     });
   });

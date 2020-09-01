@@ -1,4 +1,4 @@
-import { callAPI } from '../helpers';
+import { callAPI } from './axios';
 import config from '../config';
 
 export async function create(userId, payload) {
@@ -14,7 +14,7 @@ export async function create(userId, payload) {
 export async function getAll(userId) {
   try {
     let url = `${config.prefix}/v1/doodle?apiKey=${config.key}&userId=${userId}`;
-    let { data } = await callAPI('get', url)
+    let { data } = await callAPI('get', url);
     return data;
   } catch (error) {
     throw error;
@@ -47,6 +47,6 @@ export async function remove(userId, itemId) {
     let { data } = await callAPI('delete', url);
     return data;
   } catch (error) {
-    throw(error);
+    throw error;
   }
 }

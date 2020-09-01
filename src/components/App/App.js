@@ -1,5 +1,5 @@
 import React from 'react';
-import { setTokenHeader } from '../../helpers';
+import { setTokenHeader } from '../../services/axios';
 import Navbar from '../Navbar';
 import Router from '../Router';
 import Footer from '../Footer';

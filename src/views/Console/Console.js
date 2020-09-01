@@ -10,7 +10,7 @@ const sample = [
     title: 'test',
     created: '2020-07-25',
   },
-]
+];
 
 function Console(props) {
   const [doodles, setDoodles] = React.useState([]);
@@ -23,12 +23,12 @@ function Console(props) {
         setDoodles(response);
         setDoodles(sample);
         setLoading(false);
-      } catch(error) {
+      } catch (error) {
         console.log(error.message);
         setLoading(false);
       }
-    }
-  
+    };
+
     onLoad();
   }, [props.user.id]);
 
@@ -38,45 +38,43 @@ function Console(props) {
     try {
       await Doodle.remove(props.user.id, id);
       setDoodles(doodles.filter((doodle) => doodle._id !== id));
-    } catch(error) {
+    } catch (error) {
       alert(error);
     }
 
     setLoading(false);
-  }
+  };
 
   return (
     <div className="Console view">
-      {isLoading 
-        ? (
-          <div className="Console-loader" />
-        ) : (
-          <div className="Console-list">
-            <section className="Console-list-header">
-              <div>Title</div>
-              <div>Created</div>
-              <div>Options</div>
+      {isLoading ? (
+        <div className="Console-loader" />
+      ) : (
+        <div className="Console-list">
+          <section className="Console-list-header">
+            <div>Title</div>
+            <div>Created</div>
+            <div>Options</div>
+          </section>
+          {doodles.map((doodle) => (
+            <section key={doodle._id} className="Console-list-item">
+              <div>{doodle.title}</div>
+              <div>{moment(doodle.created).format('YYYY/MM/DD')}</div>
+              <div>
+                <Link to={`/editor?id=${doodle._id}`} title="Edit this doodle">
+                  <i className="material-icons">edit</i>
+                </Link>
+                <button
+                  onClick={() => handleDelete(doodle._id)}
+                  title="Delete this doodle"
+                >
+                  <i className="material-icons">delete</i>
+                </button>
+              </div>
             </section>
-            {doodles.map(doodle => (
-              <section key={doodle._id} className="Console-list-item">
-                <div>{doodle.title}</div>
-                <div>{moment(doodle.created).format('YYYY/MM/DD')}</div>
-                <div>
-                  <Link to={`/editor?id=${doodle._id}`} title="Edit this doodle">
-                    <i className="material-icons">edit</i>
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(doodle._id)}
-                    title="Delete this doodle"
-                  >
-                    <i className="material-icons">delete</i>
-                  </button>
-                </div>
-              </section>
-            ))}
-          </div>
-        )
-      }
+          ))}
+        </div>
+      )}
     </div>
   );
 }

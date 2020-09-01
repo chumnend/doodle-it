@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { callAPI, setTokenHeader } from '../../helpers';
+import * as m from '../axios';
 import faker from 'faker';
 import * as Doodle from '../doodle';
 
-jest.mock('../../helpers/callAPI');
+m.callAPI = jest.fn();
 
 describe('Doodle Service Test', () => {
   describe('create', () => {
@@ -14,7 +13,7 @@ describe('Doodle Service Test', () => {
       width: faker.random.number(),
       height: faker.random.number(),
     };
-  
+
     it('expects to create a new doodle', async () => {
       // setup test
       let res = {
@@ -25,16 +24,18 @@ describe('Doodle Service Test', () => {
           owner: mockUserId,
         },
       };
-      callAPI.mockImplementationOnce(() => Promise.resolve(res));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.resolve(res));
+
       // start test
-      await expect(Doodle.create(mockUserId, mockItem)).resolves.toEqual(res.data);
+      await expect(Doodle.create(mockUserId, mockItem)).resolves.toEqual(
+        res.data,
+      );
     });
-  
+
     it('expects axios to fail', async () => {
       // setup test
-      callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
+
       // start test
       await expect(Doodle.create(mockUserId, mockItem)).rejects.toThrow();
     });
@@ -55,16 +56,16 @@ describe('Doodle Service Test', () => {
           },
         ],
       };
-      callAPI.mockImplementationOnce(() => Promise.resolve(res));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.resolve(res));
+
       // start test
       await expect(Doodle.getAll(mockUserId)).resolves.toEqual(res.data);
     });
-  
+
     it('expects axios to fail', async () => {
       // setup test
-      callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
+
       // start test
       await expect(Doodle.getAll(mockUserId)).rejects.toThrow();
     });
@@ -73,7 +74,7 @@ describe('Doodle Service Test', () => {
   describe('getOne', () => {
     let mockUserId = faker.random.uuid();
     let mockItemId = faker.random.uuid();
-  
+
     it('expects to get an item', async () => {
       // setup test
       let res = {
@@ -84,16 +85,18 @@ describe('Doodle Service Test', () => {
           owner: mockUserId,
         },
       };
-      callAPI.mockImplementationOnce(() => Promise.resolve(res));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.resolve(res));
+
       // start test
-      await expect(Doodle.getOne(mockUserId, mockItemId)).resolves.toEqual(res.data);
+      await expect(Doodle.getOne(mockUserId, mockItemId)).resolves.toEqual(
+        res.data,
+      );
     });
-  
+
     it('expects axios to fail', async () => {
       // setup test
-      callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
+
       // start test
       await expect(Doodle.getOne(mockUserId, mockItemId)).rejects.toThrow();
     });
@@ -119,27 +122,29 @@ describe('Doodle Service Test', () => {
           owner: mockUserId,
         },
       };
-      callAPI.mockImplementationOnce(() => Promise.resolve(res));
+      m.callAPI.mockImplementationOnce(() => Promise.resolve(res));
 
       // start test
-      await expect(Doodle.update(mockUserId, mockItemId, mockItem)).resolves.toEqual(
-        res.data,
-      );
+      await expect(
+        Doodle.update(mockUserId, mockItemId, mockItem),
+      ).resolves.toEqual(res.data);
     });
 
     it('expects axios to fail', async () => {
       // setup test
-      callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
+      m.callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
 
       // start test
-      await expect(Doodle.update(mockUserId, mockItemId, mockItem)).rejects.toThrow();
+      await expect(
+        Doodle.update(mockUserId, mockItemId, mockItem),
+      ).rejects.toThrow();
     });
   });
 
   describe('remove', () => {
     let mockUserId = faker.random.uuid();
     let mockItemId = faker.random.uuid();
-  
+
     it('expects to delete an item', async () => {
       // setup test
       let res = {
@@ -150,16 +155,18 @@ describe('Doodle Service Test', () => {
           owner: mockUserId,
         },
       };
-      callAPI.mockImplementationOnce(() => Promise.resolve(res));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.resolve(res));
+
       // start test
-      await expect(Doodle.remove(mockUserId, mockItemId)).resolves.toEqual(res.data);
+      await expect(Doodle.remove(mockUserId, mockItemId)).resolves.toEqual(
+        res.data,
+      );
     });
-  
+
     it('expects axios to fail', async () => {
       // setup test
-      callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
-  
+      m.callAPI.mockImplementationOnce(() => Promise.reject(new Error()));
+
       // start test
       await expect(Doodle.remove(mockUserId, mockItemId)).rejects.toThrow();
     });

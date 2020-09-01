@@ -1,4 +1,4 @@
-import { callAPI, setTokenHeader } from '../helpers';
+import { callAPI, setTokenHeader } from './axios';
 import config from '../config';
 
 export async function login(login, password) {
@@ -16,10 +16,10 @@ export async function login(login, password) {
     window.localStorage.setItem('token', token);
 
     return user;
-  } catch(error) {
-    throw(error);
+  } catch (error) {
+    throw error;
   }
-} 
+}
 
 export async function register(email, username, password) {
   try {

@@ -19,7 +19,7 @@ function Register(props) {
       password2.length > 0 &&
       password1 === password2
     );
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,20 +30,22 @@ function Register(props) {
       props.setUser(user);
       props.hasLoggedIn(true);
       props.history.push('/');
-    } catch(error) {
+    } catch (error) {
       setErrors([error.message]);
       setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="Register container view">
       <form className="auth-form" onSubmit={handleSubmit}>
-        {errors.length > 0 &&
+        {errors.length > 0 && (
           <div className="auth-errors">
-            {errors.map((error, idx) => <p key={idx}>{error}</p>)}
+            {errors.map((error, idx) => (
+              <p key={idx}>{error}</p>
+            ))}
           </div>
-        }
+        )}
         <h2>Get started with DoodleIt</h2>
         <div className="auth-form-group">
           <label htmlFor="email">Email</label>
@@ -89,13 +91,15 @@ function Register(props) {
             onChange={(e) => setPassword2(e.target.value)}
           />
         </div>
-        <button
-          className="auth-submit"
-          disabled={isLoading || !validateForm()}
-        >
+        <button className="auth-submit" disabled={isLoading || !validateForm()}>
           Register
         </button>
-        <p>Already have an account? <Link className="link" to="/login">Log in now</Link></p>
+        <p>
+          Already have an account?{' '}
+          <Link className="link" to="/login">
+            Log in now
+          </Link>
+        </p>
       </form>
     </div>
   );

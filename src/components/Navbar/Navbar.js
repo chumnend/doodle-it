@@ -9,7 +9,7 @@ function Navbar({ appProps, history }) {
 
   const toggleMenu = () => {
     setMenu(!menuShowing);
-  }
+  };
 
   const handleLogout = () => {
     Auth.logout();
@@ -17,7 +17,7 @@ function Navbar({ appProps, history }) {
     appProps.setUser({});
     history.push('/');
     setMenu(false);
-  }
+  };
 
   return (
     <nav className="Navbar">
@@ -34,9 +34,15 @@ function Navbar({ appProps, history }) {
             </div>
           ) : (
             <div>
-              {location.pathname === '/editor' && <Link to="/">Back to Console</Link>}
-              {location.pathname === '/' && <Link to="/editor">New Doodle</Link>}
-              <button className="Navbar-logout" onClick={handleLogout}>Logout</button>
+              {location.pathname === '/editor' && (
+                <Link to="/">Back to Console</Link>
+              )}
+              {location.pathname === '/' && (
+                <Link to="/editor">New Doodle</Link>
+              )}
+              <button className="Navbar-logout" onClick={handleLogout}>
+                Logout
+              </button>
             </div>
           )}
         </div>
@@ -51,14 +57,28 @@ function Navbar({ appProps, history }) {
         <div className={menuShowing ? 'Navbar-menu showing' : 'Navbar-menu'}>
           {!appProps.loggedIn ? (
             <div>
-              <Link to="/login" onClick={toggleMenu}>Login</Link>
-              <Link to="/register" onClick={toggleMenu}>Register</Link>
+              <Link to="/login" onClick={toggleMenu}>
+                Login
+              </Link>
+              <Link to="/register" onClick={toggleMenu}>
+                Register
+              </Link>
             </div>
           ) : (
             <div>
-              {location.pathname === '/editor' && <Link to="/" onClick={toggleMenu} >Back to Console</Link>}
-              {location.pathname === '/' && <Link to="/editor" onClick={toggleMenu} >New Doodle</Link>}
-              <button className="Navbar-logout" onClick={handleLogout}>Logout</button>
+              {location.pathname === '/editor' && (
+                <Link to="/" onClick={toggleMenu}>
+                  Back to Console
+                </Link>
+              )}
+              {location.pathname === '/' && (
+                <Link to="/editor" onClick={toggleMenu}>
+                  New Doodle
+                </Link>
+              )}
+              <button className="Navbar-logout" onClick={handleLogout}>
+                Logout
+              </button>
             </div>
           )}
         </div>

@@ -6,7 +6,9 @@ function NotFound() {
   return (
     <div className="NotFound container view">
       <h1>Sorry, page was not found.</h1>
-      <Link className="link" to="/">Return to Home</Link>
+      <Link className="link" to="/">
+        Return to Home
+      </Link>
     </div>
   );
 }

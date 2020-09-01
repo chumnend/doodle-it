@@ -10,10 +10,7 @@ function Login(props) {
   const [errors, setErrors] = React.useState([]);
 
   const validateForm = () => {
-    return (
-      login.length > 0 &&
-      password.length > 0
-    );
+    return login.length > 0 && password.length > 0;
   };
 
   const handleSubmit = async (event) => {
@@ -25,7 +22,7 @@ function Login(props) {
       props.setUser(user);
       props.hasLoggedIn(true);
       props.history.push('/');
-    } catch(error) {
+    } catch (error) {
       setErrors([error.message]);
       setLoading(false);
     }
@@ -34,11 +31,13 @@ function Login(props) {
   return (
     <div className="Login container view">
       <form className="auth-form" onSubmit={handleSubmit}>
-        {errors.length > 0 &&
+        {errors.length > 0 && (
           <div className="auth-errors">
-            {errors.map((error, idx) => <p key={idx}>{error}</p>)}
+            {errors.map((error, idx) => (
+              <p key={idx}>{error}</p>
+            ))}
           </div>
-        }
+        )}
         <h2>Log in to your account</h2>
         <div className="auth-form-group">
           <label htmlFor="login">Username or Email</label>
@@ -62,13 +61,15 @@ function Login(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button
-          className="auth-submit"
-          disabled={isLoading || !validateForm()}
-        >
+        <button className="auth-submit" disabled={isLoading || !validateForm()}>
           Login
         </button>
-        <p>Need an account? <Link className="link" to="/register">Sign up now</Link></p>
+        <p>
+          Need an account?{' '}
+          <Link className="link" to="/register">
+            Sign up now
+          </Link>
+        </p>
       </form>
     </div>
   );
