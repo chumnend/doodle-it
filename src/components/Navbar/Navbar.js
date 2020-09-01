@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useLocation } from 'react-router-dom';
 import { Auth } from '../../services';
 import './Navbar.scss';
 
 function Navbar({ appProps, history }) {
   const [menuShowing, setMenu] = React.useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenu(!menuShowing);
@@ -15,7 +16,7 @@ function Navbar({ appProps, history }) {
     appProps.hasLoggedIn(false);
     appProps.setUser({});
     history.push('/');
-    toggleMenu();
+    setMenu(false);
   }
 
   return (
@@ -33,7 +34,8 @@ function Navbar({ appProps, history }) {
             </div>
           ) : (
             <div>
-              <Link to="/editor">New Doodle</Link>
+              {location.pathname === '/editor' && <Link to="/">Back to Console</Link>}
+              {location.pathname === '/' && <Link to="/editor">New Doodle</Link>}
               <button className="Navbar-logout" onClick={handleLogout}>Logout</button>
             </div>
           )}
@@ -54,7 +56,8 @@ function Navbar({ appProps, history }) {
             </div>
           ) : (
             <div>
-              <Link to="/editor">Create</Link>
+              {location.pathname === '/editor' && <Link to="/" onClick={toggleMenu} >Back to Console</Link>}
+              {location.pathname === '/' && <Link to="/editor" onClick={toggleMenu} >New Doodle</Link>}
               <button className="Navbar-logout" onClick={handleLogout}>Logout</button>
             </div>
           )}

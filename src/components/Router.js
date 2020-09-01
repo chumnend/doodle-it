@@ -39,7 +39,7 @@ function Router({ appProps }) {
           appProps.loggedIn ? (
             <Editor {...props} {...appProps} />
           ) : (
-            <Redirect to="/auth" />
+            <Redirect to="/login" />
           )
         }
       />

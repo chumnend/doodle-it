@@ -3,38 +3,68 @@
 
 .Console {
   display: flex;
-  flex-direction: column;
-  @include md {
-    flex-direction: row;
-  }
 }
 
-.Console-aside {
-  width: 100%;
-  height: 200px;
-  background: $ebony;
-  color: $white;
-  text-align: center;
-  @include md {
-    width: 30%;
-    height: 100%;
+.Console-loader {
+  margin: 60px auto;
+  width: 50px;
+  height: 50px;
+  border: 8px solid $darkgrey;
+  border-top: 8px solid $ebony;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
 .Console-list {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .Console-list-header {
   width: 100%;
   height: 45px;
   padding: 0 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: $ebony;
   color: $white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
 }
 
-.Console-list-item {}
-
+.Console-list-item {
+  width: 100%;
+  height: 45px;
+  padding: 0 12px;
+  background: $white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  a {
+    color: $black;
+    padding: 0.5rem;
+    &:hover {
+      color: $darkgrey;
+    }
+  }
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      color: $darkgrey;
+    }
+  }
+}

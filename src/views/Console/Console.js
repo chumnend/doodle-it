@@ -1,6 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { Doodle } from '../../services';
 import './Console.scss';
+
+const sample = [
+  {
+    _id: 123,
+    title: 'test',
+    created: '2020-07-25',
+  },
+]
 
 function Console(props) {
   const [doodles, setDoodles] = React.useState([]);
@@ -11,6 +21,7 @@ function Console(props) {
       try {
         const response = await Doodle.getAll(props.user.id);
         setDoodles(response);
+        setDoodles(sample);
         setLoading(false);
       } catch(error) {
         console.log(error.message);
@@ -21,15 +32,26 @@ function Console(props) {
     onLoad();
   }, [props.user.id]);
 
+  const handleDelete = async (id) => {
+    setLoading(true);
+
+    try {
+      await Doodle.remove(props.user.id, id);
+      setDoodles(doodles.filter((doodle) => doodle._id !== id));
+    } catch(error) {
+      alert(error);
+    }
+
+    setLoading(false);
+  }
+
   return (
     <div className="Console view">
-      <aside className="Console-aside">
-        <h2>Welcome {props.user.username}</h2>
-      </aside>
       {isLoading 
-        ? <p>Loading...</p>
-        : (
-          <main className="Console-list">
+        ? (
+          <div className="Console-loader" />
+        ) : (
+          <div className="Console-list">
             <section className="Console-list-header">
               <div>Title</div>
               <div>Created</div>
@@ -37,10 +59,22 @@ function Console(props) {
             </section>
             {doodles.map(doodle => (
               <section key={doodle._id} className="Console-list-item">
-    
+                <div>{doodle.title}</div>
+                <div>{moment(doodle.created).format('YYYY/MM/DD')}</div>
+                <div>
+                  <Link to={`/editor?id=${doodle._id}`} title="Edit this doodle">
+                    <i className="material-icons">edit</i>
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(doodle._id)}
+                    title="Delete this doodle"
+                  >
+                    <i className="material-icons">delete</i>
+                  </button>
+                </div>
               </section>
             ))}
-          </main>
+          </div>
         )
       }
     </div>
