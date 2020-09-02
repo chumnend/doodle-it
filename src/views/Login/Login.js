@@ -29,7 +29,7 @@ function Login(props) {
   };
 
   return (
-    <div className="Login container view">
+    <main className="Login container view">
       <form className="auth-form" onSubmit={handleSubmit}>
         {errors.length > 0 && (
           <div className="auth-errors">
@@ -71,7 +71,7 @@ function Login(props) {
           </Link>
         </p>
       </form>
-    </div>
+    </main>
   );
 }
 

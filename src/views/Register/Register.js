@@ -37,7 +37,7 @@ function Register(props) {
   };
 
   return (
-    <div className="Register container view">
+    <main className="Register container view">
       <form className="auth-form" onSubmit={handleSubmit}>
         {errors.length > 0 && (
           <div className="auth-errors">
@@ -101,7 +101,7 @@ function Register(props) {
           </Link>
         </p>
       </form>
-    </div>
+    </main>
   );
 }
 

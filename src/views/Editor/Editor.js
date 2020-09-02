@@ -1,11 +1,8 @@
 import React from 'react';
+import './Editor.scss';
 
-function Editor() {
-  return (
-    <div className="Editor view">
-      <h1>Editor</h1>
-    </div>
-  );
+function Editor(props) {
+  return <main className="Editor view"></main>;
 }
 
 export default Editor;

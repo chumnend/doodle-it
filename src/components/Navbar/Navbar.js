@@ -22,7 +22,7 @@ function Navbar({ appProps, history }) {
   return (
     <nav className="Navbar">
       <div className="Navbar-inner container">
-        <Link className="Navbar-logo" to="/">
+        <Link className="Navbar-logo" onClick={() => setMenu(false)} to="/">
           DoodleIt
         </Link>
 
