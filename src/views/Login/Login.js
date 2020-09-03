@@ -29,7 +29,7 @@ function Login(props) {
   };
 
   return (
-    <main className="Login container view">
+    <main className="Login container">
       <form className="auth-form" onSubmit={handleSubmit}>
         {errors.length > 0 && (
           <div className="auth-errors">

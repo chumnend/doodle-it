@@ -46,7 +46,7 @@ function Console(props) {
   };
 
   return (
-    <main className="Console view">
+    <main className="Console">
       {isLoading ? (
         <div className="Console-loader" />
       ) : (

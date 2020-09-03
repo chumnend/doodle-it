@@ -1,8 +1,8 @@
 import React from 'react';
-import { setTokenHeader } from '../../services/axios';
-import Navbar from '../Navbar';
-import Router from '../Router';
-import Footer from '../Footer';
+import { setTokenHeader } from './services/axios';
+import Navbar from './components/Navbar';
+import Router from './components/Router';
+import Footer from './components/Footer';
 
 function App() {
   const [loggedIn, hasLoggedIn] = React.useState(false);

@@ -4,11 +4,11 @@ import { Auth } from '../../services';
 import './Navbar.scss';
 
 function Navbar({ appProps, history }) {
-  const [menuShowing, setMenu] = React.useState(false);
+  const [showMenu, setMenu] = React.useState(false);
   const location = useLocation();
 
   const toggleMenu = () => {
-    setMenu(!menuShowing);
+    setMenu(!showMenu);
   };
 
   const handleLogout = () => {
@@ -49,12 +49,12 @@ function Navbar({ appProps, history }) {
 
         <button
           className="Navbar-menu-icon"
-          onClick={() => setMenu(!menuShowing)}
+          onClick={() => setMenu(!showMenu)}
         >
           <i className="material-icons">menu</i>
         </button>
 
-        <div className={menuShowing ? 'Navbar-menu showing' : 'Navbar-menu'}>
+        <div className={showMenu ? 'Navbar-menu showing' : 'Navbar-menu'}>
           {!appProps.loggedIn ? (
             <div>
               <Link to="/login" onClick={toggleMenu}>

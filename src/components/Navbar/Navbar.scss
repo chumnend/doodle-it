@@ -46,9 +46,9 @@
 }
 
 .Navbar-menu {
-  background: $ebony;
   width: 0%;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 64px - 48px);
+  background: $ebony;
   position: absolute;
   z-index: 1;
   top: 64px;
@@ -64,7 +64,7 @@
 }
 
 .Navbar-menu.showing {
-  width: 70%;
+  width: 100%;
   a,
   .Navbar-logout {
     display: block;
