@@ -4,14 +4,6 @@ import moment from 'moment';
 import { Doodle } from '../../services';
 import './Console.scss';
 
-const sample = [
-  {
-    _id: 123,
-    title: 'test',
-    created: '2020-07-25',
-  },
-];
-
 function Console(props) {
   const [doodles, setDoodles] = React.useState([]);
   const [isLoading, setLoading] = React.useState(true);
@@ -21,7 +13,6 @@ function Console(props) {
       try {
         const response = await Doodle.getAll(props.user.id);
         setDoodles(response);
-        setDoodles(sample);
         setLoading(false);
       } catch (error) {
         console.log(error.message);
