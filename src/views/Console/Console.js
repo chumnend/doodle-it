@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { Doodle } from '../../services';
+import Loader from '../../components/Loader';
 import './Console.scss';
 
 function Console(props) {
@@ -39,7 +40,7 @@ function Console(props) {
   return (
     <main className="Console">
       {isLoading ? (
-        <div className="Console-loader" />
+        <Loader />
       ) : (
         <div className="Console-list">
           <section className="Console-list-header">

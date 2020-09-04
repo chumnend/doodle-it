@@ -2,6 +2,7 @@ import React from 'react';
 import { fabric } from 'fabric';
 import queryString from 'query-string';
 import { BlockPicker as ColorPicker } from 'react-color';
+import { Loader, Modal } from '../../components';
 import { Doodle } from '../../services';
 import './Editor.scss';
 
@@ -24,6 +25,15 @@ const DEFAULT_BACK_COLOR = '#f2f2f2';
 // globally accessible fabricCanvas instance
 const fabricCanvas = new fabric.Canvas();
 
+// enumeration for Modal
+const ModalTypes = {
+  NONE: 0,
+  SHAPES: 1,
+  CLEAR: 2,
+  SAVE: 3,
+  SETTINGS: 4,
+};
+
 function Editor(props) {
   const [fabricData, setFabricData] = React.useState(null);
   const [activeObject, setActiveObject] = React.useState(null);
@@ -36,6 +46,9 @@ function Editor(props) {
   const [penWidth, setPenWidth] = React.useState(DEFAULT_PEN_THICKNESS);
   const [showPenSlider, setShowPenSlider] = React.useState(false);
   const [isLoading, setLoading] = React.useState(true);
+  const [modalType, setModal] = React.useState(ModalTypes.NONE);
+  const [resizeWidth, setResizeWidth] = React.useState(DEFAULT_WIDTH);
+  const [resizeHeight, setResizeHeight] = React.useState(DEFAULT_HEIGHT);
   const cRef = React.useRef();
 
   React.useEffect(() => {
@@ -115,11 +128,122 @@ function Editor(props) {
     }
   };
 
+  const openModal = (value) => {
+    setModal(value);
+  };
+
+  const closeModal = () => {
+    setModal(ModalTypes.NONE);
+  };
+
+  const addLine = () => {
+    // add a line element to the canvas
+    let coords = [0, 0, 100, 100];
+    let line = new fabric.Line(coords, {
+      fill: color,
+      stroke: color,
+      strokeWidth: 2,
+    });
+
+    fabricCanvas.add(line);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addCircle = () => {
+    // add a circle element to the canvas
+    let circle = new fabric.Circle({
+      radius: 20,
+      fill: color,
+    });
+
+    fabricCanvas.add(circle);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addRect = () => {
+    // add a rectangle element to the canvas
+    let rect = new fabric.Rect({
+      width: 50,
+      height: 50,
+      fill: color,
+    });
+
+    fabricCanvas.add(rect);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addTriangle = () => {
+    // add a triangle to the canvas
+    let triangle = new fabric.Triangle({
+      width: 50,
+      height: 50,
+      fill: color,
+    });
+
+    fabricCanvas.add(triangle);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addText = () => {
+    // add text box to the page
+    let text = new fabric.Text('Hello', {
+      fill: color,
+    });
+
+    fabricCanvas.add(text);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
   const clearCanvas = () => {
     // clears contents of the canvas
     fabricCanvas.clear();
     fabricCanvas.setBackgroundColor(DEFAULT_BACK_COLOR);
     fabricCanvas.fire('save');
+
+    // close modal window
+    closeModal();
+  };
+
+  const saveCanvas = async () => {
+    closeModal();
+    setLoading(true);
+
+    let params = queryString.parse(props.location.search);
+    let payload = {
+      title,
+      content: JSON.stringify(fabricData),
+      width,
+      height,
+    };
+
+    try {
+      if (params.id !== undefined) {
+        // update doodle
+        await Doodle.update(props.user.id, params.id, payload);
+      } else {
+        // save new doodle
+        await Doodle.create(props.user.id, payload);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
+  };
+
+  const resizeCanvas = () => {
+    // set new size for the canvas
+    fabricCanvas.setWidth(resizeWidth);
+    fabricCanvas.setHeight(resizeHeight);
+    setWidth(resizeWidth);
+    setHeight(resizeHeight);
+    fabricCanvas.fire('save');
+    closeModal();
   };
 
   /* =========== CONTEXT BAR =========== */
@@ -135,24 +259,24 @@ function Editor(props) {
         fabricCanvas.getActiveObject().set('fill', color.hex);
       }
     }
-    
+
     // save color change
     setColor(color.hex);
     fabricCanvas.fire('save');
-  }
+  };
 
   const handlePenWidthChange = (event) => {
     const newPenWidth = parseInt(event.target.value); // convert string to number
     fabricCanvas.freeDrawingBrush.width = newPenWidth;
     setPenWidth(newPenWidth);
     fabricCanvas.fire('save');
-  }
+  };
 
   const removeObject = () => {
     // remove current active object from the canvas
     fabricCanvas.remove(fabricCanvas.getActiveObject());
     fabricCanvas.fire('save');
-  }
+  };
 
   return (
     <main className="Editor">
@@ -165,25 +289,37 @@ function Editor(props) {
           <span className="material-icons">edit</span>
           Draw
         </button>
-        <button title="Add a shape to the canvas">
+        <button
+          onClick={() => openModal(ModalTypes.SHAPES)}
+          title="Add a shape to the canvas"
+        >
           <span className="material-icons">extension</span>
           Shapes
         </button>
         <div style={{ flexGrow: 1 }} />
-        <button onClick={clearCanvas} title="Clear the canvas">
+        <button
+          onClick={() => openModal(ModalTypes.CLEAR)}
+          title="Clear the canvas"
+        >
           <span className="material-icons">delete_forever</span>
           Clear
         </button>
-        <button title="Save this doodle">
+        <button
+          onClick={() => openModal(ModalTypes.SAVE)}
+          title="Save this doodle"
+        >
           <span className="material-icons">save</span>
           Save
         </button>
-        <button title="Modify canvas settings">
+        <button
+          onClick={() => openModal(ModalTypes.SETTINGS)}
+          title="Modify canvas settings"
+        >
           <span className="material-icons">settings</span>
           Settings
         </button>
       </section>
-      {isLoading && <div className="Editor-loader" />}
+      {isLoading && <Loader />}
       <div className="Editor-workspace">
         <section className="Editor-context">
           {activeObject && (
@@ -244,7 +380,7 @@ function Editor(props) {
               </div>
               <div className="Editor-context-item">
                 <button onClick={() => setShowPenSlider(!showPenSlider)}>
-                  <i class="material-icons">line_weight</i>
+                  <i className="material-icons">line_weight</i>
                 </button>
                 {showPenSlider && (
                   <div
@@ -280,6 +416,107 @@ function Editor(props) {
           </div>
         </section>
       </div>
+
+      <Modal show={modalType} close={closeModal}>
+        {modalType === ModalTypes.SHAPES && (
+          <div className="Editor-ShapeModal">
+            <button
+              onClick={addLine}
+              title="Add a line element"
+            >
+              <span className="line" />
+            </button>
+            <button
+              onClick={addCircle}
+              title="Add a circle element"
+            >
+              <span className="circle" />
+            </button>
+            <button
+              onClick={addRect}
+              title="Add a rectangle element"
+            >
+              <span className="rectangle" />
+            </button>
+            <button
+              onClick={addTriangle}
+              title="Add a triangle element"
+            >
+              <span className="triangle" />
+            </button>
+            <button
+              onClick={addText}
+              title="Add a text element"
+            >
+              <span className="material-icons">title</span>
+            </button>
+          </div>
+        )}
+        {modalType === ModalTypes.CLEAR && (
+          <div className="Editor-ClearModal">
+            <h2>
+              WARNING: This will clear all items on the canvas. Are you sure?
+            </h2>
+            <button onClick={clearCanvas}>Clear All</button>
+            <button onClick={closeModal}>Cancel</button>
+          </div>
+        )}
+        {modalType === ModalTypes.SAVE && (
+          <div className="Editor-SaveModal">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={title}
+              placeholder="Enter title"
+              onChange={(event) => setTitle(event.target.value)}
+            />
+            <button onClick={saveCanvas}>Save</button>
+            <button onClick={closeModal}>Cancel</button>
+          </div>
+        )}
+        {modalType === ModalTypes.SETTINGS && (
+          <div className="Editor-SettingsModal">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={title}
+              placeholder="Enter title"
+              onChange={(event) => setTitle(event.target.value)}
+            />
+
+            <label htmlFor="resizeWidth">New Width</label>
+            <input
+              type="number"
+              id="resizeWidth"
+              name="resizeWidth"
+              placeholder="Enter new width..."
+              value={resizeWidth}
+              onChange={(event) => setResizeWidth(event.target.value)}
+            />
+            <label htmlFor="resizeHeight">New Height</label>
+            <input
+              type="number"
+              id="resizeHeight"
+              name="resizeHeight"
+              placeholder="Enter new height..."
+              value={resizeHeight}
+              onChange={(event) => setResizeHeight(event.target.value)}
+            />
+            <button
+              disabled={resizeWidth <= 0 || resizeHeight <= 0}
+              onClick={resizeCanvas}
+            >
+              Resize
+            </button>
+
+            <button onClick={closeModal}>Close</button>
+          </div>
+        )}
+      </Modal>
     </main>
   );
 }
