@@ -47,10 +47,7 @@ function Navbar({ appProps, history }) {
           )}
         </div>
 
-        <button
-          className="Navbar-menu-icon"
-          onClick={() => setMenu(!showMenu)}
-        >
+        <button className="Navbar-menu-icon" onClick={() => setMenu(!showMenu)}>
           <i className="material-icons">menu</i>
         </button>
 
