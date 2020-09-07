@@ -420,34 +420,19 @@ function Editor(props) {
       <Modal show={modalType} close={closeModal}>
         {modalType === ModalTypes.SHAPES && (
           <div className="Editor-ShapeModal">
-            <button
-              onClick={addLine}
-              title="Add a line element"
-            >
+            <button onClick={addLine} title="Add a line element">
               <span className="line" />
             </button>
-            <button
-              onClick={addCircle}
-              title="Add a circle element"
-            >
+            <button onClick={addCircle} title="Add a circle element">
               <span className="circle" />
             </button>
-            <button
-              onClick={addRect}
-              title="Add a rectangle element"
-            >
+            <button onClick={addRect} title="Add a rectangle element">
               <span className="rectangle" />
             </button>
-            <button
-              onClick={addTriangle}
-              title="Add a triangle element"
-            >
+            <button onClick={addTriangle} title="Add a triangle element">
               <span className="triangle" />
             </button>
-            <button
-              onClick={addText}
-              title="Add a text element"
-            >
+            <button onClick={addText} title="Add a text element">
               <span className="material-icons">title</span>
             </button>
           </div>
