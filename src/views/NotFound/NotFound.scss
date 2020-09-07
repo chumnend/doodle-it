@@ -1,0 +1,9 @@
+@import '../../styles/_theme.scss';
+@import '../../styles/_mixins.scss';
+
+.NotFound {
+  width: 100%;
+  height: calc(100vh - 64px - 48px);
+  padding-top: 4rem;
+  text-align: center;
+}

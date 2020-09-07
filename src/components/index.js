@@ -1,7 +1,6 @@
-import Button from './Button';
-import FormInput from './FormInput';
-import LoaderButton from './LoaderButton';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import Loader from './Loader';
 import Modal from './Modal';
-import StaticCanvas from './StaticCanvas';
 
-export { Button, FormInput, LoaderButton, Modal, StaticCanvas };
+export { Navbar, Footer, Loader, Modal };
