@@ -135,10 +135,14 @@
 }
 
 .Editor-ShapeModal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1rem;
+
   button {
     width: 50px;
-    height: 45px;
-    font-size: 11px;
+    height: 50px;
+    font-size: 12px;
     font-family: $roboto;
     color: $ebony;
     background: $white;
@@ -149,15 +153,15 @@
     justify-content: center;
     align-items: center;
     &:hover {
-      color: $blue;
-      background: $white;
+      color: $white;
+      background: $ebony;
       .line,
       .circle,
       .rectangle {
-        background: $blue;
+        background: $white;
       }
       .triangle {
-        border-bottom-color: $blue;
+        border-bottom-color: $white;
       }
     }
   }
@@ -190,12 +194,124 @@
     border-bottom: 20px solid $ebony;
   }
 }
-
 .Editor-ClearModal {
+  padding: 1rem;
+  text-align: center;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    text-transform: capitalize;
+    text-align: center;
+    background: none;
+    border: 1px solid black;
+    cursor: pointer;
+    font-family: $roboto;
+    font-size: 1rem;
+    color: $black;
+    &:hover {
+      background: $white;
+      color: $black;
+    }
+  }
 }
 
 .Editor-SaveModal {
+  padding: 1rem;
+  text-align: center;
+
+  .form-group {
+    margin: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    color: $black;
+    label {
+      text-transform: capitalize;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    input {
+      width: 100%;
+      height: 2rem;
+      padding: 0.4rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid $black;
+      color: inherit;
+      font-size: 1rem;
+    }
+  }
+
+  button {
+    display: inline-block;
+    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    text-transform: capitalize;
+    text-align: center;
+    background: none;
+    border: 1px solid black;
+    cursor: pointer;
+    font-family: $roboto;
+    font-size: 1rem;
+    color: $black;
+    &:hover {
+      background: $white;
+      color: $black;
+    }
+  }
 }
 
 .Editor-SettingsModal {
+  padding: 1rem;
+  text-align: center;
+
+  .form-group {
+    margin: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    color: $black;
+    label {
+      text-transform: capitalize;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    input {
+      width: 100%;
+      height: 2rem;
+      padding: 0.4rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid $black;
+      color: inherit;
+      font-size: 1rem;
+    }
+  }
+
+  button {
+    display: inline-block;
+    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    text-transform: capitalize;
+    text-align: center;
+    background: none;
+    border: 1px solid black;
+    cursor: pointer;
+    font-family: $roboto;
+    font-size: 1rem;
+    color: $black;
+    &:hover {
+      background: $white;
+      color: $black;
+    }
+  }
 }

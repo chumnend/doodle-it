@@ -457,55 +457,64 @@ function Editor(props) {
             <h2>
               WARNING: This will clear all items on the canvas. Are you sure?
             </h2>
-            <button onClick={clearCanvas}>Clear All</button>
-            <button onClick={closeModal}>Cancel</button>
+            <div>
+              <button onClick={clearCanvas}>Clear All</button>
+              <button onClick={closeModal}>Cancel</button>
+            </div>
           </div>
         )}
         {modalType === ModalTypes.SAVE && (
           <div className="Editor-SaveModal">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              placeholder="Enter title"
-              onChange={(event) => setTitle(event.target.value)}
-            />
+            <div className="form-group">
+              <label htmlFor="title">Doodle Name</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={title}
+                placeholder="Enter title"
+                onChange={(event) => setTitle(event.target.value)}
+              />
+            </div>
             <button onClick={saveCanvas}>Save</button>
             <button onClick={closeModal}>Cancel</button>
           </div>
         )}
         {modalType === ModalTypes.SETTINGS && (
           <div className="Editor-SettingsModal">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              placeholder="Enter title"
-              onChange={(event) => setTitle(event.target.value)}
-            />
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                id="title"
+                name="title"
+                value={title}
+                placeholder="Enter title"
+                onChange={(event) => setTitle(event.target.value)}
+              />
+            </div>
 
-            <label htmlFor="resizeWidth">New Width</label>
-            <input
-              type="number"
-              id="resizeWidth"
-              name="resizeWidth"
-              placeholder="Enter new width..."
-              value={resizeWidth}
-              onChange={(event) => setResizeWidth(event.target.value)}
-            />
-            <label htmlFor="resizeHeight">New Height</label>
-            <input
-              type="number"
-              id="resizeHeight"
-              name="resizeHeight"
-              placeholder="Enter new height..."
-              value={resizeHeight}
-              onChange={(event) => setResizeHeight(event.target.value)}
-            />
+            <div className="form-group">
+              <label htmlFor="resizeWidth">New Width</label>
+              <input
+                type="number"
+                id="resizeWidth"
+                name="resizeWidth"
+                placeholder="Enter new width..."
+                value={resizeWidth}
+                onChange={(event) => setResizeWidth(event.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="resizeHeight">New Height</label>
+              <input
+                type="number"
+                id="resizeHeight"
+                name="resizeHeight"
+                placeholder="Enter new height..."
+                value={resizeHeight}
+                onChange={(event) => setResizeHeight(event.target.value)}
+              />
+            </div>
             <button
               disabled={resizeWidth <= 0 || resizeHeight <= 0}
               onClick={resizeCanvas}
