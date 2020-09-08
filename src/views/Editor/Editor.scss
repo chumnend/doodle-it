@@ -29,16 +29,21 @@
   color: $white;
   font-size: 10px;
   font-family: $roboto;
+  text-align: center;
   background: none;
   border: none;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   &:hover {
     background: $white;
     color: $ebony;
+  }
+  span,
+  p {
+    width: 100%;
   }
 }
 

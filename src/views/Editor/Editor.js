@@ -287,14 +287,14 @@ function Editor(props) {
           title="Activate the pen"
         >
           <span className="material-icons">edit</span>
-          Draw
+          <p>Draw</p>
         </button>
         <button
           onClick={() => openModal(ModalTypes.SHAPES)}
           title="Add a shape to the canvas"
         >
           <span className="material-icons">extension</span>
-          Shapes
+          <p>Shapes</p>
         </button>
         <div style={{ flexGrow: 1 }} />
         <button
@@ -302,21 +302,21 @@ function Editor(props) {
           title="Clear the canvas"
         >
           <span className="material-icons">delete_forever</span>
-          Clear
+          <p>Clear</p>
         </button>
         <button
           onClick={() => openModal(ModalTypes.SAVE)}
           title="Save this doodle"
         >
           <span className="material-icons">save</span>
-          Save
+          <p>Save</p>
         </button>
         <button
           onClick={() => openModal(ModalTypes.SETTINGS)}
           title="Modify canvas settings"
         >
           <span className="material-icons">settings</span>
-          Settings
+          <p>Settings</p>
         </button>
       </section>
       {isLoading && <Loader />}
