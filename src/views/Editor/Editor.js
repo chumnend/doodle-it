@@ -1,7 +1,7 @@
 import React from 'react';
 import { fabric } from 'fabric';
 import queryString from 'query-string';
-import { BlockPicker as ColorPicker } from 'react-color';
+import { SketchPicker as ColorPicker } from 'react-color';
 import { Loader, Modal } from '../../components';
 import { Doodle } from '../../services';
 import './Editor.scss';
@@ -106,6 +106,10 @@ function Editor(props) {
     };
 
     onLoad();
+
+    return () => {
+      cRef.current = false;
+    }
   }, [props.user.id, props.location.search]);
 
   /* =========== OPTIONS BAR =========== */
@@ -265,6 +269,30 @@ function Editor(props) {
     fabricCanvas.fire('save');
   };
 
+  const handleBringForward = () => {
+    fabricCanvas.bringForward(activeObject);
+    fabricCanvas.fire('save');
+  }
+
+  const handleSendToFront = () => {
+    fabricCanvas.bringToFront(activeObject);
+    fabricCanvas.discardActiveObject();
+    setActiveObject(null);
+    fabricCanvas.fire('save');
+  }
+
+  const handleSendBackwards = () => {
+    fabricCanvas.sendBackwards(activeObject);
+    fabricCanvas.fire('save');
+  }
+
+  const handleSendToBack = () => {
+    fabricCanvas.sendToBack(activeObject);
+    fabricCanvas.discardActiveObject();
+    setActiveObject(null);
+    fabricCanvas.fire('save');
+  }
+
   const handlePenWidthChange = (event) => {
     const newPenWidth = parseInt(event.target.value); // convert string to number
     fabricCanvas.freeDrawingBrush.width = newPenWidth;
@@ -319,37 +347,62 @@ function Editor(props) {
           <p>Settings</p>
         </button>
       </section>
+
       {isLoading && <Loader />}
       <div className="Editor-workspace">
         <section className="Editor-context">
           {activeObject && (
             <div className="Editor-context-container">
-              <div className="Editor-context-item">
-                <div
-                  style={{
-                    height: 30,
-                    width: 30,
-                    background:
-                      activeObject.get('fill') || activeObject.get('stroke'),
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => setShowPicker(!showPicker)}
-                />
-                <div>
-                  {activeObject.get('fill') !== null
-                    ? activeObject.get('fill').toUpperCase()
-                    : activeObject.get('stroke').toUpperCase()}
-                </div>
-                {showPicker && (
-                  <div style={{ position: 'absolute', zIndex: 2, top: 45 }}>
-                    <ColorPicker color={color} onChange={handleColorChange} />
+              <div className="Editor-context-left">
+                <div className="Editor-context-item">
+                  <div
+                    style={{
+                      height: 30,
+                      width: 30,
+                      background:
+                        activeObject.get('fill') || activeObject.get('stroke'),
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => setShowPicker(!showPicker)}
+                  />
+                  <div>
+                    {activeObject.get('fill') !== null
+                      ? activeObject.get('fill').toUpperCase()
+                      : activeObject.get('stroke').toUpperCase()}
                   </div>
-                )}
+                  {showPicker && (
+                    <div style={{ position: 'absolute', zIndex: 2, top: 45 }}>
+                      <ColorPicker color={color} onChange={handleColorChange} />
+                    </div>
+                  )}
+                </div>
+                <div className="Editor-context-item">
+                  <button onClick={handleBringForward}>
+                    <i className="material-icons">keyboard_arrow_up</i>
+                  </button>
+                </div>
+                <div className="Editor-context-item">
+                  <button onClick={handleSendToFront}>
+                    <i className="material-icons">flip_to_front</i>
+                  </button>
+                </div>
+                <div className="Editor-context-item">
+                  <button onClick={handleSendBackwards}>
+                    <i className="material-icons">keyboard_arrow_down</i>
+                  </button>
+                </div>
+                <div className="Editor-context-item">
+                  <button onClick={handleSendToBack}>
+                    <i className="material-icons">flip_to_back</i>
+                  </button>
+                </div>
               </div>
-              <div className="Editor-context-item">
-                <button onClick={removeObject}>
-                  <i className="material-icons">delete</i>
-                </button>
+              <div className="Editor-context-right">
+                <div className="Editor-context-item">
+                  <button onClick={removeObject}>
+                    <i className="material-icons">delete</i>
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -410,6 +463,7 @@ function Editor(props) {
             </div>
           )}
         </section>
+
         <section className="Editor-canvas">
           <div className="Editor-canvas-container">
             <canvas ref={cRef}>Not supported by browser.</canvas>

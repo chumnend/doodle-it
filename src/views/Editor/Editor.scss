@@ -101,6 +101,11 @@
   align-items: center;
 }
 
+.Editor-context-left,
+.Editor-context-right {
+  display: flex;
+}
+
 .Editor-context-item {
   height: 100%;
   display: flex;
