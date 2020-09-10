@@ -21,13 +21,13 @@ module.exports = async function (req, res, next) {
     } else {
       return next({
         status: 400,
-        message: 'invalid email and/or password',
+        message: 'invalid login and/or password',
       });
     }
   } catch (err) {
     return next({
       status: 400,
-      message: 'invalid email and/or password',
+      message: 'invalid login and/or password',
     });
   }
 };
