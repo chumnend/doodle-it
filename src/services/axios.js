@@ -14,15 +14,10 @@ export function setTokenHeader(token) {
 
 export async function callAPI(method, path, payload) {
   try {
-    const data = axios[method.toLowerCase()](path, payload);
-    return data;
+    const res = await axios[method.toLowerCase()](path, payload);
+    return res;
   } catch (error) {
-    try {
-      error.message = error.response.data.message;
-    } catch (e) {
-      error.message = 'Something went wrong, try again later';
-    } finally {
-      throw error;
-    }
+    error.message = error.response.data.message || 'Something went wrong';
+    throw error;
   }
 }

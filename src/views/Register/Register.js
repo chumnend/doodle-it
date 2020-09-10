@@ -31,7 +31,7 @@ function Register(props) {
       props.hasLoggedIn(true);
       props.history.push('/');
     } catch (error) {
-      setErrors([error.message]);
+      setErrors([error.response.data.message]);
       setLoading(false);
     }
   };
