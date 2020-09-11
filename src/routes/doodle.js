@@ -1,45 +1,43 @@
 'use strict';
 
-const router = require('express').Router();
-const middleware = require('./middleware');
-const authCtrl = require('./controllers/auth');
-const doodleCtrl = require('./controllers/doodle');
+const express= require('express');
+const router = express.Router();
+const middleware = require('../middleware');
+const { doodleController } = require('../controllers');
 
-// Authentication Routes
-router.post('/v1/auth/register', authCtrl.register);
-router.post('/v1/auth/login', authCtrl.login);
-
-// Doodle Routes
 router.get(
   '/v1/doodle/',
   middleware.checkQuery('userId'),
   middleware.verifyUser,
-  doodleCtrl.getAll,
+  doodleController.getAll,
 );
+
 router.post(
   '/v1/doodle/',
   middleware.checkQuery('userId'),
   middleware.verifyUser,
-  doodleCtrl.create,
+  doodleController.create,
 );
 
 router.get(
   '/v1/doodle/:id',
   middleware.checkQuery('userId'),
   middleware.verifyUser,
-  doodleCtrl.getOne,
+  doodleController.getOne,
 );
+
 router.put(
   '/v1/doodle/:id',
   middleware.checkQuery('userId'),
   middleware.verifyUser,
-  doodleCtrl.update,
+  doodleController.update,
 );
+
 router.delete(
   '/v1/doodle/:id',
   middleware.checkQuery('userId'),
   middleware.verifyUser,
-  doodleCtrl.remove,
+  doodleController.remove,
 );
 
 module.exports = router;

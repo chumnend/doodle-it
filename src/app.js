@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const config = require('./config');
 const middleware = require('./middleware');
-const router = require('./router');
+const router = require('./routes');
 
 // configure the application
 const app = express();
@@ -24,7 +24,8 @@ app.get('/', (req, res, next) => {
   res.send('ready to serve requests');
 });
 
-app.use(router);
+app.use(router.authRouter);
+app.use(router.doodleRouter);
 
 // error handling
 app.all('*', middleware.notFound);
