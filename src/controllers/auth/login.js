@@ -28,7 +28,7 @@ module.exports = async function (req, res, next) {
     if (!user) {
       return next({
         status: 400,
-        message: 'user does no exist',
+        message: 'user does not exist',
       });
     }
 
