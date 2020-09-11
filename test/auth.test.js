@@ -88,7 +88,7 @@ describe('Authentication Routes Test', function () {
         })
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res).to.have.status(500);
+          expect(res).to.have.status(400);
           expect(res.body).to.have.property('message');
           done();
         });

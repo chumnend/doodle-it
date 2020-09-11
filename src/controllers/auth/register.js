@@ -2,9 +2,29 @@
 
 const jwt = require('jsonwebtoken');
 const db = require('../../models');
+const validators = require('../../validations');
 
 module.exports = async function (req, res, next) {
   try {
+    const { errors, isValid } = validators.registerValidator(req.body);
+    if (!isValid) {
+      let message = '';
+      if (errors.username) {
+        message += '\n' + errors.username;
+      }
+      if (errors.email) {
+        message += '\n' + errors.email;
+      }
+      if (errors.password) {
+        message += '\n' + errors.password;
+      }
+
+      return next({
+        status: 400,
+        message: message,
+      });
+    }
+
     const user = await db.User.create({
       username: req.body.username,
       email: req.body.email,
@@ -19,18 +39,17 @@ module.exports = async function (req, res, next) {
       username,
       token,
     });
-
-  } catch(error) {
+  } catch (error) {
     if (error.code === 11000) {
       return next({
         status: 400,
         message: 'username and/or email already taken',
-      })
+      });
     }
 
     return next({
       status: error.status,
       message: error.message,
-    })
+    });
   }
 };
