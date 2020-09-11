@@ -17,7 +17,12 @@ export async function callAPI(method, path, payload) {
     const res = await axios[method.toLowerCase()](path, payload);
     return res;
   } catch (error) {
-    error.message = error.response.data.message || 'Something went wrong';
+    if(error.response) {
+      error.message = error.response.data.message;
+    } else {
+      error.message = 'Server is not responding, please try again later.'
+    }
+
     throw error;
   }
 }
