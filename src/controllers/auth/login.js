@@ -2,7 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const db = require('../../models');
-const validators = require('../../validations');
+const validators = require('../../validators');
 
 module.exports = async function (req, res, next) {
   try {
