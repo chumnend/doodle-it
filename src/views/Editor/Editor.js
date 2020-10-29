@@ -109,7 +109,7 @@ function Editor(props) {
 
     return () => {
       cRef.current = false;
-    }
+    };
   }, [props.user.id, props.location.search]);
 
   /* =========== OPTIONS BAR =========== */
@@ -272,26 +272,26 @@ function Editor(props) {
   const handleBringForward = () => {
     fabricCanvas.bringForward(activeObject);
     fabricCanvas.fire('save');
-  }
+  };
 
   const handleSendToFront = () => {
     fabricCanvas.bringToFront(activeObject);
     fabricCanvas.discardActiveObject();
     setActiveObject(null);
     fabricCanvas.fire('save');
-  }
+  };
 
   const handleSendBackwards = () => {
     fabricCanvas.sendBackwards(activeObject);
     fabricCanvas.fire('save');
-  }
+  };
 
   const handleSendToBack = () => {
     fabricCanvas.sendToBack(activeObject);
     fabricCanvas.discardActiveObject();
     setActiveObject(null);
     fabricCanvas.fire('save');
-  }
+  };
 
   const handlePenWidthChange = (event) => {
     const newPenWidth = parseInt(event.target.value); // convert string to number
