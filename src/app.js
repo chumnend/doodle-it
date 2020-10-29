@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const config = require('./config');
 const middleware = require('./middleware');
 const router = require('./routes');
+const { HttpError } = require('./utils');
 
 // configure the application
 const app = express();
@@ -21,7 +22,7 @@ app.use(middleware.checkQuery('apiKey', config.lock));
 
 // setup routers
 app.get('/', (req, res, next) => {
-  return res.send('ready to serve requests');
+  return res.send('Ready to serve requests');
 });
 
 app.use(router.authRouter);
@@ -29,17 +30,15 @@ app.use(router.doodleRouter);
 
 // error handling
 app.all('*', (req, res, next) => {
-  return next({
-    status: 404,
-    message: 'path not found',
-  });
+  const err = new HttpError(404, 'Path not found');
+  return next(err);
 });
 
 app.use(middleware.handleError);
 
 // start the server
 app.listen(config.port, () => {
-  console.log('server started on port', config.port);
+  console.log('Server started on port', config.port);
 });
 
 module.exports = app;

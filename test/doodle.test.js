@@ -86,7 +86,7 @@ describe('Doodle Routes Test', function () {
 
   describe('POST /v1/doodle', function () {
     it('expects to create new doodle', function (done) {
-      let newItem = {
+      const newItem = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
         width: faker.random.number(),
@@ -218,7 +218,7 @@ describe('Doodle Routes Test', function () {
 
   describe('PUT /v1/doodle/:id', function () {
     it('expects to update doodle with given id', function (done) {
-      let updatedItem = {
+      const updatedItem = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
         width: faker.random.number(),

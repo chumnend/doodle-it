@@ -3,35 +3,29 @@
 const jwt = require('jsonwebtoken');
 const db = require('../../models');
 const validators = require('../../validators');
+const { HttpError } = require('../../utils');
 
 module.exports = async function (req, res, next) {
   try {
     const { errors, isValid } = validators.registerValidator(req.body);
     if (!isValid) {
-      let message = '';
-      if (errors.username) {
-        message += '\n' + errors.username;
-      }
-      if (errors.email) {
-        message += '\n' + errors.email;
-      }
-      if (errors.password) {
-        message += '\n' + errors.password;
-      }
-
-      return next({
-        status: 400,
-        message: message,
-      });
+      throw new HttpError(400, 'Invalid fields', errors);
     }
 
-    const user = await db.User.create({
+    const user = await db.User.findOne({
+      $or: [{ username: req.body.username }, { email: req.body.email }],
+    });
+    if (user) {
+      throw new HttpError(400, 'Username and/or email already taken');
+    }
+
+    const newUser = await db.User.create({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
     });
 
-    const { id, email, username } = user;
+    const { id, email, username } = newUser;
     const token = jwt.sign({ id, email, username }, process.env.SECRET_KEY);
 
     return res.status(200).json({
@@ -40,16 +34,6 @@ module.exports = async function (req, res, next) {
       token,
     });
   } catch (error) {
-    if (error.code === 11000) {
-      return next({
-        status: 400,
-        message: 'username and/or email already taken',
-      });
-    }
-
-    return next({
-      status: error.status,
-      message: error.message,
-    });
+    return next(error);
   }
 };

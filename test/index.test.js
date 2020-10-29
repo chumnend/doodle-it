@@ -52,6 +52,7 @@ describe('Base Routes Test', function () {
           expect(err).to.be.null;
           expect(res).to.have.status(404);
           expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('extra');
           done();
         });
     });

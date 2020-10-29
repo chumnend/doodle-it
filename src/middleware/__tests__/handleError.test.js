@@ -8,12 +8,13 @@ const expect = chai.expect;
 describe('handleError - Middleware Unit Test', function () {
   it('expects to parse messages correctly', function () {
     // setup test
-    let err = {
+    const err = {
       status: 200,
       message: 'this is a test',
+      extra: { test: 'this is a test' }
     };
-    let req = {};
-    let res = {
+    const req = {};
+    const res = {
       statusCode: null,
       body: null,
       status: function (code) {
@@ -24,11 +25,12 @@ describe('handleError - Middleware Unit Test', function () {
         this.body = data;
       },
     };
-    let next = function () {};
+    const next = function () {};
 
     // start test
     handleError(err, req, res, next);
     expect(res.statusCode).to.be.equal(err.status);
     expect(res.body).to.have.property('message', err.message);
+    expect(res.body).to.have.property('extra', err.extra);
   });
 });

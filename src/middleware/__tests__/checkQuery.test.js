@@ -13,16 +13,16 @@ describe('checkQuery - Middleware Unit Test', function () {
 
   it('expects to find query and continue', function () {
     // setup test
-    let query = 'test';
-    let testFunc = checkQuery(query);
+    const query = 'test';
+    const testFunc = checkQuery(query);
 
-    let req = {
+    const req = {
       query: {
         test: true,
       },
     };
-    let res = {};
-    let next = sinon.spy();
+    const res = {};
+    const next = sinon.spy();
 
     // start test
     testFunc(req, res, next);
@@ -31,14 +31,14 @@ describe('checkQuery - Middleware Unit Test', function () {
 
   it('expects to not find query and fail', function () {
     // setup test
-    let query = 'test';
-    let testFunc = checkQuery(query);
+    const query = 'test';
+    const testFunc = checkQuery(query);
 
-    let req = {
+    const req = {
       query: {},
     };
-    let res = {};
-    let next = sinon.spy();
+    const res = {};
+    const next = sinon.spy();
 
     // start test
     testFunc(req, res, next);
@@ -47,17 +47,17 @@ describe('checkQuery - Middleware Unit Test', function () {
 
   it('expects to find query, match and continue', function () {
     // setup test
-    let query = 'test';
-    let match = 123;
-    let testFunc = checkQuery(query, match);
+    const query = 'test';
+    const match = 123;
+    const testFunc = checkQuery(query, match);
 
-    let req = {
+    const req = {
       query: {
         test: 123,
       },
     };
-    let res = {};
-    let next = sinon.spy();
+    const res = {};
+    const next = sinon.spy();
 
     // start test
     testFunc(req, res, next);
@@ -66,17 +66,17 @@ describe('checkQuery - Middleware Unit Test', function () {
 
   it('expects to find query, not match and fail', function () {
     // setup test
-    let query = 'test';
-    let match = 123;
-    let testFunc = checkQuery(query, match);
+    const query = 'test';
+    const match = 123;
+    const testFunc = checkQuery(query, match);
 
-    let req = {
+    const req = {
       query: {
         test: 'fail',
       },
     };
-    let res = {};
-    let next = sinon.spy();
+    const res = {};
+    const next = sinon.spy();
 
     // start test
     testFunc(req, res, next);

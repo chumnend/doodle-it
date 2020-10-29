@@ -9,9 +9,9 @@ const verifyUser = require('../verifyUser');
 const expect = chai.expect;
 
 describe('verifyUser - Middleware Unit Test', function () {
-  let id = faker.random.uuid();
-  let email = faker.internet.email();
-  let username = faker.internet.userName();
+  const id = faker.random.uuid();
+  const email = faker.internet.email();
+  const username = faker.internet.userName();
   let token;
 
   before(function () {
@@ -24,7 +24,7 @@ describe('verifyUser - Middleware Unit Test', function () {
 
   it('expects to verify a jwt', function () {
     // setup test
-    let req = {
+    const req = {
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -32,8 +32,8 @@ describe('verifyUser - Middleware Unit Test', function () {
         userId: id,
       },
     };
-    let res = {};
-    let next = sinon.spy();
+    const res = {};
+    const next = sinon.spy();
 
     // start test
     verifyUser(req, res, next);
@@ -42,7 +42,7 @@ describe('verifyUser - Middleware Unit Test', function () {
 
   it('expects to not verify a jwt', function () {
     // setup test
-    let req = {
+    const req = {
       headers: {
         authorization: '',
       },
@@ -50,8 +50,8 @@ describe('verifyUser - Middleware Unit Test', function () {
         userId: faker.random.uuid(),
       },
     };
-    let res = {};
-    let next = sinon.spy();
+    const res = {};
+    const next = sinon.spy();
 
     // start test
     verifyUser(req, res, next);

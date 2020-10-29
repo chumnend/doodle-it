@@ -8,8 +8,8 @@ const Doodle = require('../../../models/doodle');
 const remove = require('../remove');
 
 describe('remove - Doodle Unit Test', function () {
-  let userId = faker.random.uuid();
-  let stubModel = {
+  const userId = faker.random.uuid();
+  const stubModel = {
     title: faker.random.word(),
     content: faker.image.imageUrl(),
     width: faker.random.number(),
@@ -25,7 +25,7 @@ describe('remove - Doodle Unit Test', function () {
     // setup test
     sinon.stub(Doodle, 'findByIdAndDelete').returns(stubModel);
 
-    let req = {
+    const req = {
       body: {},
       params: {
         id: faker.random.uuid(),
@@ -34,7 +34,7 @@ describe('remove - Doodle Unit Test', function () {
         userId,
       },
     };
-    let res = {
+    const res = {
       statusCode: null,
       body: null,
       status: function (code) {
@@ -45,7 +45,7 @@ describe('remove - Doodle Unit Test', function () {
         this.body = data;
       },
     };
-    let next = sinon.spy();
+    const next = sinon.spy();
 
     // start test
     await remove(req, res, next);
@@ -58,13 +58,13 @@ describe('remove - Doodle Unit Test', function () {
     // setup test
     sinon.stub(Doodle, 'findByIdAndDelete').throws();
 
-    let req = {
+    const req = {
       body: stubModel,
       query: {
         userId,
       },
     };
-    let res = {
+    const res = {
       statusCode: null,
       body: null,
       status: function (code) {
@@ -75,9 +75,9 @@ describe('remove - Doodle Unit Test', function () {
         this.body = data;
       },
     };
-    let next = sinon.spy();
+    const next = sinon.spy();
 
-    let mock = sinon.mock(res);
+    const mock = sinon.mock(res);
     mock.expects('status').never();
     mock.expects('json').never();
 

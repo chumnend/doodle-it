@@ -8,8 +8,8 @@ const Doodle = require('../../../models/doodle');
 const getAll = require('../getAll');
 
 describe('getAll - Doodle Unit Test', function () {
-  let userId = faker.random.uuid();
-  let stubModel = [
+  const userId = faker.random.uuid();
+  const stubModel = [
     {
       title: faker.random.word(),
       content: faker.image.imageUrl(),
@@ -34,13 +34,13 @@ describe('getAll - Doodle Unit Test', function () {
     // setup test
     sinon.stub(Doodle, 'find').returns(stubModel);
 
-    let req = {
+    const req = {
       body: {},
       query: {
         userId,
       },
     };
-    let res = {
+    const res = {
       statusCode: null,
       body: null,
       status: function (code) {
@@ -51,7 +51,7 @@ describe('getAll - Doodle Unit Test', function () {
         this.body = data;
       },
     };
-    let next = sinon.spy();
+    const next = sinon.spy();
 
     // start test
     await getAll(req, res, next);
@@ -64,13 +64,13 @@ describe('getAll - Doodle Unit Test', function () {
     // setup test
     sinon.stub(Doodle, 'find').throws();
 
-    let req = {
+    const req = {
       body: {},
       query: {
         userId,
       },
     };
-    let res = {
+    const res = {
       statusCode: null,
       body: null,
       status: function (code) {
@@ -81,9 +81,9 @@ describe('getAll - Doodle Unit Test', function () {
         this.body = data;
       },
     };
-    let next = sinon.spy();
+    const next = sinon.spy();
 
-    let mock = sinon.mock(res);
+    const mock = sinon.mock(res);
     mock.expects('status').never();
     mock.expects('json').never();
 
