@@ -8,26 +8,29 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "dotenv": "^8.2.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "express": "^4.17.1",
     "fabric": "^4.2.0",
     "faker": "^5.1.0",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "prettier": "^2.1.2",
-    "query-string": "^6.13.5",
-    "react": "^16.13.1",
-    "react-color": "^2.18.1",
-    "react-dom": "^16.13.1",
+    "query-string": "^6.13.6",
+    "react": "^16.14.0",
+    "react-color": "^2.19.3",
+    "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
+    "serve": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src",
-    "lint:fix": "prettier --write ./src"
+    "lint": "npx eslint ./src",
+    "lint:fix": "npx prettier --write ./src"
   },
   "browserslist": {
     "production": [
