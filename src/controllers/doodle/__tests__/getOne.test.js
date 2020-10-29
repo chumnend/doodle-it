@@ -8,8 +8,8 @@ const Doodle = require('../../../models/doodle');
 const getOne = require('../getOne');
 
 describe('getOne - Doodle Unit Test', function () {
-  let userId = faker.random.uuid();
-  let stubModel = {
+  const userId = faker.random.uuid();
+  const stubModel = {
     title: faker.random.word(),
     content: faker.image.imageUrl(),
     width: faker.random.number(),
@@ -25,7 +25,7 @@ describe('getOne - Doodle Unit Test', function () {
     // setup test
     sinon.stub(Doodle, 'findById').returns(stubModel);
 
-    let req = {
+    const req = {
       params: {
         id: faker.random.uuid(),
       },
@@ -33,7 +33,7 @@ describe('getOne - Doodle Unit Test', function () {
         userId,
       },
     };
-    let res = {
+    const res = {
       statusCode: null,
       body: null,
       status: function (code) {
@@ -44,7 +44,7 @@ describe('getOne - Doodle Unit Test', function () {
         this.body = data;
       },
     };
-    let next = sinon.spy();
+    const next = sinon.spy();
 
     // start test
     await getOne(req, res, next);
@@ -57,7 +57,7 @@ describe('getOne - Doodle Unit Test', function () {
     // setup test
     sinon.stub(Doodle, 'findById').throws();
 
-    let req = {
+    const req = {
       body: {
         title: stubModel.title,
         content: stubModel.content,
@@ -66,7 +66,7 @@ describe('getOne - Doodle Unit Test', function () {
         userId,
       },
     };
-    let res = {
+    const res = {
       statusCode: null,
       body: null,
       status: function (code) {
@@ -77,9 +77,9 @@ describe('getOne - Doodle Unit Test', function () {
         this.body = data;
       },
     };
-    let next = sinon.spy();
+    const next = sinon.spy();
 
-    let mock = sinon.mock(res);
+    const mock = sinon.mock(res);
     mock.expects('status').never();
     mock.expects('json').never();
 

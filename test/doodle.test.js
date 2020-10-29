@@ -2,12 +2,12 @@
 
 const jwt = require('jsonwebtoken');
 const chai = require('chai');
-const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const faker = require('faker');
 const app = require('../src/app');
 const db = require('../src/models');
 
+const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Doodle Routes Test', function () {
@@ -86,7 +86,7 @@ describe('Doodle Routes Test', function () {
 
   describe('POST /v1/doodle', function () {
     it('expects to create new doodle', function (done) {
-      let newItem = {
+      const newItem = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
         width: faker.random.number(),
@@ -218,7 +218,7 @@ describe('Doodle Routes Test', function () {
 
   describe('PUT /v1/doodle/:id', function () {
     it('expects to update doodle with given id', function (done) {
-      let updatedItem = {
+      const updatedItem = {
         title: faker.random.word(),
         content: faker.image.imageUrl(),
         width: faker.random.number(),

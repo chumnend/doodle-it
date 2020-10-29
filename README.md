@@ -48,40 +48,26 @@ DELETE `/v1/doodle/:id?apiKey=<API KEY>&userId=<USER_ID>` (remove a doodle by id
 - Install Node.js
 - Install MongoDB
 
-### Environment
-- Copy env.example into .env and fill out variables
+### Configuration
+1) Clone the repo
+2) Install dependencies with `npm install`
+3) Copy the file env.example and rename it .env. This file contains the name of required environment variables needed for the application to work.
+
 ```
-NODE_ENV=
-PORT=
-SECRET_KEY=
-API_LOCK=
-MONGODB_URI=
-DEV_MONGODB_URI=
-TEST_MONGODB_URI=
+NODE_ENV=           # 'development' or 'production'
+PORT=               # port to run the server on
+SECRET_KEY=         # secret string used for user creation
+API_LOCK=           # password to access the api
+MONGODB_URI=        # uri of mongodb to use for production
+DEV_MONGODB_URI=    # uri of mongodb to use for development
+TEST_MONGODB_URI=   # uri of mongodb to use for testing
 ```
 
-### Start
-Install dependecies,
-```
-npm install
-```
+4) Start the application using `npm start` or `npm run dev` for automatic reloading
 
-Run standalone,
-```
-npm start
-```
 
-or 
+### Testing
+1) Use `npm test` to run test cases using mocha/chai/sinon
 
-Start with watcher,
-```
-npm run dev
-```
-
-### Test
-```
-npm test
-```
-
-### Deploy
-Upon merge to master branch, app will be deployed to Heroku
+## Deployment
+Upon merge to `stable` branch, app will be deployed to Heroku

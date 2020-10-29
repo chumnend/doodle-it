@@ -1,10 +1,10 @@
 'use strict';
 
 const chai = require('chai');
-const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const app = require('../src/app');
 
+const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Base Routes Test', function () {
@@ -52,6 +52,7 @@ describe('Base Routes Test', function () {
           expect(err).to.be.null;
           expect(res).to.have.status(404);
           expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('extra');
           done();
         });
     });
