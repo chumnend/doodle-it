@@ -1,9 +1,10 @@
 'use strict';
 
 const chai = require('chai');
-const expect = chai.expect;
 const sinon = require('sinon');
 const checkQuery = require('../checkQuery');
+
+const expect = chai.expect;
 
 describe('checkQuery - Middleware Unit Test', function () {
   afterEach(function () {

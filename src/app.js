@@ -21,14 +21,20 @@ app.use(middleware.checkQuery('apiKey', config.lock));
 
 // setup routers
 app.get('/', (req, res, next) => {
-  res.send('ready to serve requests');
+  return res.send('ready to serve requests');
 });
 
 app.use(router.authRouter);
 app.use(router.doodleRouter);
 
 // error handling
-app.all('*', middleware.notFound);
+app.all('*', (req, res, next) => {
+  return next({
+    status: 404,
+    message: 'path not found',
+  });
+});
+
 app.use(middleware.handleError);
 
 // start the server

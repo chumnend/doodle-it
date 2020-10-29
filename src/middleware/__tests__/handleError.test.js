@@ -1,8 +1,9 @@
 'use strict';
 
 const chai = require('chai');
-const expect = chai.expect;
 const handleError = require('../handleError');
+
+const expect = chai.expect;
 
 describe('handleError - Middleware Unit Test', function () {
   it('expects to parse messages correctly', function () {

@@ -1,12 +1,12 @@
 'use strict';
 
 const chai = require('chai');
-const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const faker = require('faker');
 const app = require('../src/app');
 const db = require('../src/models');
 
+const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Authentication Routes Test', function () {

@@ -2,10 +2,11 @@
 
 const jwt = require('jsonwebtoken');
 const chai = require('chai');
-const expect = chai.expect;
 const sinon = require('sinon');
 const faker = require('faker');
 const verifyUser = require('../verifyUser');
+
+const expect = chai.expect;
 
 describe('verifyUser - Middleware Unit Test', function () {
   let id = faker.random.uuid();
