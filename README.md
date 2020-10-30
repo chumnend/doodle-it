@@ -45,8 +45,9 @@ DELETE `/v1/doodle/:id?apiKey=<API KEY>&userId=<USER_ID>` (remove a doodle by id
 ## Development Setup
 
 ### Prerequistes
-- Install Node.js
-- Install MongoDB
+- Node.js
+- npm
+- MongoDB
 
 ### Configuration
 1) Clone the repo
@@ -69,5 +70,5 @@ TEST_MONGODB_URI=   # uri of mongodb to use for testing
 ### Testing
 1) Use `npm test` to run test cases using mocha/chai/sinon
 
-## Deployment
+### Deployment
 Upon merge to `stable` branch, app will be deployed to Heroku
