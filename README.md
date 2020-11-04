@@ -30,4 +30,4 @@ REACT_APP_API_KEY=      # password to access the API server
 4) Start the application using `npm run serve`
 
 ### Deployment
-Application is deployed to Heroku upon push to the stable branch
+Application is deployed to Heroku upon push to the `stable` branch
