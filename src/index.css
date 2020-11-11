@@ -8,4 +8,7 @@ html,
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 100%;
+  position: relative;
+  z-index: 0;
+  background: #c9c9c9;
 }
