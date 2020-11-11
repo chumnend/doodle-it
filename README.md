@@ -7,12 +7,12 @@ API for Doodle It application, built with Node.js/Express
 POST `/v1/auth/register?apiKey=<API_KEY>` (create new user)
 - required body parameters: username, email, password
 - required query parameters: apiKey
-- returns: id, username and jwt
+- returns: id, username and token
 
 POST `/v1/auth/login?apiKey=<API_KEY>` (acquire jwt for authentication)
 - required body parameters: login, password
 - required query parameters: apiKey
-- returns: id, username and jwt
+- returns: id, username and token
 
 ### Doodle Routes 
 GET `/v1/doodle?apiKey=<API KEY>&userId=<USER_ID>` (get a user's doodles)
