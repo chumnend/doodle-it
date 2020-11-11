@@ -1,4 +1,4 @@
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import * as Styles from './styles';
 
 const Navigation = (props) => {
@@ -7,20 +7,31 @@ const Navigation = (props) => {
       <Styles.Menu className="material-icons" onClick={props.open}>
         menu
       </Styles.Menu>
-      <Styles.Ul>
-        <Styles.Li>
-          <Styles.NavItem to="/login">Log in</Styles.NavItem>
-        </Styles.Li>
-        <Styles.Li>
-          <Styles.NavItem to="/register">Sign Up</Styles.NavItem>
-        </Styles.Li>
-      </Styles.Ul>
+      {!props.isLoggedIn && (
+        <Styles.Ul>
+          <Styles.Li>
+            <Styles.NavItem to="/login">Log in</Styles.NavItem>
+          </Styles.Li>
+          <Styles.Li>
+            <Styles.NavItem to="/register">Sign Up</Styles.NavItem>
+          </Styles.Li>
+        </Styles.Ul>
+      )}
+      {props.isLoggedIn && (
+        <Styles.Ul>
+          <Styles.Li>
+            <Styles.Button onClick={props.logout}>Logout</Styles.Button>
+          </Styles.Li>
+        </Styles.Ul>
+      )}
     </Styles.Navigation>
   );
 };
 
 Navigation.propTypes = {
-  open: PropType.func,
+  isLoggedIn: PropTypes.bool,
+  logout: PropTypes.func,
+  open: PropTypes.func,
 };
 
 export default Navigation;

@@ -2,6 +2,7 @@ export {
   authenticating,
   authRequestLogin,
   authRequestRegister,
+  authRequestValidate,
   authSuccess,
   authFail,
   logoutRequest,

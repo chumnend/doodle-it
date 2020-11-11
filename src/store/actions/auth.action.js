@@ -2,6 +2,7 @@ import {
   AUTHENTICATING,
   AUTH_REQUEST_LOGIN,
   AUTH_REQUEST_REGISTER,
+  AUTH_REQUEST_VALIDATE,
   AUTH_SUCCESS,
   AUTH_FAIL,
   LOGOUT_REQUEST,
@@ -28,6 +29,12 @@ export const authRequestRegister = (username, email, password) => {
     username,
     email,
     password,
+  };
+};
+
+export const authRequestValidate = () => {
+  return {
+    type: AUTH_REQUEST_VALIDATE,
   };
 };
 

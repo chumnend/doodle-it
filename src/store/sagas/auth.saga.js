@@ -19,7 +19,7 @@ export function* authLoginSaga(action) {
     yield localStorage.setItem('token', res.data.token);
     yield put(authSuccess(res.data.id, res.data.username, res.data.token));
   } catch (err) {
-    yield put(authFail(err.response.data.error));
+    yield put(authFail(err.response.data));
   }
 }
 
@@ -41,7 +41,21 @@ export function* authRegisterSaga(action) {
     yield localStorage.setItem('token', res.data.token);
     yield put(authSuccess(res.data.id, res.data.username, res.data.token));
   } catch (err) {
-    yield put(authFail(err.response.data.error));
+    yield put(authFail(err.response.data));
+  }
+}
+
+export function* authValidateSaga(action) {
+  yield put(authenticating());
+
+  const id = yield localStorage.getItem('id');
+  const username = yield localStorage.getItem('username');
+  const token = yield localStorage.getItem('token');
+
+  if (!token) {
+    yield put(logout());
+  } else {
+    yield put(authSuccess(id, username, token));
   }
 }
 
