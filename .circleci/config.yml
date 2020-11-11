@@ -15,4 +15,4 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run: npm run lint
-      - run: npm test --passWithNoTests
+      - run: npm test
