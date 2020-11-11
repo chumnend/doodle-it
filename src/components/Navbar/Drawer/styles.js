@@ -11,7 +11,7 @@ export const Drawer = styled.div`
   z-index: 100;
   top: 0;
   right: 0;
-  transition: width 0.5s ease-out;
+  transition: width 0.35s ease-out;
   display: flex;
   flex-flow: column;
 

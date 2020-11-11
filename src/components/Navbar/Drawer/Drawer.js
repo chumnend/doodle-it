@@ -11,12 +11,12 @@ const Drawer = (props) => {
       </Styles.CloseContainer>
       <Styles.Ul>
         <Styles.Li>
-          <Styles.NavItem to="/" onClick={props.close}>
+          <Styles.NavItem to="/login" onClick={props.close}>
             Log in
           </Styles.NavItem>
         </Styles.Li>
         <Styles.Li>
-          <Styles.NavItem to="/" onClick={props.close}>
+          <Styles.NavItem to="/register" onClick={props.close}>
             Sign Up
           </Styles.NavItem>
         </Styles.Li>

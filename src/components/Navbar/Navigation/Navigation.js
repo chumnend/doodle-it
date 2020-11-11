@@ -9,10 +9,10 @@ const Navigation = (props) => {
       </Styles.Menu>
       <Styles.Ul>
         <Styles.Li>
-          <Styles.NavItem to="/">Log in</Styles.NavItem>
+          <Styles.NavItem to="/login">Log in</Styles.NavItem>
         </Styles.Li>
         <Styles.Li>
-          <Styles.NavItem to="/">Sign Up</Styles.NavItem>
+          <Styles.NavItem to="/register">Sign Up</Styles.NavItem>
         </Styles.Li>
       </Styles.Ul>
     </Styles.Navigation>

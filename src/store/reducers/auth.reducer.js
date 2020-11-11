@@ -29,13 +29,13 @@ const reducer = (state = initialState, action) => {
         token: action.token,
         authenticating: false,
         error: null,
-      }
+      };
     case AUTH_FAIL:
       return {
         ...state,
         authenticating: false,
         error: action.error,
-      }
+      };
     case LOGOUT:
       return initialState;
     default:
