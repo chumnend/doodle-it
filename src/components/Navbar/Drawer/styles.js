@@ -11,7 +11,7 @@ export const Drawer = styled.div`
   z-index: 100;
   top: 0;
   right: 0;
-  transition: width 0.5s ease-out;
+  transition: width 0.35s ease-out;
   display: flex;
   flex-flow: column;
 
@@ -51,5 +51,18 @@ export const NavItem = styled(Link)`
   font-size: 1.2rem;
   &:hover {
     color: ${color.red};
+  }
+`;
+
+export const Button = styled.button`
+  text-decoration: none;
+  background: inherit;
+  color: ${color.white};
+  font-size: 1.2rem;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  &:hover {
+    color: ${color.blue};
   }
 `;
