@@ -1,5 +1,6 @@
 import PageView from '../../components/PageView';
 import Toolbar from '../../components/Toolbar';
+// import Loader from '../../components/Loader';
 
 const Designer = () => {
   return (
