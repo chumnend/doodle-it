@@ -3,6 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Navbar from './components/Navbar';
 import Home from './containers/Home';
+import Console from './containers/Console';
+import Designer from './containers/Designer';
 import Register from './containers/Register';
 import Login from './containers/Login';
 import NotFound from './containers/NotFound';
@@ -24,6 +26,20 @@ const App = () => {
     <>
       <Navbar isLoggedIn={!!auth.token} logout={logoutUser} />
       <Switch>
+        <Route
+          exact
+          path="/console"
+          render={(props) =>
+            !!auth.token ? <Console {...props} /> : <Redirect to="/login" />
+          }
+        />
+        <Route
+          exact
+          path="/design"
+          render={(props) =>
+            !!auth.token ? <Designer {...props} /> : <Redirect to="/login" />
+          }
+        />
         <Route
           exact
           path="/register"

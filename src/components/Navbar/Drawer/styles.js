@@ -48,7 +48,7 @@ export const NavItem = styled(Link)`
   text-decoration: none;
   background: inherit;
   color: inherit;
-  font-size: 1.2rem;
+  font-size: 1rem;
   &:hover {
     color: ${color.red};
   }
@@ -58,7 +58,7 @@ export const Button = styled.button`
   text-decoration: none;
   background: inherit;
   color: ${color.white};
-  font-size: 1.2rem;
+  font-size: 1rem;
   outline: none;
   cursor: pointer;
   border: none;
