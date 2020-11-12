@@ -32,7 +32,7 @@ export const NavItem = styled(Link)`
   text-decoration: none;
   background: inherit;
   color: ${color.white};
-  font-size: 1.2rem;
+  font-size: 1rem;
   &:hover {
     color: ${color.blue};
   }
@@ -42,7 +42,7 @@ export const Button = styled.button`
   text-decoration: none;
   background: inherit;
   color: ${color.white};
-  font-size: 1.2rem;
+  font-size: 1rem;
   outline: none;
   cursor: pointer;
   border: none;
