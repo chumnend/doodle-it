@@ -6,7 +6,6 @@ export const PageView = styled.div`
   height: calc(100vh - ${layout.navHeight});
   display: flex;
   flex-direction: column;
-  background: green;
 
   @media all and (min-width: ${device.md}) {
     flex-direction: row;

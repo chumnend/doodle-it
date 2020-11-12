@@ -1,10 +1,11 @@
 import PageView from '../../components/PageView';
+import Toolbar from '../../components/Toolbar';
 
 const Designer = () => {
   return (
     <>
       <PageView>
-        <div className="Toolbar"></div>
+        <Toolbar />
         <div className="Workspace">
           <div className="Contextbar"></div>
           <div className="CanvasContainer">
