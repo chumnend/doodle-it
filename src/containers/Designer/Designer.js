@@ -1,8 +1,18 @@
+import PageView from '../../components/PageView';
+
 const Designer = () => {
   return (
-    <div>
-      <h1>Designer</h1>
-    </div>
+    <>
+      <PageView>
+        <div className="Toolbar"></div>
+        <div className="Workspace">
+          <div className="Contextbar"></div>
+          <div className="CanvasContainer">
+            <canvas />
+          </div>
+        </div>
+      </PageView>
+    </>
   );
 };
 

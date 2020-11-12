@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { color } from '../../themes';
+import { color, layout } from '../../themes';
 
 export const Navbar = styled.div`
   width: 100%;
-  height: 64px;
+  height: ${layout.navHeight};
   background: ${color.ebony};
   position: relative;
   z-index: 1;
