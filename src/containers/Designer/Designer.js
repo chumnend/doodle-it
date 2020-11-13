@@ -1,13 +1,14 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fabric } from 'fabric';
-import PageView from '../../components/PageView';
-import Toolbar from '../../components/Toolbar';
-// import Loader from '../../components/Loader';
-import Workspace from '../../components/Workspace';
 import Contextbar from '../../components/Contextbar';
 import CanvasArea from '../../components/CanvasArea';
+// import Loader from '../../components/Loader';
+import Modal from '../../components/Modal';
+import PageView from '../../components/PageView';
+import Toolbar from '../../components/Toolbar';
+import Workspace from '../../components/Workspace';
 
-// calulate starting canvas size based on screen size
+// calculate starting canvas size based on screen size
 let calcSize;
 const { innerWidth, innerHeight } = window;
 if (innerWidth > innerHeight) {
@@ -28,6 +29,7 @@ const fabricCanvas = new fabric.Canvas();
 
 const Designer = () => {
   const canvasRef = useRef();
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     fabricCanvas.initialize(canvasRef.current, {
@@ -50,6 +52,9 @@ const Designer = () => {
           <CanvasArea>
             <canvas ref={canvasRef}>Not supported by browser.</canvas>
           </CanvasArea>
+          <Modal show={showModal} close={() => setShowModal(false)}>
+            <p>test</p>
+          </Modal>
         </Workspace>
       </PageView>
     </>
