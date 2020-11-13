@@ -3,7 +3,7 @@ import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
 import CanvasArea from '../../components/CanvasArea';
 // import Loader from '../../components/Loader';
-import Modal from '../../components/Modal';
+import ModalSelector from '../../components/ModalSelector';
 import PageView from '../../components/PageView';
 import Toolbar from '../../components/Toolbar';
 import Workspace from '../../components/Workspace';
@@ -24,12 +24,34 @@ const DEFAULT_HEIGHT = calcSize;
 // const DEFAULT_PEN_THICKNESS = 2;
 const DEFAULT_BACK_COLOR = '#f2f2f2';
 
+// enumeration for Modal
+const ModalTypes = {
+  NONE: 0,
+  SHAPES: 1,
+  CLEAR: 2,
+  SAVE: 3,
+  SETTINGS: 4,
+};
+
 // globally accessible fabricCanvas instance
 const fabricCanvas = new fabric.Canvas();
 
 const Designer = () => {
   const canvasRef = useRef();
-  const [showModal, setShowModal] = useState(true);
+
+  // const [fabricData, setFabricData] = useState(null);
+  // const [activeObject, setActiveObject] = useState(null);
+  // const [title, setTitle] = useState('Untitled');
+  // const [width, setWidth] = useState(DEFAULT_WIDTH);
+  // const [height, setHeight] = useState(DEFAULT_HEIGHT);
+  // const [freeMode, setFreeMode] = useState(false);
+  // const [color, setColor] = useState(DEFAULT_COLOR);
+  // const [showPicker, setShowPicker] = useState(false);
+  // const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
+  // const [showPenSlider, setShowPenSlider] = useState(false);
+  const [modalType, setModalType] = useState(ModalTypes.NONE);
+  // const [resizeWidth, setResizeWidth] = useState(DEFAULT_WIDTH);
+  // const [resizeHeight, setResizeHeight] = useState(DEFAULT_HEIGHT);
 
   useEffect(() => {
     fabricCanvas.initialize(canvasRef.current, {
@@ -52,11 +74,9 @@ const Designer = () => {
           <CanvasArea>
             <canvas ref={canvasRef}>Not supported by browser.</canvas>
           </CanvasArea>
-          <Modal show={showModal} close={() => setShowModal(false)}>
-            <p>test</p>
-          </Modal>
         </Workspace>
       </PageView>
+      <ModalSelector type={modalType} action={(type) => setModalType(type)} />
     </>
   );
 };
