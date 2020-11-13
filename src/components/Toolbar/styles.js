@@ -5,11 +5,20 @@ export const Toolbar = styled.div`
   width: 100%;
   height: ${layout.toolbarHeight};
   background: ${color.ebony};
-  display: flex;
 
   @media all and (min-width: ${device.md}) {
     width: ${layout.toolbarHeight};
     height: 100%;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  width: 93%;
+  height: 100%;
+  margin: 0 auto;
+
+  @media all and (min-width: ${device.md}) {
     flex-direction: column;
   }
 `;
