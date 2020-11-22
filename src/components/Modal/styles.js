@@ -14,6 +14,7 @@ export const Modal = styled.div`
 `;
 
 export const Container = styled.div`
+  padding: 1.5rem;
   position: fixed;
   z-index: 999;
   background: ${color.white};

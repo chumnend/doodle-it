@@ -44,7 +44,7 @@ const Designer = () => {
   // const [title, setTitle] = useState('Untitled');
   // const [width, setWidth] = useState(DEFAULT_WIDTH);
   // const [height, setHeight] = useState(DEFAULT_HEIGHT);
-  // const [freeMode, setFreeMode] = useState(false);
+  const [freeMode, setFreeMode] = useState(false);
   // const [color, setColor] = useState(DEFAULT_COLOR);
   // const [showPicker, setShowPicker] = useState(false);
   // const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
@@ -68,7 +68,14 @@ const Designer = () => {
   return (
     <>
       <PageView>
-        <Toolbar />
+        <Toolbar
+          freeMode={freeMode}
+          toggleFreeMode={() => setFreeMode(!freeMode)}
+          openShapesModal={() => setModalType(ModalTypes.SHAPES)}
+          openClearModal={() => setModalType(ModalTypes.CLEAR)}
+          openSaveModal={() => setModalType(ModalTypes.SAVE)}
+          openSettingsModal={() => setModalType(ModalTypes.SETTINGS)}
+        />
         <Workspace>
           <Contextbar />
           <CanvasArea>
