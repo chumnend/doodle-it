@@ -84,6 +84,7 @@ const Designer = () => {
     };
   }, []);
 
+  // Toolbar Commands =========================================================
   const toggleFreeMode = () => {
     // set canvas for free drawing or select mode
     if (!freeMode) {
@@ -103,6 +104,70 @@ const Designer = () => {
     }
   };
 
+  const addLine = () => {
+    // add a line element to the canvas
+    let coords = [0, 0, 100, 100];
+    let line = new fabric.Line(coords, {
+      fill: color,
+      stroke: color,
+      strokeWidth: 2,
+    });
+
+    fabricCanvas.add(line);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addCircle = () => {
+    // add a circle element to the canvas
+    let circle = new fabric.Circle({
+      radius: 20,
+      fill: color,
+    });
+
+    fabricCanvas.add(circle);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addRect = () => {
+    // add a rectangle element to the canvas
+    let rect = new fabric.Rect({
+      width: 50,
+      height: 50,
+      fill: color,
+    });
+
+    fabricCanvas.add(rect);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addTriangle = () => {
+    // add a triangle to the canvas
+    let triangle = new fabric.Triangle({
+      width: 50,
+      height: 50,
+      fill: color,
+    });
+
+    fabricCanvas.add(triangle);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  const addText = () => {
+    // add text box to the page
+    let text = new fabric.Text('Hello', {
+      fill: color,
+    });
+
+    fabricCanvas.add(text);
+    fabricCanvas.fire('save');
+    closeModal();
+  };
+
+  // Context Bar Commands =====================================================
   const changeColor = (color) => {
     if (freeMode) {
       // change pen color
@@ -119,6 +184,11 @@ const Designer = () => {
     // save color change
     setColor(color.hex);
     fabricCanvas.fire('save');
+  };
+
+  // Misc Commands ============================================================
+  const closeModal = () => {
+    setModalType(ModalTypes.NONE);
   };
 
   return (
@@ -144,7 +214,15 @@ const Designer = () => {
           </CanvasArea>
         </Workspace>
       </PageView>
-      <ModalSelector type={modalType} action={(type) => setModalType(type)} />
+      <ModalSelector
+        type={modalType}
+        close={closeModal}
+        addLine={addLine}
+        addCircle={addCircle}
+        addRect={addRect}
+        addTriangle={addTriangle}
+        addText={addText}
+      />
     </>
   );
 };
