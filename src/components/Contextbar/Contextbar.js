@@ -19,6 +19,12 @@ Contextbar.propTypes = {
   activeObject: PropTypes.object,
   color: PropTypes.string,
   changeColor: PropTypes.func,
+  changePenWidth: PropTypes.func,
+  sendObjectToTop: PropTypes.func,
+  sendObjectToBottom: PropTypes.func,
+  sendObjectForward: PropTypes.func,
+  sendObjectBackward: PropTypes.func,
+  removeObject: PropTypes.func,
 };
 
 export default Contextbar;

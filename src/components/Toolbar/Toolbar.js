@@ -53,6 +53,10 @@ Toolbar.propTypes = {
   openClearModal: PropTypes.func,
   openSaveModal: PropTypes.func,
   openSettingsModal: PropTypes.func,
+  changeCanvasColor: PropTypes.func,
+  changeCanvasSize: PropTypes.func,
+  clearCanvas: PropTypes.func,
+  saveCanvas: PropTypes.func,
 };
 
 export default Toolbar;

@@ -167,6 +167,28 @@ const Designer = () => {
     closeModal();
   };
 
+  const changeCanvasColor = () => {
+    // changes the background color
+  };
+
+  const changeCanvasSize = () => {
+    // change the size of the canvas
+  };
+
+  const clearCanvas = () => {
+    // clears contents of the canvas
+    fabricCanvas.clear();
+    fabricCanvas.setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+    fabricCanvas.fire('save');
+
+    // close modal window
+    closeModal();
+  };
+
+  const saveCanvas = () => {
+    // save the canvas to db
+  };
+
   // Context Bar Commands =====================================================
   const changeColor = (color) => {
     if (freeMode) {
@@ -186,6 +208,30 @@ const Designer = () => {
     fabricCanvas.fire('save');
   };
 
+  const changePenWidth = () => {
+    // change pen width
+  };
+
+  const sendObjectToTop = () => {
+    // move object to top of canvas
+  };
+
+  const sendObjectToBottom = () => {
+    // move object to bottom of canvas
+  };
+
+  const sendObjectForward = () => {
+    // move object up one level
+  };
+
+  const sendObjectBackward = () => {
+    // move object down one level
+  };
+
+  const removeObject = () => {
+    // remove an object
+  };
+
   // Misc Commands ============================================================
   const closeModal = () => {
     setModalType(ModalTypes.NONE);
@@ -201,6 +247,10 @@ const Designer = () => {
           openClearModal={() => setModalType(ModalTypes.CLEAR)}
           openSaveModal={() => setModalType(ModalTypes.SAVE)}
           openSettingsModal={() => setModalType(ModalTypes.SETTINGS)}
+          changeCanvasColor={changeCanvasColor}
+          changeCanvasSize={changeCanvasSize}
+          clearCanvas={clearCanvas}
+          saveCanvas={saveCanvas}
         />
         <Workspace>
           <Contextbar
@@ -208,6 +258,12 @@ const Designer = () => {
             activeObject={activeObject}
             color={color}
             changeColor={changeColor}
+            changePenWidth={changePenWidth}
+            sendObjectToTop={sendObjectToTop}
+            sendObjectToBottom={sendObjectToBottom}
+            sendObjectForward={sendObjectForward}
+            sendObjectBackward={sendObjectBackward}
+            removeObject={removeObject}
           />
           <CanvasArea>
             <canvas ref={canvasRef}>Not supported by browser.</canvas>
