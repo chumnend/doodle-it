@@ -47,9 +47,7 @@ const Designer = () => {
   // const [height, setHeight] = useState(DEFAULT_HEIGHT);
   const [freeMode, setFreeMode] = useState(false);
   const [color, setColor] = useState(DEFAULT_COLOR);
-  // const [showPicker, setShowPicker] = useState(false);
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
-  // const [showPenSlider, setShowPenSlider] = useState(false);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
   // const [resizeWidth, setResizeWidth] = useState(DEFAULT_WIDTH);
   // const [resizeHeight, setResizeHeight] = useState(DEFAULT_HEIGHT);
@@ -208,28 +206,44 @@ const Designer = () => {
     fabricCanvas.fire('save');
   };
 
-  const changePenWidth = () => {
+  const changePenWidth = (penWidth) => {
     // change pen width
+    fabricCanvas.freeDrawingBrush.width = penWidth;
+    setPenWidth(penWidth);
+    fabricCanvas.fire('save');
   };
 
   const sendObjectToTop = () => {
     // move object to top of canvas
+    fabricCanvas.bringToFront(activeObject);
+    fabricCanvas.discardActiveObject();
+    setActiveObject(null);
+    fabricCanvas.fire('save');
   };
 
   const sendObjectToBottom = () => {
     // move object to bottom of canvas
+    fabricCanvas.sendToBack(activeObject);
+    fabricCanvas.discardActiveObject();
+    setActiveObject(null);
+    fabricCanvas.fire('save');
   };
 
   const sendObjectForward = () => {
     // move object up one level
+    fabricCanvas.bringForward(activeObject);
+    fabricCanvas.fire('save');
   };
 
   const sendObjectBackward = () => {
     // move object down one level
+    fabricCanvas.sendBackwards(activeObject);
+    fabricCanvas.fire('save');
   };
 
   const removeObject = () => {
-    // remove an object
+    fabricCanvas.remove(fabricCanvas.getActiveObject());
+    fabricCanvas.fire('save');
   };
 
   // Misc Commands ============================================================
@@ -247,10 +261,6 @@ const Designer = () => {
           openClearModal={() => setModalType(ModalTypes.CLEAR)}
           openSaveModal={() => setModalType(ModalTypes.SAVE)}
           openSettingsModal={() => setModalType(ModalTypes.SETTINGS)}
-          changeCanvasColor={changeCanvasColor}
-          changeCanvasSize={changeCanvasSize}
-          clearCanvas={clearCanvas}
-          saveCanvas={saveCanvas}
         />
         <Workspace>
           <Contextbar
@@ -258,6 +268,7 @@ const Designer = () => {
             activeObject={activeObject}
             color={color}
             changeColor={changeColor}
+            penWidth={penWidth}
             changePenWidth={changePenWidth}
             sendObjectToTop={sendObjectToTop}
             sendObjectToBottom={sendObjectToBottom}
@@ -278,6 +289,10 @@ const Designer = () => {
         addRect={addRect}
         addTriangle={addTriangle}
         addText={addText}
+        changeCanvasColor={changeCanvasColor}
+        changeCanvasSize={changeCanvasSize}
+        clearCanvas={clearCanvas}
+        saveCanvas={saveCanvas}
       />
     </>
   );

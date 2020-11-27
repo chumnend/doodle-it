@@ -28,11 +28,19 @@ export const Item = styled.div`
   gap: 5px;
 `;
 
-export const Color = styled.div`
+export const ColorSquare = styled.div`
   height: 30px;
   width: 30px;
   background: ${(props) => props.color};
   cursor: pointer;
+`;
+
+export const ColorCode = styled.div``;
+
+export const ColorPicker = styled.div`
+  position: absolute;
+  z-index: 2;
+  top: 45px;
 `;
 
 export const Button = styled.button`
@@ -48,4 +56,14 @@ export const Button = styled.button`
     background: ${color.ebony};
     color: ${color.white};
   }
+`;
+
+export const PenSlider = styled.div`
+  position: absolute;
+  z-index: 2;
+  top: 45px;
+  right: 0;
+  padding: 5px;
+  margin-top: 5px;
+  background: ${color.white};
 `;

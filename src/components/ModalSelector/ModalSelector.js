@@ -97,6 +97,10 @@ ModalSelector.propTypes = {
   addRect: PropTypes.func,
   addTriangle: PropTypes.func,
   addText: PropTypes.func,
+  changeCanvasColor: PropTypes.func,
+  changeCanvasSize: PropTypes.func,
+  clearCanvas: PropTypes.func,
+  saveCanvas: PropTypes.func,
 };
 
 export default ModalSelector;

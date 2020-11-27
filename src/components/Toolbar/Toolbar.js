@@ -10,32 +10,39 @@ const Toolbar = (props) => {
           toggable
           active={props.freeMode}
           clicked={props.toggleFreeMode}
+          title="Activate the pen"
         >
           <Styles.ToolbarIcon className="material-icons">
             edit
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Draw</Styles.ToolbarName>
         </ToolbarButton>
-        <ToolbarButton clicked={props.openShapesModal}>
+        <ToolbarButton
+          clicked={props.openShapesModal}
+          title="Add a shape to the canvas"
+        >
           <Styles.ToolbarIcon className="material-icons">
             extension
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Shapes</Styles.ToolbarName>
         </ToolbarButton>
         <div style={{ flexGrow: 1 }} />
-        <ToolbarButton clicked={props.openClearModal}>
+        <ToolbarButton clicked={props.openClearModal} title="Clear the canvas">
           <Styles.ToolbarIcon className="material-icons">
             delete_forever
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Clear</Styles.ToolbarName>
         </ToolbarButton>
-        <ToolbarButton clicked={props.openSaveModal}>
+        <ToolbarButton clicked={props.openSaveModal} title="Save this doodle">
           <Styles.ToolbarIcon className="material-icons">
             save
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Save</Styles.ToolbarName>
         </ToolbarButton>
-        <ToolbarButton clicked={props.openSettingsModal}>
+        <ToolbarButton
+          clicked={props.openSettingsModal}
+          title="Modify canvas settings"
+        >
           <Styles.ToolbarIcon className="material-icons">
             settings
           </Styles.ToolbarIcon>
@@ -53,10 +60,6 @@ Toolbar.propTypes = {
   openClearModal: PropTypes.func,
   openSaveModal: PropTypes.func,
   openSettingsModal: PropTypes.func,
-  changeCanvasColor: PropTypes.func,
-  changeCanvasSize: PropTypes.func,
-  clearCanvas: PropTypes.func,
-  saveCanvas: PropTypes.func,
 };
 
 export default Toolbar;
