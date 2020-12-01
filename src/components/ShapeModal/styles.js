@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { color, layout } from '../../themes';
 
-export const ShapeModalLayout = styled.div`
+export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 1rem;
 `;
 
-export const ShapeModalButton = styled.button`
+export const Button = styled.button`
   width: ${layout.buttonSize};
   height: ${layout.buttonSize};
   font-size: 12px;
@@ -33,7 +33,7 @@ export const LineIcon = styled.span`
   transform: rotate(45deg);
   background: ${color.ebony};
 
-  ${ShapeModalButton}:hover & {
+  ${Button}:hover & {
     background: ${color.white};
   }
 `;
@@ -44,7 +44,7 @@ export const CircleIcon = styled.span`
   border-radius: 50%;
   background: ${color.ebony};
 
-  ${ShapeModalButton}:hover & {
+  ${Button}:hover & {
     background: ${color.white};
   }
 `;
@@ -54,7 +54,7 @@ export const RectangleIcon = styled.span`
   width: calc(${layout.buttonSize} / 2.5);
   background: ${color.ebony};
 
-  ${ShapeModalButton}:hover & {
+  ${Button}:hover & {
     background: ${color.white};
   }
 `;
@@ -66,7 +66,7 @@ export const TriangleIcon = styled.span`
   border-right: calc(${layout.buttonSize} / 5) solid transparent;
   border-bottom: calc(${layout.buttonSize} / 2.5) solid ${color.ebony};
 
-  ${ShapeModalButton}:hover & {
+  ${Button}:hover & {
     border-bottom-color: ${color.white};
   }
 `;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { SketchPicker as ColorPicker } from 'react-color';
+import { BlockPicker as ColorPicker } from 'react-color';
 import Slider from 'react-input-slider';
 import * as Styles from './styles';
 

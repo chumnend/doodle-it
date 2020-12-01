@@ -282,7 +282,8 @@ const Designer = () => {
         </Workspace>
       </PageView>
       <ModalSelector
-        type={modalType}
+        options={ModalTypes}
+        selected={modalType}
         close={closeModal}
         addLine={addLine}
         addCircle={addCircle}
