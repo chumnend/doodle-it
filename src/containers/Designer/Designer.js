@@ -167,10 +167,12 @@ const Designer = () => {
 
   const changeCanvasColor = () => {
     // changes the background color
+    alert('changing canvas color...');
   };
 
   const changeCanvasSize = () => {
     // change the size of the canvas
+    alert('changing canvas size...');
   };
 
   const clearCanvas = () => {
@@ -185,6 +187,7 @@ const Designer = () => {
 
   const saveCanvas = () => {
     // save the canvas to db
+    alert('saving...');
   };
 
   // Context Bar Commands =====================================================
