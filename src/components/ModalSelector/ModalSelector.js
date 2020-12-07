@@ -20,7 +20,14 @@ const ModalSelector = (props) => {
     case props.options.CLEAR:
       return <ClearModal close={props.close} clearCanvas={props.clearCanvas} />;
     case props.options.SAVE:
-      return <SaveModal close={props.close} saveCanvas={props.saveCanvas} />;
+      return (
+        <SaveModal
+          close={props.close}
+          title={props.title}
+          changeTitle={props.changeTitle}
+          saveCanvas={props.saveCanvas}
+        />
+      );
     case props.options.SETTINGS:
       return (
         <SettingsModal
@@ -46,6 +53,8 @@ ModalSelector.propTypes = {
   changeCanvasColor: PropTypes.func,
   changeCanvasSize: PropTypes.func,
   clearCanvas: PropTypes.func,
+  title: PropTypes.string,
+  changeTitle: PropTypes.func,
   saveCanvas: PropTypes.func,
 };
 

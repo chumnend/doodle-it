@@ -42,7 +42,7 @@ const Designer = () => {
   // const [loading, setLoading] = useState(true);
   const [fabricData, setFabricData] = useState(null);
   const [activeObject, setActiveObject] = useState(null);
-  // const [title, setTitle] = useState('Untitled');
+  const [title, setTitle] = useState('Untitled');
   // const [width, setWidth] = useState(DEFAULT_WIDTH);
   // const [height, setHeight] = useState(DEFAULT_HEIGHT);
   const [freeMode, setFreeMode] = useState(false);
@@ -185,9 +185,16 @@ const Designer = () => {
     closeModal();
   };
 
+  const changeTitle = (event) => {
+    setTitle(event.target.value);
+  };
+
   const saveCanvas = () => {
     // save the canvas to db
     alert('saving...');
+
+    // close modal window
+    closeModal();
   };
 
   // Context Bar Commands =====================================================
@@ -296,6 +303,8 @@ const Designer = () => {
         changeCanvasColor={changeCanvasColor}
         changeCanvasSize={changeCanvasSize}
         clearCanvas={clearCanvas}
+        title={title}
+        changeTitle={changeTitle}
         saveCanvas={saveCanvas}
       />
     </>
