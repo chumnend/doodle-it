@@ -27,7 +27,7 @@ BROWSER=none
 REACT_APP_API_PREFIX=   # uri path to here the API server is running
 REACT_APP_API_KEY=      # password to access the API server
 ```
-4) Start the application using `npm run serve`
+4) Start the application using `npm start`
 
 ### Deployment
 Application is deployed to Heroku upon push to the `stable` branch

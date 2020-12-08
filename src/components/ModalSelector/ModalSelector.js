@@ -1,40 +1,50 @@
 import PropTypes from 'prop-types';
-import Modal from '../Modal';
-
-// enumeration for Modal
-const ModalTypes = {
-  NONE: 0,
-  SHAPES: 1,
-  CLEAR: 2,
-  SAVE: 3,
-  SETTINGS: 4,
-};
+import BackgroundModal from '../BackgroundModal';
+import ClearModal from '../ClearModal';
+import ResizeModal from '../ResizeModal';
+import SaveModal from '../SaveModal';
+import ShapeModal from '../ShapeModal';
 
 const ModalSelector = (props) => {
-  switch (props.type) {
-    case ModalTypes.SHAPES:
+  switch (props.selected) {
+    case props.options.SHAPES:
       return (
-        <Modal show close={() => props.action(ModalTypes.NONE)}>
-          <p>Shapes</p>
-        </Modal>
+        <ShapeModal
+          close={props.close}
+          addLine={props.addLine}
+          addCircle={props.addCircle}
+          addRect={props.addRect}
+          addTriangle={props.addTriangle}
+          addText={props.addText}
+        />
       );
-    case ModalTypes.CLEAR:
+    case props.options.CLEAR:
+      return <ClearModal close={props.close} clearCanvas={props.clearCanvas} />;
+    case props.options.SAVE:
       return (
-        <Modal show close={() => props.action(ModalTypes.NONE)}>
-          <p>Clear</p>
-        </Modal>
+        <SaveModal
+          close={props.close}
+          title={props.title}
+          changeTitle={props.changeTitle}
+          saveCanvas={props.saveCanvas}
+        />
       );
-    case ModalTypes.SAVE:
+    case props.options.BACKGROUND:
       return (
-        <Modal show close={() => props.action(ModalTypes.NONE)}>
-          <p>Save</p>
-        </Modal>
+        <BackgroundModal
+          close={props.close}
+          backgroundColor={props.backgroundColor}
+          changeBackgroundColor={props.changeBackgroundColor}
+        />
       );
-    case ModalTypes.SETTINGS:
+    case props.options.RESIZE:
       return (
-        <Modal show close={() => props.action(ModalTypes.NONE)}>
-          <p>Settings</p>
-        </Modal>
+        <ResizeModal
+          close={props.close}
+          width={props.width}
+          height={props.height}
+          changeCanvasSize={props.changeCanvasSize}
+        />
       );
     default:
       return null;
@@ -42,8 +52,23 @@ const ModalSelector = (props) => {
 };
 
 ModalSelector.propTypes = {
-  type: PropTypes.number,
-  action: PropTypes.func,
+  options: PropTypes.object,
+  selected: PropTypes.number,
+  close: PropTypes.func,
+  addLine: PropTypes.func,
+  addCircle: PropTypes.func,
+  addRect: PropTypes.func,
+  addTriangle: PropTypes.func,
+  addText: PropTypes.func,
+  backgroundColor: PropTypes.string,
+  changeBackgroundColor: PropTypes.func,
+  width: PropTypes.number,
+  hieght: PropTypes.number,
+  changeCanvasSize: PropTypes.func,
+  clearCanvas: PropTypes.func,
+  title: PropTypes.string,
+  changeTitle: PropTypes.func,
+  saveCanvas: PropTypes.func,
 };
 
 export default ModalSelector;

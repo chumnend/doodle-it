@@ -14,6 +14,7 @@ export const Toolbar = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  gap: 5px;
   width: 93%;
   height: 100%;
   margin: 0 auto;

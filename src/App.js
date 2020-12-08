@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Navbar from './components/Navbar';
@@ -11,6 +11,8 @@ import NotFound from './containers/NotFound';
 import { authRequestValidate, logoutRequest } from './store/actions';
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const validateUser = useCallback(() => dispatch(authRequestValidate()), [
@@ -20,49 +22,52 @@ const App = () => {
 
   useEffect(() => {
     validateUser();
+    setLoading(false);
   }, [validateUser]);
 
   return (
     <>
       <Navbar isLoggedIn={!!auth.token} logout={logoutUser} />
-      <Switch>
-        <Route
-          exact
-          path="/console"
-          render={(props) =>
-            !!auth.token ? <Console {...props} /> : <Redirect to="/login" />
-          }
-        />
-        <Route
-          exact
-          path="/design"
-          render={(props) =>
-            !!auth.token ? <Designer {...props} /> : <Redirect to="/login" />
-          }
-        />
-        <Route
-          exact
-          path="/register"
-          render={(props) =>
-            !auth.token ? <Register {...props} /> : <Redirect to="/console" />
-          }
-        />
-        <Route
-          exact
-          path="/login"
-          render={(props) =>
-            !auth.token ? <Login {...props} /> : <Redirect to="/console" />
-          }
-        />
-        <Route
-          exact
-          path="/"
-          render={(props) =>
-            !auth.token ? <Home {...props} /> : <Redirect to="/console" />
-          }
-        />
-        <Route component={NotFound} />
-      </Switch>
+      {!loading && (
+        <Switch>
+          <Route
+            exact
+            path="/console"
+            render={(props) =>
+              !!auth.token ? <Console {...props} /> : <Redirect to="/login" />
+            }
+          />
+          <Route
+            exact
+            path="/design"
+            render={(props) =>
+              !!auth.token ? <Designer {...props} /> : <Redirect to="/login" />
+            }
+          />
+          <Route
+            exact
+            path="/register"
+            render={(props) =>
+              !auth.token ? <Register {...props} /> : <Redirect to="/console" />
+            }
+          />
+          <Route
+            exact
+            path="/login"
+            render={(props) =>
+              !auth.token ? <Login {...props} /> : <Redirect to="/console" />
+            }
+          />
+          <Route
+            exact
+            path="/"
+            render={(props) =>
+              !auth.token ? <Home {...props} /> : <Redirect to="/console" />
+            }
+          />
+          <Route component={NotFound} />
+        </Switch>
+      )}
     </>
   );
 };
