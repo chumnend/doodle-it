@@ -44,14 +44,12 @@ const Designer = () => {
   const [fabricData, setFabricData] = useState(null);
   const [activeObject, setActiveObject] = useState(null);
   const [title, setTitle] = useState('Untitled');
-  // const [width, setWidth] = useState(DEFAULT_WIDTH);
-  // const [height, setHeight] = useState(DEFAULT_HEIGHT);
+  const [width, setWidth] = useState(DEFAULT_WIDTH);
+  const [height, setHeight] = useState(DEFAULT_HEIGHT);
   const [freeMode, setFreeMode] = useState(false);
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
-  // const [resizeWidth, setResizeWidth] = useState(DEFAULT_WIDTH);
-  // const [resizeHeight, setResizeHeight] = useState(DEFAULT_HEIGHT);
 
   useEffect(() => {
     fabricCanvas.initialize(canvasRef.current, {
@@ -169,11 +167,17 @@ const Designer = () => {
   const changeCanvasColor = () => {
     // changes the background color
     alert('changing canvas color...');
+
+    // close modal window
+    closeModal();
   };
 
-  const changeCanvasSize = () => {
+  const changeCanvasSize = (width, height) => {
     // change the size of the canvas
     alert('changing canvas size...');
+
+    // close modal window
+    closeModal();
   };
 
   const clearCanvas = () => {
@@ -303,6 +307,8 @@ const Designer = () => {
         addTriangle={addTriangle}
         addText={addText}
         changeCanvasColor={changeCanvasColor}
+        width={width}
+        height={height}
         changeCanvasSize={changeCanvasSize}
         clearCanvas={clearCanvas}
         title={title}

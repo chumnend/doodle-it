@@ -40,6 +40,8 @@ const ModalSelector = (props) => {
       return (
         <ResizeModal
           close={props.close}
+          width={props.width}
+          height={props.height}
           changeCanvasSize={props.changeCanvasSize}
         />
       );
@@ -58,6 +60,8 @@ ModalSelector.propTypes = {
   addTriangle: PropTypes.func,
   addText: PropTypes.func,
   changeCanvasColor: PropTypes.func,
+  width: PropTypes.number,
+  hieght: PropTypes.number,
   changeCanvasSize: PropTypes.func,
   clearCanvas: PropTypes.func,
   title: PropTypes.string,
