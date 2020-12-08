@@ -47,7 +47,9 @@ const Designer = () => {
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const [height, setHeight] = useState(DEFAULT_HEIGHT);
   const [freeMode, setFreeMode] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState(DEFAULT_BACKGROUND_COLOR);
+  const [backgroundColor, setBackgroundColor] = useState(
+    DEFAULT_BACKGROUND_COLOR,
+  );
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
@@ -167,7 +169,9 @@ const Designer = () => {
 
   const changeBackgroundColor = (color) => {
     // changes the background color
-    alert('changing canvas color...');
+    fabricCanvas.setBackgroundColor(color);
+    setBackgroundColor(color);
+    fabricCanvas.fire('save');
 
     // close modal window
     closeModal();
@@ -175,7 +179,11 @@ const Designer = () => {
 
   const changeCanvasSize = (width, height) => {
     // change the size of the canvas
-    alert('changing canvas size...');
+    fabricCanvas.setWidth(width);
+    fabricCanvas.setHeight(height);
+    setWidth(width);
+    setHeight(height);
+    fabricCanvas.fire('save');
 
     // close modal window
     closeModal();
@@ -185,6 +193,7 @@ const Designer = () => {
     // clears contents of the canvas
     fabricCanvas.clear();
     fabricCanvas.setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+    setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
     fabricCanvas.fire('save');
 
     // close modal window
@@ -207,18 +216,18 @@ const Designer = () => {
   const changeColor = (color) => {
     if (freeMode) {
       // change pen color
-      fabricCanvas.freeDrawingBrush.color = color.hex;
+      fabricCanvas.freeDrawingBrush.color = color;
     } else {
       // change active object color
       if (activeObject.type === 'path' || activeObject.type === 'line') {
-        fabricCanvas.getActiveObject().set('stroke', color.hex);
+        fabricCanvas.getActiveObject().set('stroke', color);
       } else {
-        fabricCanvas.getActiveObject().set('fill', color.hex);
+        fabricCanvas.getActiveObject().set('fill', color);
       }
     }
 
     // save color change
-    setColor(color.hex);
+    setColor(color);
     fabricCanvas.fire('save');
   };
 

@@ -9,6 +9,10 @@ const ActiveContextbar = (props) => {
   const color =
     props.activeObject.get('fill') || props.activeObject.get('stroke');
 
+  const handleChange = (color) => {
+    props.changeColor(color.hex);
+  };
+
   return (
     <Styles.Container>
       <Styles.InnerContainer>
@@ -20,7 +24,7 @@ const ActiveContextbar = (props) => {
           <Styles.ColorCode>{color.toUpperCase()}</Styles.ColorCode>
           {showPicker && (
             <Styles.ColorPicker>
-              <ColorPicker color={color} onChange={props.changeColor} />
+              <ColorPicker color={color} onChange={handleChange} />
             </Styles.ColorPicker>
           )}
         </Styles.Item>
@@ -38,7 +42,7 @@ const ActiveContextbar = (props) => {
 
 ActiveContextbar.propTypes = {
   activeObject: PropTypes.object,
-  changColor: PropTypes.func,
+  changeColor: PropTypes.func,
   removeObject: PropTypes.func,
 };
 

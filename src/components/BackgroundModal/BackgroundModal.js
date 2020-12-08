@@ -8,7 +8,7 @@ const BackgroundModal = (props) => {
   const [color, setColor] = useState(props.backgroundColor);
 
   const handleClick = () => {
-    props.changeBackgroundColor(color);
+    props.changeBackgroundColor(color.hex);
   };
 
   return (

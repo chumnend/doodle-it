@@ -8,6 +8,10 @@ const FreeContextbar = (props) => {
   const [showPicker, setShowPicker] = useState(false);
   const [showPenSlider, setShowPenSlider] = useState(false);
 
+  const handleChange = (color) => {
+    props.changeColor(color.hex);
+  };
+
   return (
     <Styles.Container>
       <Styles.InnerContainer>
@@ -19,7 +23,7 @@ const FreeContextbar = (props) => {
           <Styles.ColorCode>{props.color.toUpperCase()}</Styles.ColorCode>
           {showPicker && (
             <Styles.ColorPicker>
-              <ColorPicker color={props.color} onChange={props.changeColor} />
+              <ColorPicker color={props.color} onChange={handleChange} />
             </Styles.ColorPicker>
           )}
         </Styles.Item>
@@ -48,7 +52,7 @@ const FreeContextbar = (props) => {
 
 FreeContextbar.propTypes = {
   color: PropTypes.string,
-  changColor: PropTypes.func,
+  changeColor: PropTypes.func,
   penWidth: PropTypes.number,
   changePenWidth: PropTypes.func,
 };
