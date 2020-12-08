@@ -7,6 +7,10 @@ const ResizeModal = (props) => {
   const [resizeWidth, setResizeWidth] = useState(props.width);
   const [resizeHeight, setResizeHeight] = useState(props.height);
 
+  const handleClick = () => {
+    props.changeCanvasSize(resizeWidth, resizeHeight);
+  };
+
   return (
     <Modal show close={props.close}>
       <Styles.Header>Resize the Canvas</Styles.Header>
@@ -35,7 +39,7 @@ const ResizeModal = (props) => {
         </Styles.InputGroup>
         <Styles.Button
           disabled={resizeWidth <= 0 || resizeHeight <= 0}
-          onClick={() => props.changeCanvasSize(resizeWidth, resizeHeight)}
+          onClick={handleClick}
         >
           Resize
         </Styles.Button>

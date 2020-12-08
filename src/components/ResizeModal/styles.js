@@ -54,4 +54,3 @@ export const Input = styled.input`
   color: inherit;
   font-size: 1rem;
 `;
-

@@ -33,7 +33,8 @@ const ModalSelector = (props) => {
       return (
         <BackgroundModal
           close={props.close}
-          changeCanvasColor={props.changeCanvasColor}
+          backgroundColor={props.backgroundColor}
+          changeBackgroundColor={props.changeBackgroundColor}
         />
       );
     case props.options.RESIZE:
@@ -59,7 +60,8 @@ ModalSelector.propTypes = {
   addRect: PropTypes.func,
   addTriangle: PropTypes.func,
   addText: PropTypes.func,
-  changeCanvasColor: PropTypes.func,
+  backgroundColor: PropTypes.string,
+  changeBackgroundColor: PropTypes.func,
   width: PropTypes.number,
   hieght: PropTypes.number,
   changeCanvasSize: PropTypes.func,

@@ -47,6 +47,7 @@ const Designer = () => {
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const [height, setHeight] = useState(DEFAULT_HEIGHT);
   const [freeMode, setFreeMode] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState(DEFAULT_BACKGROUND_COLOR);
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
@@ -164,7 +165,7 @@ const Designer = () => {
     closeModal();
   };
 
-  const changeCanvasColor = () => {
+  const changeBackgroundColor = (color) => {
     // changes the background color
     alert('changing canvas color...');
 
@@ -306,7 +307,8 @@ const Designer = () => {
         addRect={addRect}
         addTriangle={addTriangle}
         addText={addText}
-        changeCanvasColor={changeCanvasColor}
+        background={backgroundColor}
+        changeBackgroundColor={changeBackgroundColor}
         width={width}
         height={height}
         changeCanvasSize={changeCanvasSize}
