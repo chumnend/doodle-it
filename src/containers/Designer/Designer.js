@@ -30,7 +30,8 @@ const ModalTypes = {
   SHAPES: 1,
   CLEAR: 2,
   SAVE: 3,
-  SETTINGS: 4,
+  BACKGROUND: 4,
+  RESIZE: 5,
 };
 
 // globally accessible fabricCanvas instance
@@ -270,7 +271,8 @@ const Designer = () => {
           openShapesModal={() => setModalType(ModalTypes.SHAPES)}
           openClearModal={() => setModalType(ModalTypes.CLEAR)}
           openSaveModal={() => setModalType(ModalTypes.SAVE)}
-          openSettingsModal={() => setModalType(ModalTypes.SETTINGS)}
+          openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
+          openResizeModal={() => setModalType(ModalTypes.RESIZE)}
         />
         <Workspace>
           <Contextbar

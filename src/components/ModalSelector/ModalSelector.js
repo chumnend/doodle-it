@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import BackgroundModal from '../BackgroundModal';
 import ClearModal from '../ClearModal';
+import ResizeModal from '../ResizeModal';
 import SaveModal from '../SaveModal';
-import SettingsModal from '../SettingsModal';
 import ShapeModal from '../ShapeModal';
 
 const ModalSelector = (props) => {
@@ -28,11 +29,17 @@ const ModalSelector = (props) => {
           saveCanvas={props.saveCanvas}
         />
       );
-    case props.options.SETTINGS:
+    case props.options.BACKGROUND:
       return (
-        <SettingsModal
+        <BackgroundModal
           close={props.close}
           changeCanvasColor={props.changeCanvasColor}
+        />
+      );
+    case props.options.RESIZE:
+      return (
+        <ResizeModal
+          close={props.close}
           changeCanvasSize={props.changeCanvasSize}
         />
       );

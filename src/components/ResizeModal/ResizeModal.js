@@ -2,18 +2,17 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal';
 import * as Styles from './styles';
 
-const SettingsModal = (props) => {
+const ResizeModal = (props) => {
   return (
     <Modal show close={props.close}>
-      <p>Settings</p>
+      <p>Resize</p>
     </Modal>
   );
 };
 
-SettingsModal.propTypes = {
+ResizeModal.propTypes = {
   close: PropTypes.func,
-  changeCanvasColor: PropTypes.func,
   changeCanvasSize: PropTypes.func,
 };
 
-export default SettingsModal;
+export default ResizeModal;

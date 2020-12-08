@@ -26,6 +26,24 @@ const Toolbar = (props) => {
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Shapes</Styles.ToolbarName>
         </ToolbarButton>
+        <ToolbarButton
+          clicked={props.openBackgroundModal}
+          title="Modify canvas color"
+        >
+          <Styles.ToolbarIcon className="material-icons">
+            palette
+          </Styles.ToolbarIcon>
+          <Styles.ToolbarName>Color</Styles.ToolbarName>
+        </ToolbarButton>
+        <ToolbarButton
+          clicked={props.openResizeModal}
+          title="Modify canvas size"
+        >
+          <Styles.ToolbarIcon className="material-icons">
+            aspect_ratio
+          </Styles.ToolbarIcon>
+          <Styles.ToolbarName>Resize</Styles.ToolbarName>
+        </ToolbarButton>
         <div style={{ flexGrow: 1 }} />
         <ToolbarButton clicked={props.openClearModal} title="Clear the canvas">
           <Styles.ToolbarIcon className="material-icons">
@@ -39,15 +57,6 @@ const Toolbar = (props) => {
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Save</Styles.ToolbarName>
         </ToolbarButton>
-        <ToolbarButton
-          clicked={props.openSettingsModal}
-          title="Modify canvas settings"
-        >
-          <Styles.ToolbarIcon className="material-icons">
-            settings
-          </Styles.ToolbarIcon>
-          <Styles.ToolbarName>Settings</Styles.ToolbarName>
-        </ToolbarButton>
       </Styles.Container>
     </Styles.Toolbar>
   );
@@ -59,7 +68,8 @@ Toolbar.propTypes = {
   openShapesModal: PropTypes.func,
   openClearModal: PropTypes.func,
   openSaveModal: PropTypes.func,
-  openSettingsModal: PropTypes.func,
+  openBackgroundModal: PropTypes.func,
+  openResizeModal: PropTypes.func,
 };
 
 export default Toolbar;
