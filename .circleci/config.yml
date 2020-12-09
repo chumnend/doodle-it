@@ -16,4 +16,10 @@ jobs:
             - ~/.cache
           key: dependency-cache-{{ checksum "package.json" }}
       - run: npm run lint
-      - run: npm test
+      - run: 
+        environment:
+          PORT: "8080"
+          SECRET_KEY: "shhh"
+          API_LOCK: "123"
+          TEST_MONGODB_URI: "mongodb://localhost:5432/circle-test"
+        command: npm test
