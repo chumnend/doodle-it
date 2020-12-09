@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:latest
-      - image: mongo:4.4.2
+      - image: circleci/mongo:latest
     steps:
       - checkout
       - restore_cache:
@@ -21,5 +21,5 @@ jobs:
             PORT: "8080"
             SECRET_KEY: "shhh"
             API_LOCK: "123"
-            TEST_MONGODB_URI: "mongodb://localhost:5432/circle-test"
+            TEST_MONGODB_URI: "mongodb://localhost/doodleit_test"
           command: npm test
