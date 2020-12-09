@@ -7,7 +7,7 @@ const faker = require('faker');
 const User = require('../../../models/user');
 const register = require('../register');
 
-describe('register- Auth Unit Test', function () {
+describe('register - Auth Unit Test', function () {
   const stubModel = {
     id: faker.random.uuid(),
     email: faker.internet.email(),
@@ -21,6 +21,7 @@ describe('register- Auth Unit Test', function () {
 
   it('expects to create a user', async function () {
     // test setup
+    sinon.stub(User, 'findOne').returns(null);
     sinon.stub(User, 'create').returns(stubModel);
     let req = {
       body: {
