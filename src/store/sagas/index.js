@@ -5,6 +5,7 @@ import {
   authValidateSaga,
   logoutSaga,
 } from './auth.saga';
+import { doodleSaveSaga } from './doodle.saga';
 
 import * as actionTypes from '../actionTypes';
 
@@ -13,4 +14,8 @@ export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_REQUEST_REGISTER, authRegisterSaga);
   yield takeEvery(actionTypes.AUTH_REQUEST_VALIDATE, authValidateSaga);
   yield takeEvery(actionTypes.AUTH_LOGOUT_REQUEST, logoutSaga);
+}
+
+export function* watchDoodle() {
+  yield takeEvery(actionTypes.DOODLE_SAVE_REQUEST, doodleSaveSaga);
 }

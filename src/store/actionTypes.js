@@ -7,3 +7,9 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT_REQUEST = 'AUTH_LOGOUT_REQUEST';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+
+// Doodle Actions
+export const DOODLE_SAVING = 'DOODLE_SAVING';
+export const DOODLE_SAVE_REQUEST = 'DOODLE_SAVE_REQUEST';
+export const DOODLE_SAVE_SUCCESS = 'DOODLE_SAVE_SUCCESS';
+export const DOODLE_SAVE_FAIL = 'DOODLE_SAVE_FAIL';

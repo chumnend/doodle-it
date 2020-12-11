@@ -14,9 +14,15 @@ export function* authLoginSaga(action) {
 
   try {
     const res = yield axios.post(url, payload);
+
     yield localStorage.setItem('id', res.data.id);
     yield localStorage.setItem('username', res.data.username);
     yield localStorage.setItem('token', res.data.token);
+
+    yield (axios.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${res.data.token}`);
+
     yield put(
       actions.authSuccess(res.data.id, res.data.username, res.data.token),
     );
@@ -38,9 +44,15 @@ export function* authRegisterSaga(action) {
 
   try {
     const res = yield axios.post(url, payload);
+
     yield localStorage.setItem('id', res.data.id);
     yield localStorage.setItem('username', res.data.username);
     yield localStorage.setItem('token', res.data.token);
+
+    yield (axios.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${res.data.token}`);
+
     yield put(
       actions.authSuccess(res.data.id, res.data.username, res.data.token),
     );
@@ -65,5 +77,6 @@ export function* authValidateSaga(action) {
 
 export function* logoutSaga(action) {
   yield localStorage.removeItem('token');
+  yield delete axios.defaults.headers.common['Authorization'];
   yield put(actions.authLogout());
 }

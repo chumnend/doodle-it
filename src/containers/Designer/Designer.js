@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
 import CanvasArea from '../../components/CanvasArea';
@@ -7,6 +8,7 @@ import ModalSelector from '../../components/ModalSelector';
 import PageView from '../../components/PageView';
 import Toolbar from '../../components/Toolbar';
 import Workspace from '../../components/Workspace';
+import * as actions from '../../store/actions';
 
 // calculate starting canvas size based on screen size
 let calcSize;
@@ -53,6 +55,14 @@ const Designer = () => {
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
+
+  const auth = useSelector((state) => state.auth);
+  // const doodle = useSelector((state) => state.doodle);
+  const dispatch = useDispatch();
+  const saveDoodle = useCallback(
+    (doodle) => dispatch(actions.doodleSaveRequest(doodle, auth.id)),
+    [dispatch, auth],
+  );
 
   useEffect(() => {
     fabricCanvas.initialize(canvasRef.current, {
@@ -206,7 +216,14 @@ const Designer = () => {
 
   const saveCanvas = () => {
     // save the canvas to db
-    alert('saving...');
+    const doodle = {
+      title,
+      content: JSON.stringify(fabricData),
+      width,
+      height,
+    };
+
+    saveDoodle(doodle);
 
     // close modal windows
     closeModal();
