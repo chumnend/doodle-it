@@ -6,7 +6,7 @@ const Form = (props) => {
 };
 
 Form.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   submit: PropTypes.func,
 };
 

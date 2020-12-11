@@ -52,7 +52,6 @@ const ModalSelector = (props) => {
 };
 
 ModalSelector.propTypes = {
-  children: PropTypes.node.isRequired,
   options: PropTypes.object,
   selected: PropTypes.number,
   close: PropTypes.func,

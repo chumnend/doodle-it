@@ -6,7 +6,7 @@ const CanvasArea = (props) => {
 };
 
 CanvasArea.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default CanvasArea;

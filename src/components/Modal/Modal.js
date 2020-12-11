@@ -12,7 +12,7 @@ const Modal = (props) => {
 };
 
 Modal.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   close: PropTypes.func,
   show: PropTypes.bool,
 };

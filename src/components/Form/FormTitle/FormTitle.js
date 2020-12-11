@@ -6,7 +6,7 @@ const FormTitle = (props) => {
 };
 
 FormTitle.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default FormTitle;

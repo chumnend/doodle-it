@@ -6,7 +6,7 @@ const HeroTitle = (props) => {
 };
 
 HeroTitle.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default HeroTitle;
