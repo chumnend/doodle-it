@@ -52,6 +52,7 @@ const ModalSelector = (props) => {
 };
 
 ModalSelector.propTypes = {
+  children: PropTypes.node.isRequired,
   options: PropTypes.object,
   selected: PropTypes.number,
   close: PropTypes.func,
@@ -63,7 +64,7 @@ ModalSelector.propTypes = {
   backgroundColor: PropTypes.string,
   changeBackgroundColor: PropTypes.func,
   width: PropTypes.number,
-  hieght: PropTypes.number,
+  height: PropTypes.number,
   changeCanvasSize: PropTypes.func,
   clearCanvas: PropTypes.func,
   title: PropTypes.string,

@@ -19,6 +19,7 @@ ToolbarButton.defaultProps = {
 };
 
 ToolbarButton.propTypes = {
+  children: PropTypes.node,
   toggable: PropTypes.bool,
   active: PropTypes.bool,
   clicked: PropTypes.func,
