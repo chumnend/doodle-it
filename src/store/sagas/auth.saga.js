@@ -69,13 +69,17 @@ export function* authValidateSaga(action) {
   const token = yield localStorage.getItem('token');
 
   if (!token) {
+    yield delete axios.defaults.headers.common['Authorization'];
     yield put(actions.authLogout());
   } else {
+    yield (axios.defaults.headers.common['Authorization'] = `Bearer ${token}`);
     yield put(actions.authSuccess(id, username, token));
   }
 }
 
 export function* logoutSaga(action) {
+  yield localStorage.removeItem('id');
+  yield localStorage.removeItem('username');
   yield localStorage.removeItem('token');
   yield delete axios.defaults.headers.common['Authorization'];
   yield put(actions.authLogout());

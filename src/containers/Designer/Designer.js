@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
 import CanvasArea from '../../components/CanvasArea';
-// import Loader from '../../components/Loader';
+import Loader from '../../components/Loader';
 import ModalSelector from '../../components/ModalSelector';
 import PageView from '../../components/PageView';
 import Toolbar from '../../components/Toolbar';
@@ -42,7 +42,6 @@ const fabricCanvas = new fabric.Canvas();
 const Designer = () => {
   const canvasRef = useRef();
 
-  // const [loading, setLoading] = useState(true);
   const [fabricData, setFabricData] = useState(null);
   const [activeObject, setActiveObject] = useState(null);
   const [title, setTitle] = useState('Untitled');
@@ -56,8 +55,7 @@ const Designer = () => {
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
 
-  const auth = useSelector((state) => state.auth);
-  // const doodle = useSelector((state) => state.doodle);
+  const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
   const dispatch = useDispatch();
   const saveDoodle = useCallback(
     (doodle) => dispatch(actions.doodleSaveRequest(doodle, auth.id)),
@@ -305,6 +303,7 @@ const Designer = () => {
           openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
         />
+        {doodle.saving && <Loader />}
         <Workspace>
           <Contextbar
             freeMode={freeMode}
