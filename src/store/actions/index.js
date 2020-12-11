@@ -5,6 +5,6 @@ export {
   authRequestValidate,
   authSuccess,
   authFail,
-  logoutRequest,
-  logout,
+  authLogoutRequest,
+  authLogout,
 } from './auth.action';

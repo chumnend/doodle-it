@@ -62,7 +62,7 @@ const Designer = () => {
     });
 
     // set fabric event listeners
-    fabricCanvas.on('mouse:up', (options) => {
+    fabricCanvas.on('mouse:up', () => {
       // on mouse up, update contents of the canvas
       setFabricData(fabricCanvas.toObject());
       setActiveObject(fabricCanvas.getActiveObject());
@@ -208,7 +208,7 @@ const Designer = () => {
     // save the canvas to db
     alert('saving...');
 
-    // close modal window
+    // close modal windows
     closeModal();
   };
 

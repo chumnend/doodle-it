@@ -8,17 +8,20 @@ import Designer from './containers/Designer';
 import Register from './containers/Register';
 import Login from './containers/Login';
 import NotFound from './containers/NotFound';
-import { authRequestValidate, logoutRequest } from './store/actions';
+import * as actions from './store/actions';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const validateUser = useCallback(() => dispatch(authRequestValidate()), [
+  const validateUser = useCallback(
+    () => dispatch(actions.authRequestValidate()),
+    [dispatch],
+  );
+  const logoutUser = useCallback(() => dispatch(actions.authLogoutRequest()), [
     dispatch,
   ]);
-  const logoutUser = useCallback(() => dispatch(logoutRequest()), [dispatch]);
 
   useEffect(() => {
     validateUser();
