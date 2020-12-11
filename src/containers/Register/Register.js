@@ -41,7 +41,7 @@ const Register = () => {
     <>
       {!!auth.token && <Redirect to="/console" />}
       <Form submit={handleSubmit}>
-        <FormTitle>Let's Get Started!</FormTitle>
+        <FormTitle>{"Let's Get Started!"}</FormTitle>
         {auth.error && <FormError>{auth.error.message}</FormError>}
         <FormGroup
           label="Email"
