@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { authRequestLogin } from '../../store/actions';
 import Form from '../../components/Form';
-import FormTitle from '../../components/Form/FormTitle';
-import FormGroup from '../../components/Form/FormGroup';
-import FormError from '../../components/Form/FormError';
+import FormTitle from '../../components/FormTitle';
+import FormGroup from '../../components/FormGroup';
+import FormError from '../../components/FormError';
 import Button from '../../components/Button';
 
 const Login = () => {

@@ -1,12 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
 import CanvasArea from '../../components/CanvasArea';
-// import Loader from '../../components/Loader';
+import Loader from '../../components/Loader';
 import ModalSelector from '../../components/ModalSelector';
 import PageView from '../../components/PageView';
 import Toolbar from '../../components/Toolbar';
 import Workspace from '../../components/Workspace';
+import * as actions from '../../store/actions';
 
 // calculate starting canvas size based on screen size
 let calcSize;
@@ -40,7 +42,6 @@ const fabricCanvas = new fabric.Canvas();
 const Designer = () => {
   const canvasRef = useRef();
 
-  // const [loading, setLoading] = useState(true);
   const [fabricData, setFabricData] = useState(null);
   const [activeObject, setActiveObject] = useState(null);
   const [title, setTitle] = useState('Untitled');
@@ -54,6 +55,14 @@ const Designer = () => {
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
 
+  const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
+  const dispatch = useDispatch();
+
+  const saveDoodle = useCallback(
+    (doodle) => dispatch(actions.doodleSaveRequest(doodle, auth.id)),
+    [dispatch, auth],
+  );
+
   useEffect(() => {
     fabricCanvas.initialize(canvasRef.current, {
       width: DEFAULT_WIDTH,
@@ -62,7 +71,7 @@ const Designer = () => {
     });
 
     // set fabric event listeners
-    fabricCanvas.on('mouse:up', (options) => {
+    fabricCanvas.on('mouse:up', () => {
       // on mouse up, update contents of the canvas
       setFabricData(fabricCanvas.toObject());
       setActiveObject(fabricCanvas.getActiveObject());
@@ -206,9 +215,16 @@ const Designer = () => {
 
   const saveCanvas = () => {
     // save the canvas to db
-    alert('saving...');
+    const doodle = {
+      title,
+      content: JSON.stringify(fabricData),
+      width,
+      height,
+    };
 
-    // close modal window
+    saveDoodle(doodle);
+
+    // close modal windows
     closeModal();
   };
 
@@ -288,6 +304,7 @@ const Designer = () => {
           openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
         />
+        {doodle.saving && <Loader />}
         <Workspace>
           <Contextbar
             freeMode={freeMode}

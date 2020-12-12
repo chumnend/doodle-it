@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Hero from '../../components/Hero';
-import HeroTitle from '../../components/Hero/HeroTitle';
-import HeroSubtitle from '../../components/Hero/HeroSubtitle';
+import HeroTitle from '../../components/HeroTitle';
+import HeroSubtitle from '../../components/HeroSubtitle';
 
 const NotFound = () => {
   return (

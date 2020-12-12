@@ -5,17 +5,23 @@ import {
   authValidateSaga,
   logoutSaga,
 } from './auth.saga';
-
 import {
-  AUTH_REQUEST_LOGIN,
-  AUTH_REQUEST_REGISTER,
-  AUTH_REQUEST_VALIDATE,
-  LOGOUT_REQUEST,
-} from '../actionTypes';
+  doodleSaveSaga,
+  doodlesFetchSaga,
+  doodlesDeleteSaga,
+} from './doodle.saga';
+
+import * as actionTypes from '../actionTypes';
 
 export function* watchAuth() {
-  yield takeEvery(AUTH_REQUEST_LOGIN, authLoginSaga);
-  yield takeEvery(AUTH_REQUEST_REGISTER, authRegisterSaga);
-  yield takeEvery(AUTH_REQUEST_VALIDATE, authValidateSaga);
-  yield takeEvery(LOGOUT_REQUEST, logoutSaga);
+  yield takeEvery(actionTypes.AUTH_REQUEST_LOGIN, authLoginSaga);
+  yield takeEvery(actionTypes.AUTH_REQUEST_REGISTER, authRegisterSaga);
+  yield takeEvery(actionTypes.AUTH_REQUEST_VALIDATE, authValidateSaga);
+  yield takeEvery(actionTypes.AUTH_LOGOUT_REQUEST, logoutSaga);
+}
+
+export function* watchDoodle() {
+  yield takeEvery(actionTypes.DOODLE_SAVE_REQUEST, doodleSaveSaga);
+  yield takeEvery(actionTypes.DOODLES_REQUEST_FETCH, doodlesFetchSaga);
+  yield takeEvery(actionTypes.DOODLES_REQUEST_DELETE, doodlesDeleteSaga);
 }

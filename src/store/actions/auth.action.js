@@ -1,23 +1,14 @@
-import {
-  AUTHENTICATING,
-  AUTH_REQUEST_LOGIN,
-  AUTH_REQUEST_REGISTER,
-  AUTH_REQUEST_VALIDATE,
-  AUTH_SUCCESS,
-  AUTH_FAIL,
-  LOGOUT_REQUEST,
-  LOGOUT,
-} from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 
 export const authenticating = () => {
   return {
-    type: AUTHENTICATING,
+    type: actionTypes.AUTHENTICATING,
   };
 };
 
 export const authRequestLogin = (login, password) => {
   return {
-    type: AUTH_REQUEST_LOGIN,
+    type: actionTypes.AUTH_REQUEST_LOGIN,
     login,
     password,
   };
@@ -25,7 +16,7 @@ export const authRequestLogin = (login, password) => {
 
 export const authRequestRegister = (username, email, password) => {
   return {
-    type: AUTH_REQUEST_REGISTER,
+    type: actionTypes.AUTH_REQUEST_REGISTER,
     username,
     email,
     password,
@@ -34,13 +25,13 @@ export const authRequestRegister = (username, email, password) => {
 
 export const authRequestValidate = () => {
   return {
-    type: AUTH_REQUEST_VALIDATE,
+    type: actionTypes.AUTH_REQUEST_VALIDATE,
   };
 };
 
 export const authSuccess = (id, username, token) => {
   return {
-    type: AUTH_SUCCESS,
+    type: actionTypes.AUTH_SUCCESS,
     id,
     username,
     token,
@@ -49,19 +40,19 @@ export const authSuccess = (id, username, token) => {
 
 export const authFail = (error) => {
   return {
-    type: AUTH_FAIL,
+    type: actionTypes.AUTH_FAIL,
     error,
   };
 };
 
-export const logoutRequest = () => {
+export const authLogoutRequest = () => {
   return {
-    type: LOGOUT_REQUEST,
+    type: actionTypes.AUTH_LOGOUT_REQUEST,
   };
 };
 
-export const logout = () => {
+export const authLogout = () => {
   return {
-    type: LOGOUT,
+    type: actionTypes.AUTH_LOGOUT,
   };
 };

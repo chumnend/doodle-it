@@ -1,9 +1,4 @@
-import {
-  AUTHENTICATING,
-  AUTH_SUCCESS,
-  AUTH_FAIL,
-  LOGOUT,
-} from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 
 const initialState = {
   id: null,
@@ -15,13 +10,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTHENTICATING:
+    case actionTypes.AUTHENTICATING:
       return {
         ...state,
         authenticating: true,
         error: null,
       };
-    case AUTH_SUCCESS:
+    case actionTypes.AUTH_SUCCESS:
       return {
         ...state,
         id: action.id,
@@ -30,13 +25,13 @@ const reducer = (state = initialState, action) => {
         authenticating: false,
         error: null,
       };
-    case AUTH_FAIL:
+    case actionTypes.AUTH_FAIL:
       return {
         ...state,
         authenticating: false,
         error: action.error,
       };
-    case LOGOUT:
+    case actionTypes.AUTH_LOGOUT:
       return initialState;
     default:
       return state;

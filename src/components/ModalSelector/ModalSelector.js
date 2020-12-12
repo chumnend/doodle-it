@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-import BackgroundModal from '../BackgroundModal';
-import ClearModal from '../ClearModal';
-import ResizeModal from '../ResizeModal';
-import SaveModal from '../SaveModal';
-import ShapeModal from '../ShapeModal';
+import ModalBackground from '../ModalBackground';
+import ModalClear from '../ModalClear';
+import ModalResize from '../ModalResize';
+import ModalSave from '../ModalSave';
+import ModalShape from '../ModalShape';
 
 const ModalSelector = (props) => {
   switch (props.selected) {
     case props.options.SHAPES:
       return (
-        <ShapeModal
+        <ModalShape
           close={props.close}
           addLine={props.addLine}
           addCircle={props.addCircle}
@@ -19,10 +19,10 @@ const ModalSelector = (props) => {
         />
       );
     case props.options.CLEAR:
-      return <ClearModal close={props.close} clearCanvas={props.clearCanvas} />;
+      return <ModalClear close={props.close} clearCanvas={props.clearCanvas} />;
     case props.options.SAVE:
       return (
-        <SaveModal
+        <ModalSave
           close={props.close}
           title={props.title}
           changeTitle={props.changeTitle}
@@ -31,7 +31,7 @@ const ModalSelector = (props) => {
       );
     case props.options.BACKGROUND:
       return (
-        <BackgroundModal
+        <ModalBackground
           close={props.close}
           backgroundColor={props.backgroundColor}
           changeBackgroundColor={props.changeBackgroundColor}
@@ -39,7 +39,7 @@ const ModalSelector = (props) => {
       );
     case props.options.RESIZE:
       return (
-        <ResizeModal
+        <ModalResize
           close={props.close}
           width={props.width}
           height={props.height}
@@ -52,7 +52,6 @@ const ModalSelector = (props) => {
 };
 
 ModalSelector.propTypes = {
-  children: PropTypes.node.isRequired,
   options: PropTypes.object,
   selected: PropTypes.number,
   close: PropTypes.func,

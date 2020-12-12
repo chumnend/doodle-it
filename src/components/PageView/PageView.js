@@ -6,7 +6,7 @@ const PageView = (props) => {
 };
 
 PageView.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default PageView;
