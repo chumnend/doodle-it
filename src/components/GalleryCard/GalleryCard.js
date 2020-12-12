@@ -8,8 +8,12 @@ const GalleryCard = (props) => {
       <Styles.Content>
         <Styles.Title>{props.title}</Styles.Title>
         <Styles.Icons>
-          <Styles.Icon className="material-icons">edit</Styles.Icon>
-          <Styles.Icon className="material-icons">delete</Styles.Icon>
+          <Styles.Icon className="material-icons" onClick={props.edit}>
+            edit
+          </Styles.Icon>
+          <Styles.Icon className="material-icons" onClick={props.delete}>
+            delete
+          </Styles.Icon>
         </Styles.Icons>
       </Styles.Content>
     </Styles.GalleryCard>
@@ -19,6 +23,8 @@ const GalleryCard = (props) => {
 GalleryCard.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
+  edit: PropTypes.func,
+  delete: PropTypes.func,
 };
 
 export default GalleryCard;

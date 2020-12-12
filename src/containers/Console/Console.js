@@ -14,6 +14,11 @@ const Console = () => {
     () => dispatch(actions.doodlesRequestFetch(auth.id)),
     [dispatch, auth],
   );
+  const editDoodle = (id) => alert('editing ' + id);
+  const deleteDoodle = useCallback(
+    (id) => dispatch(actions.doodlesRequestDelete(auth.id, id)),
+    [dispatch, auth],
+  );
 
   useEffect(() => {
     fetchDoodles();
@@ -27,7 +32,7 @@ const Console = () => {
           <Link to="/design">Go to Designer</Link>
         </HeroSubtitle>
       </Hero>
-      <Gallery items={doodle.doodles} />
+      <Gallery items={doodle.doodles} edit={editDoodle} delete={deleteDoodle} />
     </>
   );
 };

@@ -54,3 +54,31 @@ export const doodlesFetchFail = (error) => {
     error,
   };
 };
+
+export const doodlesDeleting = () => {
+  return {
+    type: actionTypes.DOODLES_DELETING,
+  };
+};
+
+export const doodlesRequestDelete = (userId, doodleId) => {
+  return {
+    type: actionTypes.DOODLES_REQUEST_DELETE,
+    userId,
+    doodleId,
+  };
+};
+
+export const doodlesDeleteSuccess = (doodleId) => {
+  return {
+    type: actionTypes.DOODLES_DELETE_SUCCESS,
+    doodleId,
+  };
+};
+
+export const doodlesDeleteFail = (error) => {
+  return {
+    type: actionTypes.DOODLES_DELETE_FAIL,
+    error,
+  };
+};
