@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import FreeContextbar from './FreeContextbar';
-import ActiveContextbar from './ActiveContextbar';
+import ContextbarFree from '../ContextbarFree';
+import ContextbarActive from '../ContextbarActive';
 import * as Styles from './styles';
 
 const Contextbar = (props) => {
   return (
     <Styles.Contextbar>
       {props.freeMode && (
-        <FreeContextbar
+        <ContextbarFree
           color={props.color}
           changeColor={props.changeColor}
           penWidth={props.penWidth}
@@ -15,7 +15,7 @@ const Contextbar = (props) => {
         />
       )}
       {props.activeObject && (
-        <ActiveContextbar
+        <ContextbarActive
           activeObject={props.activeObject}
           changeColor={props.changeColor}
           sendObjectToTop={props.sendObjectToTop}

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Navbar from './components/Navbar';
+import Nav from './components/Nav';
 import Home from './containers/Home';
 import Console from './containers/Console';
 import Designer from './containers/Designer';
@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <>
-      <Navbar isLoggedIn={!!auth.token} logout={logoutUser} />
+      <Nav isLoggedIn={!!auth.token} logout={logoutUser} />
       {!loading && (
         <Switch>
           <Route

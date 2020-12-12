@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import GalleryCard from './GalleryCard';
+import GalleryCard from '../GalleryCard';
 import * as Styles from './styles';
 
 const Gallery = (props) => {
@@ -7,7 +7,7 @@ const Gallery = (props) => {
     <Styles.Gallery>
       <Styles.Container>
         {props.items.map((el) => (
-          <GalleryCard key={el.id} name={el.name} image={el.image} />
+          <GalleryCard key={el._id} title={el.title} content={el.content} />
         ))}
       </Styles.Container>
     </Styles.Gallery>

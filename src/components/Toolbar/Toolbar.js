@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import ToolbarButton from './ToolbarButton';
+import ToolbarButton from '../ToolbarButton';
 import * as Styles from './styles';
 
 const Toolbar = (props) => {

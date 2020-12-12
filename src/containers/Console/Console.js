@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Hero from '../../components/Hero';
-import HeroTitle from '../../components/Hero/HeroTitle';
-import HeroSubtitle from '../../components/Hero/HeroSubtitle';
+import HeroTitle from '../../components/HeroTitle';
+import HeroSubtitle from '../../components/HeroSubtitle';
 import Gallery from '../../components/Gallery';
 import * as actions from '../../store/actions';
 
