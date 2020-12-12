@@ -57,6 +57,7 @@ const Designer = () => {
 
   const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
   const dispatch = useDispatch();
+
   const saveDoodle = useCallback(
     (doodle) => dispatch(actions.doodleSaveRequest(doodle, auth.id)),
     [dispatch, auth],

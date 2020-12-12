@@ -12,13 +12,14 @@ import * as actions from './store/actions';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
   const validateUser = useCallback(
     () => dispatch(actions.authRequestValidate()),
     [dispatch],
   );
+
   const logoutUser = useCallback(() => dispatch(actions.authLogoutRequest()), [
     dispatch,
   ]);
@@ -42,7 +43,7 @@ const App = () => {
           />
           <Route
             exact
-            path="/design"
+            path="/design/:id?"
             render={(props) =>
               !!auth.token ? <Designer {...props} /> : <Redirect to="/login" />
             }
