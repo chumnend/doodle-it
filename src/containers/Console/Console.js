@@ -1,15 +1,24 @@
+import { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Hero from '../../components/Hero';
 import HeroTitle from '../../components/Hero/HeroTitle';
 import HeroSubtitle from '../../components/Hero/HeroSubtitle';
 import Gallery from '../../components/Gallery';
-
-const dummy_doodles = [
-  { id: 1, name: 'Doodle 1', image: 'image' },
-  { id: 2, name: 'Doodle 2', image: 'image' },
-];
+import * as actions from '../../store/actions';
 
 const Console = () => {
+  const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
+  const dispatch = useDispatch();
+  const fetchDoodles = useCallback(
+    () => dispatch(actions.doodlesRequestFetch(auth.id)),
+    [dispatch, auth],
+  );
+
+  useEffect(() => {
+    fetchDoodles();
+  }, [fetchDoodles]);
+
   return (
     <>
       <Hero>
@@ -18,7 +27,7 @@ const Console = () => {
           <Link to="/design">Go to Designer</Link>
         </HeroSubtitle>
       </Hero>
-      <Gallery items={dummy_doodles} />
+      <Gallery items={doodle.doodles} />
     </>
   );
 };

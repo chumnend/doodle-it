@@ -2,6 +2,7 @@ import * as actionTypes from '../actionTypes';
 
 const initialState = {
   doodles: [],
+  fetching: false,
   saving: false,
   error: null,
 };
@@ -24,6 +25,26 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         saving: false,
+        error: action.error,
+      };
+    case actionTypes.DOODLES_FETCHING:
+      return {
+        ...state,
+        fetching: true,
+        error: null,
+      };
+    case actionTypes.DOODLES_FETCH_SUCCESS:
+      return {
+        ...state,
+        doodles: action.doodles,
+        fetching: false,
+        error: null,
+      };
+    case actionTypes.DOODLES_FETCH_FAIL:
+      return {
+        ...state,
+        doodles: [],
+        fetching: false,
         error: action.error,
       };
     default:

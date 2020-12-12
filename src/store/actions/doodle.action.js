@@ -27,3 +27,30 @@ export const doodleSaveFail = (error) => {
     error,
   };
 };
+
+export const doodlesFetching = () => {
+  return {
+    type: actionTypes.DOODLES_FETCHING,
+  };
+};
+
+export const doodlesRequestFetch = (userId) => {
+  return {
+    type: actionTypes.DOODLES_REQUEST_FETCH,
+    userId,
+  };
+};
+
+export const doodlesFetchSuccess = (doodles) => {
+  return {
+    type: actionTypes.DOODLES_FETCH_SUCCESS,
+    doodles,
+  };
+};
+
+export const doodlesFetchFail = (error) => {
+  return {
+    type: actionTypes.DOODLES_FETCH_FAIL,
+    error,
+  };
+};

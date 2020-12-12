@@ -14,4 +14,8 @@ export {
   doodleSaveRequest,
   doodleSaveSuccess,
   doodleSaveFail,
+  doodlesFetching,
+  doodlesRequestFetch,
+  doodlesFetchSuccess,
+  doodlesFetchFail,
 } from './doodle.action';
