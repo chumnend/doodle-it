@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
 import CanvasArea from '../../components/CanvasArea';
@@ -23,8 +24,8 @@ if (innerWidth > innerHeight) {
 const DEFAULT_WIDTH = calcSize;
 const DEFAULT_HEIGHT = calcSize;
 const DEFAULT_COLOR = '#000002';
-const DEFAULT_PEN_THICKNESS = 2;
 const DEFAULT_BACKGROUND_COLOR = '#f2f2f2';
+const DEFAULT_PEN_THICKNESS = 2;
 
 // enumeration for Modal
 const ModalTypes = {
@@ -39,7 +40,7 @@ const ModalTypes = {
 // globally accessible fabricCanvas instance
 const fabricCanvas = new fabric.Canvas();
 
-const Designer = () => {
+const Designer = (props) => {
   const canvasRef = useRef();
 
   const [fabricData, setFabricData] = useState(null);
@@ -55,20 +56,34 @@ const Designer = () => {
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
 
-  const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
+  const [auth, canvas] = useSelector((state) => [state.auth, state.canvas]);
   const dispatch = useDispatch();
 
   const saveDoodle = useCallback(
-    (doodle) => dispatch(actions.doodleSaveRequest(doodle, auth.id)),
+    (doodle) => dispatch(actions.canvasSaveRequest(doodle, auth.id)),
     [dispatch, auth],
   );
 
   useEffect(() => {
-    fabricCanvas.initialize(canvasRef.current, {
-      width: DEFAULT_WIDTH,
-      height: DEFAULT_HEIGHT,
-      backgroundColor: DEFAULT_BACKGROUND_COLOR,
-    });
+    const params = props.match.params;
+
+    if (params.id) {
+      // load doodle
+
+      // initialize loaded doodle
+      fabricCanvas.initialize(canvasRef.current, {
+        width: DEFAULT_WIDTH,
+        height: DEFAULT_HEIGHT,
+        backgroundColor: DEFAULT_BACKGROUND_COLOR,
+      });
+    } else {
+      // initialze default canvas
+      fabricCanvas.initialize(canvasRef.current, {
+        width: DEFAULT_WIDTH,
+        height: DEFAULT_HEIGHT,
+        backgroundColor: DEFAULT_BACKGROUND_COLOR,
+      });
+    }
 
     // set fabric event listeners
     fabricCanvas.on('mouse:up', () => {
@@ -87,11 +102,10 @@ const Designer = () => {
 
     // initialize fabric
     setFabricData(fabricCanvas);
-
     return () => {
       canvasRef.current = false;
     };
-  }, []);
+  }, [props.match.params]);
 
   // Toolbar Commands =========================================================
   const toggleFreeMode = () => {
@@ -304,7 +318,7 @@ const Designer = () => {
           openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
         />
-        {doodle.saving && <Loader />}
+        {canvas.saving && <Loader />}
         <Workspace>
           <Contextbar
             freeMode={freeMode}
@@ -345,6 +359,10 @@ const Designer = () => {
       />
     </>
   );
+};
+
+Designer.propTypes = {
+  match: PropTypes.object,
 };
 
 export default Designer;
