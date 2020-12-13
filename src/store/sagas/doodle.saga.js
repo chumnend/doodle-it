@@ -5,9 +5,8 @@ import * as actions from '../actions';
 export function* doodlesFetchSaga(action) {
   yield put(actions.doodlesFetching());
 
-  const url = `${process.env.REACT_APP_API_PREFIX}/v1/doodle?apiKey=${process.env.REACT_APP_API_KEY}&userId=${action.userId}`;
-
   try {
+    const url = `${process.env.REACT_APP_API_PREFIX}/v1/doodle?apiKey=${process.env.REACT_APP_API_KEY}&userId=${action.userId}`;
     const res = yield axios.get(url);
     yield put(actions.doodlesFetchSuccess(res.data));
   } catch (err) {
@@ -18,9 +17,8 @@ export function* doodlesFetchSaga(action) {
 export function* doodlesDeleteSaga(action) {
   yield put(actions.doodlesDeleting());
 
-  const url = `${process.env.REACT_APP_API_PREFIX}/v1/doodle/${action.doodleId}?apiKey=${process.env.REACT_APP_API_KEY}&userId=${action.userId}`;
-
   try {
+    const url = `${process.env.REACT_APP_API_PREFIX}/v1/doodle/${action.doodleId}?apiKey=${process.env.REACT_APP_API_KEY}&userId=${action.userId}`;
     yield axios.delete(url);
     yield put(actions.doodlesDeleteSuccess(action.doodleId));
   } catch (err) {

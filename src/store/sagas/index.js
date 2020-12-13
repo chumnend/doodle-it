@@ -20,6 +20,7 @@ export function* watchAuth() {
 
 export function* watchCanvas() {
   yield takeEvery(actionTypes.CANVAS_SAVE_REQUEST, canvasSagas.canvasSaveSaga);
+  yield takeEvery(actionTypes.CANVAS_LOAD_REQUEST, canvasSagas.canvasLoadSaga);
 }
 
 export function* watchDoodle() {

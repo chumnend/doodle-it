@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import Hero from '../../components/Hero';
 import HeroTitle from '../../components/HeroTitle';
 import HeroSubtitle from '../../components/HeroSubtitle';
@@ -9,6 +9,8 @@ import Gallery from '../../components/Gallery';
 import * as actions from '../../store/actions';
 
 const Console = (props) => {
+  const history = useHistory();
+
   const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
   const dispatch = useDispatch();
 
@@ -19,9 +21,9 @@ const Console = (props) => {
 
   const editDoodle = useCallback(
     (id) => {
-      props.history.push(`/design/${id}`);
+      history.push(`/design/${id}`);
     },
-    [props.history],
+    [history],
   );
 
   const deleteDoodle = useCallback(
@@ -44,10 +46,6 @@ const Console = (props) => {
       <Gallery items={doodle.doodles} edit={editDoodle} delete={deleteDoodle} />
     </>
   );
-};
-
-Console.propTypes = {
-  history: PropTypes.object,
 };
 
 export default Console;

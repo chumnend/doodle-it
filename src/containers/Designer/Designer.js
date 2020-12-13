@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
 import CanvasArea from '../../components/CanvasArea';
@@ -42,6 +42,8 @@ const fabricCanvas = new fabric.Canvas();
 
 const Designer = (props) => {
   const canvasRef = useRef();
+  const params = useParams();
+  const history = useHistory();
 
   const [fabricData, setFabricData] = useState(null);
   const [activeObject, setActiveObject] = useState(null);
@@ -60,15 +62,24 @@ const Designer = (props) => {
   const dispatch = useDispatch();
 
   const saveDoodle = useCallback(
-    (doodle) => dispatch(actions.canvasSaveRequest(doodle, auth.id)),
+    (doodleJSON, doodleId) =>
+      dispatch(actions.canvasSaveRequest(doodleJSON, auth.id, doodleId)),
     [dispatch, auth],
   );
 
-  useEffect(() => {
-    const params = props.match.params;
+  const loadDoodle = useCallback(
+    (doodleId) => dispatch(actions.canvasLoadRequest(auth.id, doodleId)),
+    [dispatch, auth],
+  );
 
+  const clearCanvasState = useCallback(() => dispatch(actions.canvasClear()), [
+    dispatch,
+  ]);
+
+  useEffect(() => {
     if (params.id) {
-      // load doodle
+      // load doodles
+      loadDoodle(params.id);
 
       // initialize loaded doodle
       fabricCanvas.initialize(canvasRef.current, {
@@ -104,14 +115,16 @@ const Designer = (props) => {
     setFabricData(fabricCanvas);
     return () => {
       canvasRef.current = false;
+      clearCanvasState();
     };
-  }, [props.match.params]);
+  }, [params.id, loadDoodle, clearCanvasState]);
 
   useEffect(() => {
-    if (canvas.data !== null) {
-      props.history.push(`/design/${canvas.data.id}`);
+    // after saving a new doodle, redirect to proper address
+    if (!params.id && canvas.data) {
+      history.push(`/design/${canvas.data.id}`);
     }
-  }, [props.history, canvas.data]);
+  }, [params.id, history, canvas.data]);
 
   // Toolbar Commands =========================================================
   const toggleFreeMode = () => {
@@ -234,7 +247,7 @@ const Designer = (props) => {
   };
 
   const saveCanvas = () => {
-    // save the canvas to db
+    // prepare payload for saving
     const doodle = {
       title,
       content: JSON.stringify(fabricData),
@@ -242,7 +255,12 @@ const Designer = (props) => {
       height,
     };
 
-    saveDoodle(doodle);
+    // execute create or update of doodle
+    if (canvas.data) {
+      saveDoodle(doodle, canvas.data.id);
+    } else {
+      saveDoodle(doodle, null);
+    }
 
     // close modal windows
     closeModal();
@@ -324,7 +342,7 @@ const Designer = (props) => {
           openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
         />
-        {canvas.saving && <Loader />}
+        {(canvas.saving || canvas.loading) && <Loader />}
         <Workspace>
           <Contextbar
             freeMode={freeMode}
@@ -365,11 +383,6 @@ const Designer = (props) => {
       />
     </>
   );
-};
-
-Designer.propTypes = {
-  history: PropTypes.object,
-  match: PropTypes.object,
 };
 
 export default Designer;
