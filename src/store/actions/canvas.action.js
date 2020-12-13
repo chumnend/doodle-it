@@ -15,9 +15,14 @@ export const canvasSaveRequest = (doodle, userId, doodleId) => {
   };
 };
 
-export const canvasSaveSuccess = () => {
+export const canvasSaveSuccess = (data) => {
   return {
     type: actionTypes.CANVAS_SAVE_SUCCESS,
+    id: data._id,
+    title: data.title,
+    content: data.content,
+    width: data.width,
+    height: data.height,
   };
 };
 

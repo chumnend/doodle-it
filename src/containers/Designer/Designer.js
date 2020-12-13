@@ -107,6 +107,12 @@ const Designer = (props) => {
     };
   }, [props.match.params]);
 
+  useEffect(() => {
+    if (canvas.data !== null) {
+      props.history.push(`/design/${canvas.data.id}`);
+    }
+  }, [props.history, canvas.data]);
+
   // Toolbar Commands =========================================================
   const toggleFreeMode = () => {
     // set canvas for free drawing or select mode
@@ -362,6 +368,7 @@ const Designer = (props) => {
 };
 
 Designer.propTypes = {
+  history: PropTypes.object,
   match: PropTypes.object,
 };
 

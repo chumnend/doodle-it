@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
-  canvas: null,
+  data: null,
   saving: false,
   error: null,
 };
@@ -17,6 +17,13 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CANVAS_SAVE_SUCCESS:
       return {
         ...state,
+        data: {
+          id: action.id,
+          title: action.title,
+          content: action.content,
+          width: action.width,
+          height: action.height,
+        },
         saving: false,
         error: null,
       };

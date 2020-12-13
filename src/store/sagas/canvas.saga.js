@@ -8,8 +8,8 @@ export function* canvasSaveSaga(action) {
   const url = `${process.env.REACT_APP_API_PREFIX}/v1/doodle?apiKey=${process.env.REACT_APP_API_KEY}&userId=${action.userId}`;
 
   try {
-    yield axios.post(url, action.doodle);
-    yield put(actions.canvasSaveSuccess());
+    const res = yield axios.post(url, action.doodle);
+    yield put(actions.canvasSaveSuccess(res.data));
   } catch (err) {
     yield put(actions.canvasSaveFail(err.response.data));
   }
