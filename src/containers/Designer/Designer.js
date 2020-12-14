@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
@@ -23,8 +24,8 @@ if (innerWidth > innerHeight) {
 const DEFAULT_WIDTH = calcSize;
 const DEFAULT_HEIGHT = calcSize;
 const DEFAULT_COLOR = '#000002';
-const DEFAULT_PEN_THICKNESS = 2;
 const DEFAULT_BACKGROUND_COLOR = '#f2f2f2';
+const DEFAULT_PEN_THICKNESS = 2;
 
 // enumeration for Modal
 const ModalTypes = {
@@ -39,8 +40,10 @@ const ModalTypes = {
 // globally accessible fabricCanvas instance
 const fabricCanvas = new fabric.Canvas();
 
-const Designer = () => {
+const Designer = (props) => {
   const canvasRef = useRef();
+  const params = useParams();
+  const history = useHistory();
 
   const [fabricData, setFabricData] = useState(null);
   const [activeObject, setActiveObject] = useState(null);
@@ -55,27 +58,53 @@ const Designer = () => {
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
 
-  const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
+  const [auth, canvas] = useSelector((state) => [state.auth, state.canvas]);
   const dispatch = useDispatch();
 
   const saveDoodle = useCallback(
-    (doodle) => dispatch(actions.doodleSaveRequest(doodle, auth.id)),
+    (doodleJSON, doodleId) =>
+      dispatch(actions.canvasSaveRequest(doodleJSON, auth.id, doodleId)),
     [dispatch, auth],
   );
 
+  const loadDoodle = useCallback(
+    (doodleId) => dispatch(actions.canvasLoadRequest(auth.id, doodleId)),
+    [dispatch, auth],
+  );
+
+  const clearCanvasState = useCallback(() => dispatch(actions.canvasClear()), [
+    dispatch,
+  ]);
+
   useEffect(() => {
-    fabricCanvas.initialize(canvasRef.current, {
-      width: DEFAULT_WIDTH,
-      height: DEFAULT_HEIGHT,
-      backgroundColor: DEFAULT_BACKGROUND_COLOR,
-    });
+    if (params.id && !canvas.data) {
+      // start loading doodle
+      loadDoodle(params.id);
+    } else if (params.id && canvas.data) {
+      // intialize canvas with loaded doodle
+      fabricCanvas.initialize(canvasRef.current, {
+        width: canvas.data.width,
+        height: canvas.data.height,
+      });
+
+      setTitle(canvas.data.title);
+      setWidth(canvas.data.width);
+      setHeight(canvas.data.height);
+      fabricCanvas.loadFromJSON(canvas.data.content);
+    } else {
+      // initialize default canvas
+      fabricCanvas.initialize(canvasRef.current, {
+        width: DEFAULT_WIDTH,
+        height: DEFAULT_HEIGHT,
+        backgroundColor: DEFAULT_BACKGROUND_COLOR,
+      });
+    }
 
     // set fabric event listeners
     fabricCanvas.on('mouse:up', () => {
       // on mouse up, update contents of the canvas
       setFabricData(fabricCanvas.toObject());
       setActiveObject(fabricCanvas.getActiveObject());
-      // setShowPicker(false);
     });
 
     fabricCanvas.on('save', () => {
@@ -87,11 +116,22 @@ const Designer = () => {
 
     // initialize fabric
     setFabricData(fabricCanvas);
+  }, [params.id, canvas.data, loadDoodle, clearCanvasState]);
 
+  // after saving a new doodle, redirect to proper address
+  useEffect(() => {
+    if (!params.id && canvas.data) {
+      history.push(`/design/${canvas.data.id}`);
+    }
+  }, [params.id, history, canvas.data]);
+
+  // clear canvas redux on page change
+  useEffect(() => {
     return () => {
-      canvasRef.current = false;
+      canvasRef.current = null;
+      clearCanvasState();
     };
-  }, []);
+  }, [clearCanvasState]);
 
   // Toolbar Commands =========================================================
   const toggleFreeMode = () => {
@@ -214,7 +254,7 @@ const Designer = () => {
   };
 
   const saveCanvas = () => {
-    // save the canvas to db
+    // prepare payload for saving
     const doodle = {
       title,
       content: JSON.stringify(fabricData),
@@ -222,7 +262,12 @@ const Designer = () => {
       height,
     };
 
-    saveDoodle(doodle);
+    // execute create or update of doodle
+    if (canvas.data) {
+      saveDoodle(doodle, canvas.data.id);
+    } else {
+      saveDoodle(doodle, null);
+    }
 
     // close modal windows
     closeModal();
@@ -304,7 +349,7 @@ const Designer = () => {
           openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
         />
-        {doodle.saving && <Loader />}
+        {(canvas.saving || canvas.loading) && <Loader />}
         <Workspace>
           <Contextbar
             freeMode={freeMode}

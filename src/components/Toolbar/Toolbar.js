@@ -44,7 +44,6 @@ const Toolbar = (props) => {
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Resize</Styles.ToolbarName>
         </ToolbarButton>
-        <div style={{ flexGrow: 1 }} />
         <ToolbarButton clicked={props.openClearModal} title="Clear the canvas">
           <Styles.ToolbarIcon className="material-icons">
             delete_forever

@@ -5,14 +5,13 @@ import * as actions from '../actions';
 export function* authLoginSaga(action) {
   yield put(actions.authenticating());
 
-  const url = `${process.env.REACT_APP_API_PREFIX}/v1/auth/login?apiKey=${process.env.REACT_APP_API_KEY}`;
-
   const payload = {
     login: action.login,
     password: action.password,
   };
 
   try {
+    const url = `${process.env.REACT_APP_API_PREFIX}/v1/auth/login?apiKey=${process.env.REACT_APP_API_KEY}`;
     const res = yield axios.post(url, payload);
 
     yield localStorage.setItem('id', res.data.id);
@@ -34,8 +33,6 @@ export function* authLoginSaga(action) {
 export function* authRegisterSaga(action) {
   yield put(actions.authenticating());
 
-  const url = `${process.env.REACT_APP_API_PREFIX}/v1/auth/register?apiKey=${process.env.REACT_APP_API_KEY}`;
-
   const payload = {
     username: action.username,
     email: action.email,
@@ -43,6 +40,7 @@ export function* authRegisterSaga(action) {
   };
 
   try {
+    const url = `${process.env.REACT_APP_API_PREFIX}/v1/auth/register?apiKey=${process.env.REACT_APP_API_KEY}`;
     const res = yield axios.post(url, payload);
 
     yield localStorage.setItem('id', res.data.id);
