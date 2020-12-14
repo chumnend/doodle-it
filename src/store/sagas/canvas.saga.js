@@ -12,7 +12,7 @@ export function* canvasSaveSaga(action) {
       res = yield axios.put(url, action.doodle);
     } else {
       url = `${process.env.REACT_APP_API_PREFIX}/v1/doodle?apiKey=${process.env.REACT_APP_API_KEY}&userId=${action.userId}`;
-      res = yield axios.postt(url, action.doodle);
+      res = yield axios.post(url, action.doodle);
     }
     yield put(actions.canvasSaveSuccess(res.data));
   } catch (err) {
