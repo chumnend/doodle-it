@@ -80,6 +80,9 @@ const Designer = (props) => {
     if (params.id && !canvas.data) {
       // start loading doodle
       loadDoodle(params.id);
+    } else if (!params.id && canvas.data) {
+      // after saving a new doodle, redirect to proper address
+      history.push(`/design/${canvas.data.id}`);
     } else if (params.id && canvas.data) {
       // intialize canvas with loaded doodle
       fabricCanvas.initialize(canvasRef.current, {
@@ -116,14 +119,7 @@ const Designer = (props) => {
 
     // initialize fabric
     setFabricData(fabricCanvas);
-  }, [params.id, canvas.data, loadDoodle, clearCanvasState]);
-
-  // after saving a new doodle, redirect to proper address
-  useEffect(() => {
-    if (!params.id && canvas.data) {
-      history.push(`/design/${canvas.data.id}`);
-    }
-  }, [params.id, history, canvas.data]);
+  }, [params.id, history, canvas.data, loadDoodle, clearCanvasState]);
 
   // clear canvas redux on page change
   useEffect(() => {
