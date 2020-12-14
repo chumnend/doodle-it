@@ -77,18 +77,22 @@ const Designer = (props) => {
   ]);
 
   useEffect(() => {
-    if (params.id) {
-      // load doodles
+    if (params.id && !canvas.data) {
+      // start loading doodle
       loadDoodle(params.id);
-
-      // initialize loaded doodle
+    } else if (params.id && canvas.data) {
+      // intialize canvas with loaded doodle
       fabricCanvas.initialize(canvasRef.current, {
-        width: DEFAULT_WIDTH,
-        height: DEFAULT_HEIGHT,
-        backgroundColor: DEFAULT_BACKGROUND_COLOR,
+        width: canvas.data.width,
+        height: canvas.data.height,
       });
+
+      setTitle(canvas.data.title);
+      setWidth(canvas.data.width);
+      setHeight(canvas.data.height);
+      fabricCanvas.loadFromJSON(canvas.data.content);
     } else {
-      // initialze default canvas
+      // initialize default canvas
       fabricCanvas.initialize(canvasRef.current, {
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT,
@@ -101,7 +105,6 @@ const Designer = (props) => {
       // on mouse up, update contents of the canvas
       setFabricData(fabricCanvas.toObject());
       setActiveObject(fabricCanvas.getActiveObject());
-      // setShowPicker(false);
     });
 
     fabricCanvas.on('save', () => {
@@ -113,18 +116,22 @@ const Designer = (props) => {
 
     // initialize fabric
     setFabricData(fabricCanvas);
-    return () => {
-      canvasRef.current = false;
-      clearCanvasState();
-    };
-  }, [params.id, loadDoodle, clearCanvasState]);
+  }, [params.id, canvas.data, loadDoodle, clearCanvasState]);
 
+  // after saving a new doodle, redirect to proper address
   useEffect(() => {
-    // after saving a new doodle, redirect to proper address
     if (!params.id && canvas.data) {
       history.push(`/design/${canvas.data.id}`);
     }
   }, [params.id, history, canvas.data]);
+
+  // clear canvas redux on page change
+  useEffect(() => {
+    return () => {
+      canvasRef.current = null;
+      clearCanvasState();
+    };
+  }, [clearCanvasState]);
 
   // Toolbar Commands =========================================================
   const toggleFreeMode = () => {
