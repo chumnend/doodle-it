@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fabric } from 'fabric';
 import Contextbar from '../../components/Contextbar';
+import Canvas from '../../components/Canvas';
 import CanvasArea from '../../components/CanvasArea';
 import Loader from '../../components/Loader';
 import ModalSelector from '../../components/ModalSelector';
@@ -134,9 +135,7 @@ const Designer = (props) => {
     // set canvas for free drawing or select mode
     if (!freeMode) {
       // deselect any active objects
-      fabricCanvas.discardActiveObject();
-      fabricCanvas.renderAll();
-      setActiveObject(null);
+      deselectObjects();
 
       // turn free drawing mode on
       fabricCanvas.isDrawingMode = true;
@@ -329,6 +328,13 @@ const Designer = (props) => {
   };
 
   // Misc Commands ============================================================
+  const deselectObjects = () => {
+    // deselect any active objects
+    fabricCanvas.discardActiveObject();
+    fabricCanvas.renderAll();
+    setActiveObject(null);
+  };
+
   const closeModal = () => {
     setModalType(ModalTypes.NONE);
   };
@@ -360,8 +366,8 @@ const Designer = (props) => {
             sendObjectBackward={sendObjectBackward}
             removeObject={removeObject}
           />
-          <CanvasArea>
-            <canvas ref={canvasRef}>Not supported by browser.</canvas>
+          <CanvasArea handleClick={deselectObjects}>
+            <Canvas ref={canvasRef}>Not supported by browser.</Canvas>
           </CanvasArea>
         </Workspace>
       </PageView>
