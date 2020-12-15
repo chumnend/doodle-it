@@ -19,6 +19,7 @@ const FreeContextbar = (props) => {
           <Styles.ColorSquare
             color={props.color}
             onClick={() => setShowPicker(!showPicker)}
+            title="Select a color"
           />
           <Styles.ColorCode>{props.color.toUpperCase()}</Styles.ColorCode>
           {showPicker && (
@@ -30,7 +31,10 @@ const FreeContextbar = (props) => {
       </Styles.InnerContainer>
       <Styles.InnerContainer>
         <Styles.Item>
-          <Styles.Button onClick={() => setShowPenSlider(!showPenSlider)}>
+          <Styles.Button
+            title="Change Pen Width"
+            onClick={() => setShowPenSlider(!showPenSlider)}
+          >
             <i className="material-icons">line_weight</i>
           </Styles.Button>
           {showPenSlider && (

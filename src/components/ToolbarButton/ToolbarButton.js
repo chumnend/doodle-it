@@ -7,6 +7,7 @@ const ToolbarButton = (props) => {
       toggable={props.toggable}
       active={props.active}
       onClick={props.clicked}
+      title={props.title}
     >
       {props.children}
     </Styles.ToolbarButton>
@@ -23,6 +24,7 @@ ToolbarButton.propTypes = {
   toggable: PropTypes.bool,
   active: PropTypes.bool,
   clicked: PropTypes.func,
+  title: PropTypes.string,
 };
 
 export default ToolbarButton;

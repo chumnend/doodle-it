@@ -20,6 +20,7 @@ const ActiveContextbar = (props) => {
           <Styles.ColorSquare
             color={color}
             onClick={() => setShowPicker(!showPicker)}
+            title="Select a color"
           />
           <Styles.ColorCode>{color.toUpperCase()}</Styles.ColorCode>
           {showPicker && (
@@ -31,27 +32,42 @@ const ActiveContextbar = (props) => {
       </Styles.InnerContainer>
       <Styles.InnerContainer>
         <Styles.Item>
-          <Styles.Button onClick={() => props.sendObjectToBottom()}>
+          <Styles.Button
+            title="Move Object to Bottom Layer"
+            onClick={() => props.sendObjectToBottom()}
+          >
             <i className="material-icons">vertical_align_bottom</i>
           </Styles.Button>
         </Styles.Item>
         <Styles.Item>
-          <Styles.Button onClick={() => props.sendObjectBackward()}>
+          <Styles.Button
+            title="Move Object Down One Layer"
+            nClick={() => props.sendObjectBackward()}
+          >
             <i className="material-icons">arrow_drop_down</i>
           </Styles.Button>
         </Styles.Item>
         <Styles.Item>
-          <Styles.Button onClick={() => props.sendObjectForward()}>
+          <Styles.Button
+            title="Move Object Up One Layer"
+            onClick={() => props.sendObjectForward()}
+          >
             <i className="material-icons">arrow_drop_up</i>
           </Styles.Button>
         </Styles.Item>
         <Styles.Item>
-          <Styles.Button onClick={() => props.sendObjectToTop()}>
+          <Styles.Button
+            title="Move Object to Top Layer"
+            onClick={() => props.sendObjectToTop()}
+          >
             <i className="material-icons">vertical_align_top</i>
           </Styles.Button>
         </Styles.Item>
         <Styles.Item>
-          <Styles.Button onClick={() => props.removeObject()}>
+          <Styles.Button
+            title="Delete Selected Object"
+            onClick={() => props.removeObject()}
+          >
             <i className="material-icons">delete</i>
           </Styles.Button>
         </Styles.Item>
