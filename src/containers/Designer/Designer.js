@@ -297,28 +297,28 @@ const Designer = (props) => {
   const sendObjectToTop = () => {
     // move object to top of canvas
     fabricCanvas.bringToFront(activeObject);
-    fabricCanvas.discardActiveObject();
-    setActiveObject(null);
+    deselectObjects();
     fabricCanvas.fire('save');
   };
 
   const sendObjectToBottom = () => {
     // move object to bottom of canvas
     fabricCanvas.sendToBack(activeObject);
-    fabricCanvas.discardActiveObject();
-    setActiveObject(null);
+    deselectObjects();
     fabricCanvas.fire('save');
   };
 
   const sendObjectForward = () => {
     // move object up one level
     fabricCanvas.bringForward(activeObject);
+    deselectObjects();
     fabricCanvas.fire('save');
   };
 
   const sendObjectBackward = () => {
     // move object down one level
     fabricCanvas.sendBackwards(activeObject);
+    deselectObjects();
     fabricCanvas.fire('save');
   };
 
