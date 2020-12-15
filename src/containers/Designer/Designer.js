@@ -268,6 +268,17 @@ const Designer = (props) => {
     closeModal();
   };
 
+  const download = () => {
+    const img = canvasRef.current.toDataURL({ format: 'jpeg', quality: 0.8 });
+    const link = document.createElement('a');
+    link.setAttribute('href', img);
+    link.setAttribute('download', `${title}.png`);
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Context Bar Commands =====================================================
   const changeColor = (color) => {
     if (freeMode) {
@@ -350,6 +361,7 @@ const Designer = (props) => {
           openSaveModal={() => setModalType(ModalTypes.SAVE)}
           openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
+          download={download}
         />
         {(canvas.saving || canvas.loading) && <Loader />}
         <Workspace>

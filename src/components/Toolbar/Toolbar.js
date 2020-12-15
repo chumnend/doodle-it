@@ -56,6 +56,12 @@ const Toolbar = (props) => {
           </Styles.ToolbarIcon>
           <Styles.ToolbarName>Save</Styles.ToolbarName>
         </ToolbarButton>
+        <ToolbarButton clicked={props.download} title="Download this doodle">
+          <Styles.ToolbarIcon className="material-icons">
+            get_app
+          </Styles.ToolbarIcon>
+          <Styles.ToolbarName>Export</Styles.ToolbarName>
+        </ToolbarButton>
       </Styles.Container>
     </Styles.Toolbar>
   );
@@ -69,6 +75,7 @@ Toolbar.propTypes = {
   openSaveModal: PropTypes.func,
   openBackgroundModal: PropTypes.func,
   openResizeModal: PropTypes.func,
+  download: PropTypes.func,
 };
 
 export default Toolbar;
