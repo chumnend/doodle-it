@@ -89,6 +89,7 @@ const Designer = (props) => {
       fabricCanvas.initialize(canvasRef.current, {
         width: canvas.data.width,
         height: canvas.data.height,
+        preserveObjectStacking: true,
       });
 
       setTitle(canvas.data.title);
@@ -101,6 +102,7 @@ const Designer = (props) => {
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT,
         backgroundColor: DEFAULT_BACKGROUND_COLOR,
+        preserveObjectStacking: true,
       });
     }
 
@@ -322,14 +324,12 @@ const Designer = (props) => {
   const sendObjectForward = () => {
     // move object up one level
     fabricCanvas.bringForward(activeObject);
-    deselectObjects();
     fabricCanvas.fire('save');
   };
 
   const sendObjectBackward = () => {
     // move object down one level
     fabricCanvas.sendBackwards(activeObject);
-    deselectObjects();
     fabricCanvas.fire('save');
   };
 

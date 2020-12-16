@@ -42,7 +42,7 @@ const ActiveContextbar = (props) => {
         <Styles.Item>
           <Styles.Button
             title="Move Object Down One Layer"
-            nClick={() => props.sendObjectBackward()}
+            onClick={() => props.sendObjectBackward()}
           >
             <i className="material-icons">arrow_drop_down</i>
           </Styles.Button>
