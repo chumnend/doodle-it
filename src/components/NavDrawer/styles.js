@@ -8,7 +8,7 @@ export const Drawer = styled.div`
   background: ${color.ebony};
   color: ${color.white};
   position: fixed;
-  z-index: 100;
+  z-index: 999;
   top: 0;
   right: 0;
   transition: width 0.35s ease-out;
