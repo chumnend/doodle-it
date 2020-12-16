@@ -9,6 +9,4 @@ export const CanvasArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  z-index: 1;
 `;
