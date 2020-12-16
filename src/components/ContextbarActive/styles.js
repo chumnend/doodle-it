@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color } from '../../themes';
+import { color, device } from '../../themes';
 
 export const Container = styled.div`
   width: 100%;
@@ -29,7 +29,13 @@ export const ColorSquare = styled.div`
   cursor: pointer;
 `;
 
-export const ColorCode = styled.div``;
+export const ColorCode = styled.div`
+  display: none;
+
+  @media all and (min-width: ${device.lg}) {
+    display: block;
+  }
+`;
 
 export const ColorPicker = styled.div`
   position: absolute;
