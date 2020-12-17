@@ -18,18 +18,30 @@ const GalleryCard = (props) => {
     fabricCanvas.loadFromJSON(props.content);
 
     // scale down the doodle
-    const zoom = 200 / props.width;
+    let zoom, width, height;
+
+    if (props.width > props.height) {
+      zoom = 200 / props.width;
+      width = 200;
+      height = zoom * props.height;
+    } else {
+      zoom = 200 / props.height;
+      height = 200;
+      width = zoom * props.width;
+    }
 
     fabricCanvas.setZoom(zoom);
-    fabricCanvas.setWidth(200);
-    fabricCanvas.setHeight(zoom * props.height);
+    fabricCanvas.setWidth(width);
+    fabricCanvas.setHeight(height);
     fabricCanvas.renderAll();
   }, [props]);
 
   return (
     <Styles.GalleryCard>
-      <Canvas ref={canvasRef} />
       <Styles.Content>
+        <Canvas ref={canvasRef} />
+      </Styles.Content>
+      <Styles.Details>
         <Styles.Title>{props.title}</Styles.Title>
         <Styles.Icons>
           <Styles.Icon className="material-icons" onClick={props.edit}>
@@ -39,7 +51,7 @@ const GalleryCard = (props) => {
             delete
           </Styles.Icon>
         </Styles.Icons>
-      </Styles.Content>
+      </Styles.Details>
     </Styles.GalleryCard>
   );
 };

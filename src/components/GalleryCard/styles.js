@@ -10,6 +10,14 @@ export const GalleryCard = styled.div`
 `;
 
 export const Content = styled.div`
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Details = styled.div`
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
