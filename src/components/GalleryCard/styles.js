@@ -9,13 +9,6 @@ export const GalleryCard = styled.div`
   border-radius: 10px;
 `;
 
-export const Image = styled.img`
-  width: 100%;
-  height: 200px;
-  background: ${color.white};
-  display: block;
-`;
-
 export const Content = styled.div`
   padding: 0.5rem;
   display: flex;

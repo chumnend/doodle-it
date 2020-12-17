@@ -11,6 +11,8 @@ const Gallery = (props) => {
             key={el._id}
             title={el.title}
             content={el.content}
+            width={el.width}
+            height={el.height}
             edit={() => props.edit(el._id)}
             delete={() => props.delete(el._id)}
           />
