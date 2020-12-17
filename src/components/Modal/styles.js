@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color } from '../../themes';
+import { color, device } from '../../themes';
 
 export const Modal = styled.div`
   width: 100vw;
@@ -18,9 +18,13 @@ export const Container = styled.div`
   position: fixed;
   z-index: 999;
   background: ${color.white};
-  width: auto;
+  width: 70%;
   height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media all and (min-width: ${device.lg}) {
+    width: auto;
+  }
 `;
