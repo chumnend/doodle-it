@@ -8,7 +8,7 @@ const ModalResize = (props) => {
   const [resizeHeight, setResizeHeight] = useState(props.height);
 
   const handleClick = () => {
-    props.changeCanvasSize(resizeWidth, resizeHeight);
+    props.changeCanvasSize(parseInt(resizeWidth), parseInt(resizeHeight));
   };
 
   return (
