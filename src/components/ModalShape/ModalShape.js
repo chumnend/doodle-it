@@ -6,6 +6,9 @@ const ModalShape = (props) => {
   return (
     <Modal show close={props.close}>
       <Styles.Container>
+        <Styles.Button onClick={props.addText} title="Add text element">
+          <span className="material-icons">title</span>
+        </Styles.Button>
         <Styles.Button onClick={props.addLine} title="Add a line element">
           <Styles.LineIcon />
         </Styles.Button>
@@ -20,9 +23,6 @@ const ModalShape = (props) => {
           title="Add a triangle element"
         >
           <Styles.TriangleIcon />
-        </Styles.Button>
-        <Styles.Button onClick={props.addText} title="Add a text element">
-          <span className="material-icons">title</span>
         </Styles.Button>
       </Styles.Container>
     </Modal>

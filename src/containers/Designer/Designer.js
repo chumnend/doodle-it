@@ -204,8 +204,10 @@ const Designer = (props) => {
 
   const addText = () => {
     // add text box to the page
-    let text = new fabric.Text('Hello', {
+    let text = new fabric.Textbox('Type here...', {
       fill: color,
+      editable: true,
+      fontSize: 20,
     });
 
     fabricCanvas.add(text);
