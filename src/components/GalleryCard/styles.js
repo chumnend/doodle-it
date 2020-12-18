@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { color } from '../../themes';
+import { color, layout } from '../../themes';
 
 export const GalleryCard = styled.div`
-  width: 200px;
+  width: ${layout.cardSize};
   height: auto;
   background: ${color.white};
   box-shadow: 0px 0px 3px 1px rgb(204, 204, 204);
@@ -10,8 +10,8 @@ export const GalleryCard = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 200px;
-  height: 200px;
+  width: ${layout.cardSize};
+  height: ${layout.cardSize};
   display: flex;
   justify-content: center;
   align-items: center;
