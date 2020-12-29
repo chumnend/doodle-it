@@ -4,6 +4,8 @@ import { fabric } from 'fabric';
 import Canvas from '../Canvas';
 import * as Styles from './styles';
 
+const CARD_SIZE = 200;
+
 const fabricCanvas = new fabric.StaticCanvas();
 
 const GalleryCard = (props) => {
@@ -21,12 +23,12 @@ const GalleryCard = (props) => {
     let zoom, width, height;
 
     if (props.width > props.height) {
-      zoom = 200 / props.width;
-      width = 200;
+      zoom = CARD_SIZE / props.width;
+      width = CARD_SIZE;
       height = zoom * props.height;
     } else {
-      zoom = 200 / props.height;
-      height = 200;
+      zoom = CARD_SIZE / props.height;
+      height = CARD_SIZE;
       width = zoom * props.width;
     }
 
