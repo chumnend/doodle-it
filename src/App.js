@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Nav from './components/Nav';
-import Home from './containers/Home';
-import Console from './containers/Console';
 import Designer from './containers/Designer';
+import Home from './containers/Home';
 import Register from './containers/Register';
+import Landing from './containers/Landing';
 import Login from './containers/Login';
 import NotFound from './containers/NotFound';
 import * as actions from './store/actions';
@@ -36,9 +36,9 @@ const App = () => {
         <Switch>
           <Route
             exact
-            path="/console"
+            path="/home"
             render={(props) =>
-              !!auth.token ? <Console {...props} /> : <Redirect to="/login" />
+              !!auth.token ? <Home {...props} /> : <Redirect to="/login" />
             }
           />
           <Route
@@ -66,7 +66,7 @@ const App = () => {
             exact
             path="/"
             render={(props) =>
-              !auth.token ? <Home {...props} /> : <Redirect to="/console" />
+              !auth.token ? <Landing {...props} /> : <Redirect to="/console" />
             }
           />
           <Route component={NotFound} />
