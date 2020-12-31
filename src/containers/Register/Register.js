@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { authRequestRegister } from '../../store/actions';
+import Button from '../../components/Button';
 import Form from '../../components/Form';
-import FormTitle from '../../components/FormTitle';
 import FormGroup from '../../components/FormGroup';
 import FormError from '../../components/FormError';
-import Button from '../../components/Button';
+import FormLink from '../../components/FormLink';
+import FormTitle from '../../components/FormTitle';
+import * as ROUTES from '../../constants/routes';
+import { authRequestRegister } from '../../store/actions';
 
 const Register = () => {
   const auth = useSelector((state) => state.auth);
@@ -39,7 +40,6 @@ const Register = () => {
 
   return (
     <>
-      {!!auth.token && <Redirect to="/console" />}
       <Form submit={handleSubmit}>
         <FormTitle>{"Let's Get Started!"}</FormTitle>
         {auth.error && <FormError>{auth.error.message}</FormError>}
@@ -78,6 +78,7 @@ const Register = () => {
         <Button disabled={auth.authenticating || !validateForm()}>
           Register
         </Button>
+        <FormLink to={ROUTES.LOGIN}>Already have an account?</FormLink>
       </Form>
     </>
   );

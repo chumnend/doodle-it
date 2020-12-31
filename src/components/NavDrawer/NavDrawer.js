@@ -18,7 +18,7 @@ const NavDrawer = (props) => {
         <Styles.Ul>
           <Styles.Li>
             <Styles.NavItem to="/login" onClick={props.close}>
-              Log in
+              Sign In
             </Styles.NavItem>
           </Styles.Li>
           <Styles.Li>

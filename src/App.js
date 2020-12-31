@@ -1,13 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Nav from './components/Nav';
-import Home from './containers/Home';
-import Console from './containers/Console';
+import ProtectedRoute from './components/ProtectedRoute';
 import Designer from './containers/Designer';
+import Home from './containers/Home';
 import Register from './containers/Register';
+import Landing from './containers/Landing';
 import Login from './containers/Login';
 import NotFound from './containers/NotFound';
+import * as ROUTES from './constants/routes';
 import * as actions from './store/actions';
 
 const App = () => {
@@ -34,40 +36,40 @@ const App = () => {
       <Nav isLoggedIn={!!auth.token} logout={logoutUser} />
       {!loading && (
         <Switch>
-          <Route
+          <ProtectedRoute
             exact
-            path="/console"
-            render={(props) =>
-              !!auth.token ? <Console {...props} /> : <Redirect to="/login" />
-            }
+            path={ROUTES.HOME}
+            condition={!!auth.token}
+            redirect={ROUTES.LOGIN}
+            component={Home}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/design/:id?"
-            render={(props) =>
-              !!auth.token ? <Designer {...props} /> : <Redirect to="/login" />
-            }
+            path={ROUTES.DESIGNER}
+            condition={!!auth.token}
+            redirect={ROUTES.LOGIN}
+            component={Designer}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/register"
-            render={(props) =>
-              !auth.token ? <Register {...props} /> : <Redirect to="/console" />
-            }
+            path={ROUTES.LANDING}
+            condition={!auth.token}
+            redirect={ROUTES.HOME}
+            component={Landing}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/login"
-            render={(props) =>
-              !auth.token ? <Login {...props} /> : <Redirect to="/console" />
-            }
+            path={ROUTES.REGISTER}
+            condition={!auth.token}
+            redirect={ROUTES.HOME}
+            component={Register}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/"
-            render={(props) =>
-              !auth.token ? <Home {...props} /> : <Redirect to="/console" />
-            }
+            path={ROUTES.LOGIN}
+            condition={!auth.token}
+            redirect={ROUTES.HOME}
+            component={Login}
           />
           <Route component={NotFound} />
         </Switch>

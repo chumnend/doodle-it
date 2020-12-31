@@ -10,10 +10,10 @@ const NavLinks = (props) => {
       {!props.isLoggedIn && (
         <Styles.Ul>
           <Styles.Li>
-            <Styles.NavItem to="/login">Log in</Styles.NavItem>
+            <Styles.NavItem to="/register">Sign Up</Styles.NavItem>
           </Styles.Li>
           <Styles.Li>
-            <Styles.NavItem to="/register">Sign Up</Styles.NavItem>
+            <Styles.NavItem to="/login">Log in</Styles.NavItem>
           </Styles.Li>
         </Styles.Ul>
       )}
