@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Hero from '../../components/Hero';
 import HeroTitle from '../../components/HeroTitle';
 import HeroSubtitle from '../../components/HeroSubtitle';
 import Gallery from '../../components/Gallery';
+import * as ROUTES from '../../constants/routes';
 import * as actions from '../../store/actions';
 
 const Home = (props) => {
@@ -21,7 +21,7 @@ const Home = (props) => {
 
   const editDoodle = useCallback(
     (id) => {
-      history.push(`/design/${id}`);
+      history.push(ROUTES.DESIGNER_WITH_ID(id));
     },
     [history],
   );
@@ -40,7 +40,7 @@ const Home = (props) => {
       <Hero>
         <HeroTitle>Create without limits.</HeroTitle>
         <HeroSubtitle>
-          <Link to="/design">Go to Designer</Link>
+          <Link to={ROUTES.DESIGNER}>Go to Designer</Link>
         </HeroSubtitle>
       </Hero>
       <Gallery items={doodle.doodles} edit={editDoodle} delete={deleteDoodle} />

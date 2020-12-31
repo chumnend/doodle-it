@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { authRequestLogin } from '../../store/actions';
+import Button from '../../components/Button';
 import Form from '../../components/Form';
-import FormTitle from '../../components/FormTitle';
 import FormGroup from '../../components/FormGroup';
 import FormError from '../../components/FormError';
-import Button from '../../components/Button';
+import FormLink from '../../components/FormLink';
+import FormTitle from '../../components/FormTitle';
+import * as ROUTES from '../../constants/routes';
+import { authRequestLogin } from '../../store/actions';
 
 const Login = () => {
   const auth = useSelector((state) => state.auth);
@@ -30,7 +31,6 @@ const Login = () => {
 
   return (
     <>
-      {!!auth.token && <Redirect to="/console" />}
       <Form submit={handleSubmit}>
         <FormTitle>Welcome Back!</FormTitle>
         {auth.error && <FormError>{auth.error.message}</FormError>}
@@ -51,6 +51,7 @@ const Login = () => {
           changed={(e) => setPassword(e.target.value)}
         />
         <Button disabled={auth.authenticating || !validateForm()}>Login</Button>
+        <FormLink to={ROUTES.REGISTER}>Don&apos;t have an account?</FormLink>
       </Form>
     </>
   );
