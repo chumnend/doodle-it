@@ -10,6 +10,10 @@ export const Form = styled.form`
   color: ${color.white};
   border-radius: 10px;
 
+  p {
+    text-align: center;
+  }
+
   @media all and (min-width: ${device.md}) {
     padding: 2rem;
   }
