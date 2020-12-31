@@ -51,7 +51,7 @@ export const NavItem = styled(Link)`
   font-size: 1rem;
 
   &:hover {
-    color: ${color.red};
+    color: ${color.blue};
   }
 `;
 

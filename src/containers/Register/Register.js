@@ -4,8 +4,8 @@ import Button from '../../components/Button';
 import Form from '../../components/Form';
 import FormGroup from '../../components/FormGroup';
 import FormError from '../../components/FormError';
-import FormLink from '../../components/FormLink';
 import FormTitle from '../../components/FormTitle';
+import Link from '../../components/Link';
 import * as ROUTES from '../../constants/routes';
 import { authRequestRegister } from '../../store/actions';
 
@@ -78,7 +78,9 @@ const Register = () => {
         <Button disabled={auth.authenticating || !validateForm()}>
           Register
         </Button>
-        <FormLink to={ROUTES.LOGIN}>Already have an account?</FormLink>
+        <p>
+          Already have an account? <Link to={ROUTES.LOGIN}>Sign In</Link>
+        </p>
       </Form>
     </>
   );

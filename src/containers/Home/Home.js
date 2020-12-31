@@ -8,7 +8,7 @@ import Gallery from '../../components/Gallery';
 import * as ROUTES from '../../constants/routes';
 import * as actions from '../../store/actions';
 
-const Home = (props) => {
+const Home = () => {
   const history = useHistory();
 
   const [auth, doodle] = useSelector((state) => [state.auth, state.doodle]);
@@ -40,7 +40,7 @@ const Home = (props) => {
       <Hero>
         <HeroTitle>Create without limits.</HeroTitle>
         <HeroSubtitle>
-          <Link to={ROUTES.DESIGNER}>Go to Designer</Link>
+          <Link to={ROUTES.DESIGNER_NEW}>Go to Designer</Link>
         </HeroSubtitle>
       </Hero>
       <Gallery items={doodle.doodles} edit={editDoodle} delete={deleteDoodle} />

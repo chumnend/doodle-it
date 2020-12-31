@@ -4,8 +4,8 @@ import Button from '../../components/Button';
 import Form from '../../components/Form';
 import FormGroup from '../../components/FormGroup';
 import FormError from '../../components/FormError';
-import FormLink from '../../components/FormLink';
 import FormTitle from '../../components/FormTitle';
+import Link from '../../components/Link';
 import * as ROUTES from '../../constants/routes';
 import { authRequestLogin } from '../../store/actions';
 
@@ -51,7 +51,9 @@ const Login = () => {
           changed={(e) => setPassword(e.target.value)}
         />
         <Button disabled={auth.authenticating || !validateForm()}>Login</Button>
-        <FormLink to={ROUTES.REGISTER}>Don&apos;t have an account?</FormLink>
+        <p>
+          Need an account? <Link to={ROUTES.REGISTER}>Sign Up</Link>
+        </p>
       </Form>
     </>
   );

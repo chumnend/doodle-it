@@ -1,4 +1,6 @@
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import * as ROUTES from '../../constants/routes';
 import * as Styles from './styles';
 
 const NavDrawer = (props) => {
@@ -17,19 +19,33 @@ const NavDrawer = (props) => {
       {!props.isLoggedIn && (
         <Styles.Ul>
           <Styles.Li>
-            <Styles.NavItem to="/login" onClick={props.close}>
-              Sign In
+            <Styles.NavItem to={ROUTES.REGISTER} onClick={props.close}>
+              Register
             </Styles.NavItem>
           </Styles.Li>
           <Styles.Li>
-            <Styles.NavItem to="/register" onClick={props.close}>
-              Sign Up
+            <Styles.NavItem to={ROUTES.LOGIN} onClick={props.close}>
+              Login
             </Styles.NavItem>
           </Styles.Li>
         </Styles.Ul>
       )}
       {props.isLoggedIn && (
         <Styles.Ul>
+          <Route path={ROUTES.DESIGNER}>
+            <Styles.Li>
+              <Styles.NavItem to={ROUTES.HOME} onClick={props.close}>
+                Back to Home
+              </Styles.NavItem>
+            </Styles.Li>
+          </Route>
+          <Route path={ROUTES.HOME}>
+            <Styles.Li>
+              <Styles.NavItem to={ROUTES.DESIGNER_NEW} onClick={props.close}>
+                New Doodle
+              </Styles.NavItem>
+            </Styles.Li>
+          </Route>
           <Styles.Li>
             <Styles.Button onClick={handleLogout}>Logout</Styles.Button>
           </Styles.Li>
@@ -44,6 +60,9 @@ NavDrawer.propTypes = {
   logout: PropTypes.func,
   show: PropTypes.bool,
   close: PropTypes.func,
+
+  match: PropTypes.any,
+  location: PropTypes.any,
 };
 
 export default NavDrawer;
