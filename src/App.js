@@ -8,6 +8,7 @@ import Home from './containers/Home';
 import Register from './containers/Register';
 import Landing from './containers/Landing';
 import Login from './containers/Login';
+import Logout from './containers/Logout';
 import NotFound from './containers/NotFound';
 import * as ROUTES from './constants/routes';
 import * as actions from './store/actions';
@@ -22,10 +23,6 @@ const App = () => {
     [dispatch],
   );
 
-  const logoutUser = useCallback(() => dispatch(actions.authLogoutRequest()), [
-    dispatch,
-  ]);
-
   useEffect(() => {
     validateUser();
     setLoading(false);
@@ -33,7 +30,7 @@ const App = () => {
 
   return (
     <>
-      <Nav isLoggedIn={!!auth.token} logout={logoutUser} />
+      <Nav isLoggedIn={!!auth.token} />
       {!loading && (
         <Switch>
           <ProtectedRoute
@@ -71,6 +68,7 @@ const App = () => {
             redirect={ROUTES.HOME}
             component={Login}
           />
+          <Route exact path={ROUTES.LOGOUT} component={Logout} />
           <Route component={NotFound} />
         </Switch>
       )}

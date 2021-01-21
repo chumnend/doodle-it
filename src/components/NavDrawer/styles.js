@@ -54,17 +54,3 @@ export const NavItem = styled(Link)`
     color: ${color.blue};
   }
 `;
-
-export const Button = styled.button`
-  text-decoration: none;
-  background: inherit;
-  color: ${color.white};
-  font-size: 1rem;
-  outline: none;
-  cursor: pointer;
-  border: none;
-
-  &:hover {
-    color: ${color.blue};
-  }
-`;

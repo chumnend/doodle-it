@@ -14,13 +14,11 @@ const Navbar = (props) => {
         <NavBrand />
         <NavLinks
           isLoggedIn={props.isLoggedIn}
-          logout={props.logout}
           open={() => setShowNavDrawer(true)}
         />
       </Styles.Container>
       <NavDrawer
         isLoggedIn={props.isLoggedIn}
-        logout={props.logout}
         show={showNavDrawer}
         close={() => setShowNavDrawer(false)}
       />
@@ -30,7 +28,6 @@ const Navbar = (props) => {
 
 Navbar.propTypes = {
   isLoggedIn: PropTypes.bool,
-  logout: PropTypes.func,
 };
 
 export default Navbar;

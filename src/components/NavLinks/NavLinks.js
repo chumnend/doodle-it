@@ -34,7 +34,7 @@ const NavLinks = (props) => {
             </Styles.Li>
           </Route>
           <Styles.Li>
-            <Styles.Button onClick={props.logout}>Logout</Styles.Button>
+            <Styles.NavItem to={ROUTES.LOGOUT}>Logout</Styles.NavItem>
           </Styles.Li>
         </Styles.Ul>
       )}
@@ -44,7 +44,6 @@ const NavLinks = (props) => {
 
 NavLinks.propTypes = {
   isLoggedIn: PropTypes.bool,
-  logout: PropTypes.func,
   open: PropTypes.func,
 };
 
