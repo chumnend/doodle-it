@@ -5,3 +5,4 @@ export const DESIGNER_NEW = '/design';
 export const DESIGNER_WITH_ID = (id) => `/design/${id}`;
 export const REGISTER = '/register';
 export const LOGIN = '/login';
+export const LOGOUT = '/logout';

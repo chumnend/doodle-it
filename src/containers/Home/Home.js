@@ -1,9 +1,7 @@
-import { useCallback, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Hero from '../../components/Hero';
-import HeroTitle from '../../components/HeroTitle';
-import HeroSubtitle from '../../components/HeroSubtitle';
+import Fab from '../../components/Fab';
 import Gallery from '../../components/Gallery';
 import * as ROUTES from '../../constants/routes';
 import * as actions from '../../store/actions';
@@ -31,19 +29,18 @@ const Home = () => {
     [dispatch, auth],
   );
 
+  const gotoDesigner = useCallback(() => history.push(ROUTES.DESIGNER_NEW), [
+    history,
+  ]);
+
   useEffect(() => {
     fetchDoodles();
   }, [fetchDoodles]);
 
   return (
     <>
-      <Hero>
-        <HeroTitle>Create without limits.</HeroTitle>
-        <HeroSubtitle>
-          <Link to={ROUTES.DESIGNER_NEW}>Go to Designer</Link>
-        </HeroSubtitle>
-      </Hero>
       <Gallery items={doodle.doodles} edit={editDoodle} delete={deleteDoodle} />
+      <Fab onClick={gotoDesigner} />
     </>
   );
 };

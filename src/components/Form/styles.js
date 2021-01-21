@@ -4,7 +4,7 @@ import { device, color } from '../../themes';
 export const Form = styled.form`
   width: 90%;
   max-width: 480px;
-  margin: 4rem auto;
+  margin: 2rem auto;
   padding: 2rem 1rem;
   background: ${color.ebony};
   color: ${color.white};
@@ -16,5 +16,6 @@ export const Form = styled.form`
 
   @media all and (min-width: ${device.md}) {
     padding: 2rem;
+    margin: 4rem auto;
   }
 `;

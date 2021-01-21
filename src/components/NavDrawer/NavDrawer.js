@@ -1,14 +1,10 @@
+import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as ROUTES from '../../constants/routes';
 import * as Styles from './styles';
 
 const NavDrawer = (props) => {
-  const handleLogout = () => {
-    props.logout();
-    props.close();
-  };
-
   return (
     <Styles.Drawer show={props.show}>
       <Styles.CloseContainer show={props.show}>
@@ -47,7 +43,9 @@ const NavDrawer = (props) => {
             </Styles.Li>
           </Route>
           <Styles.Li>
-            <Styles.Button onClick={handleLogout}>Logout</Styles.Button>
+            <Styles.NavItem to={ROUTES.LOGOUT} onClick={props.close}>
+              Logout
+            </Styles.NavItem>
           </Styles.Li>
         </Styles.Ul>
       )}
