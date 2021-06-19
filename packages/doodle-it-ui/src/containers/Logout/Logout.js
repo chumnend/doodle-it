@@ -7,9 +7,10 @@ import * as actions from '../../store/actions';
 const Logout = () => {
   const dispatch = useDispatch();
 
-  const logoutUser = useCallback(() => dispatch(actions.authLogoutRequest()), [
-    dispatch,
-  ]);
+  const logoutUser = useCallback(
+    () => dispatch(actions.authLogoutRequest()),
+    [dispatch],
+  );
 
   useEffect(() => {
     logoutUser();

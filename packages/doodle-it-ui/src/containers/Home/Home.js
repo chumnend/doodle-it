@@ -29,9 +29,10 @@ const Home = () => {
     [dispatch, auth],
   );
 
-  const gotoDesigner = useCallback(() => history.push(ROUTES.DESIGNER_NEW), [
-    history,
-  ]);
+  const gotoDesigner = useCallback(
+    () => history.push(ROUTES.DESIGNER_NEW),
+    [history],
+  );
 
   useEffect(() => {
     fetchDoodles();

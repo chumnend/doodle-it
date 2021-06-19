@@ -73,9 +73,10 @@ const Designer = (props) => {
     [dispatch, auth],
   );
 
-  const clearCanvasState = useCallback(() => dispatch(actions.canvasClear()), [
-    dispatch,
-  ]);
+  const clearCanvasState = useCallback(
+    () => dispatch(actions.canvasClear()),
+    [dispatch],
+  );
 
   useEffect(() => {
     if (params.id && !canvas.data) {
