@@ -1,1 +1,1 @@
-# Doodle It: Make Something Wonderful
+# Doodle It
