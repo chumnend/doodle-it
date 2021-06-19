@@ -7,10 +7,19 @@ server that is built using Express/Node.js and stores data on MongoDB.
 ## Demo 
 ![pixahunt-capture](doodle-it-capture.gif)
 
-## Development Guide
+## Prerequistes
+- Node.js
+- npm
+- MongoDB
+- React
+- Node
+- yarn
+
+## Setup
 1) Clone this repo, ```git clone https://github.com/chumnend/doodle-it.git```
-2) Setup up each folder in packages following the READMEs in each respected folder
-3) Start the application using ```yarn start```
+2) Install dependencies with `yarn install`
+3) Setup up ```.env``` files in each package
+4) Start the application using ```yarn start```
 
 ## Deployment 
 Not currently deployed.

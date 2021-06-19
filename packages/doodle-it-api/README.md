@@ -3,14 +3,7 @@ Express server for the Doodle It application
 
 ## Setup
 
-### Prerequistes
-- Node.js
-- npm
-- MongoDB
-
-### Configuration
-1) Install dependencies with `yarn install`
-2) Copy the file env.example and rename it .env. This file contains the name of required environment variables needed for the application to work.
+Copy the file env.example and rename it .env. This file contains the name of required environment variables needed for the application to work.
 
 ```
 NODE_ENV=           # 'development' or 'production'
@@ -21,8 +14,6 @@ MONGODB_URI=        # uri of mongodb to use for production
 DEV_MONGODB_URI=    # uri of mongodb to use for development
 TEST_MONGODB_URI=   # uri of mongodb to use for testing
 ```
-
-3) Start the application using `yarn start` or `yarn run dev` for automatic reloading
 
 ## API Documentation
 
