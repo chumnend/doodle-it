@@ -1,5 +1,28 @@
-# Doodle It Backend
-API for Doodle It application, built with Node.js/Express
+# doodle-it-api
+Express server for the Doodle It application
+
+## Setup
+
+### Prerequistes
+- Node.js
+- npm
+- MongoDB
+
+### Configuration
+1) Install dependencies with `yarn install`
+2) Copy the file env.example and rename it .env. This file contains the name of required environment variables needed for the application to work.
+
+```
+NODE_ENV=           # 'development' or 'production'
+PORT=               # port to run the server on
+SECRET_KEY=         # secret string used for user creation
+API_LOCK=           # password to access the api
+MONGODB_URI=        # uri of mongodb to use for production
+DEV_MONGODB_URI=    # uri of mongodb to use for development
+TEST_MONGODB_URI=   # uri of mongodb to use for testing
+```
+
+3) Start the application using `yarn start` or `yarn run dev` for automatic reloading
 
 ## API Documentation
 
@@ -40,35 +63,3 @@ DELETE `/v1/doodle/:id?apiKey=<API KEY>&userId=<USER_ID>` (remove a doodle by id
 - required body parameters: none
 - required query parameters: apiKey, userId
 - returns: serialized doodle
-
-
-## Development Setup
-
-### Prerequistes
-- Node.js
-- npm
-- MongoDB
-
-### Configuration
-1) Clone the repo
-2) Install dependencies with `npm install`
-3) Copy the file env.example and rename it .env. This file contains the name of required environment variables needed for the application to work.
-
-```
-NODE_ENV=           # 'development' or 'production'
-PORT=               # port to run the server on
-SECRET_KEY=         # secret string used for user creation
-API_LOCK=           # password to access the api
-MONGODB_URI=        # uri of mongodb to use for production
-DEV_MONGODB_URI=    # uri of mongodb to use for development
-TEST_MONGODB_URI=   # uri of mongodb to use for testing
-```
-
-4) Start the application using `npm start` or `npm run dev` for automatic reloading
-
-
-### Testing
-1) Use `npm test` to run test cases using mocha/chai/sinon
-
-### Deployment
-Upon merge to `stable` branch, app will be deployed to Heroku

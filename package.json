@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "doodle-it",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "ui": "yarn workspace doodle-it-ui start",
+    "api": "yarn workspace doodle-it-api start",
+    "start": "concurrently --kill-others-on-fail \"yarn ui\"  \"yarn api\""
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}

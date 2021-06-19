@@ -1,7 +1,6 @@
 {
-  "name": "doodle-it-backend",
-  "version": "1.2.0",
-  "description": "",
+  "name": "doodle-it-api",
+  "version": "1.0.0",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
