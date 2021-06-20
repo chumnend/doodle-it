@@ -5,9 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "client": "yarn workspace doodle-it-ui serve",
+    "client": "yarn workspace doodle-it-ui start",
     "server": "yarn workspace doodle-it-api start",
-    "prestart": "yarn workspace doodle-it-ui build",
     "start": "concurrently --kill-others-on-fail \"yarn client\"  \"yarn server\""
   },
   "dependencies": {
