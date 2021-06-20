@@ -5,9 +5,10 @@
     "packages/*"
   ],
   "scripts": {
-    "ui": "yarn workspace doodle-it-ui start",
-    "api": "yarn workspace doodle-it-api start",
-    "start": "concurrently --kill-others-on-fail \"yarn ui\"  \"yarn api\""
+    "client": "yarn workspace doodle-it-ui serve",
+    "server": "yarn workspace doodle-it-api start",
+    "prestart": "yarn workspace doodle-it-ui build",
+    "start": "concurrently --kill-others-on-fail \"yarn client\"  \"yarn server\""
   },
   "dependencies": {
     "concurrently": "^6.2.0"
