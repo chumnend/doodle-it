@@ -34,10 +34,10 @@ jobs:
       package_name:
         type: string
     executor: node
-    working_directory: ~/project/<< parameters.package_name >>
+    working_directory: ~/project/packages/<< parameters.package_name >>
     steps:
       - checkout:
-        path: ~/project
+          path: ~/project
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: yarn install
@@ -58,7 +58,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - << parameters.package_name >>
+            - packages/<< parameters.package_name >>
 
 workflows:
   version: 2
