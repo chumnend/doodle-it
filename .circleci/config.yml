@@ -1,46 +1,80 @@
-# doodle-it-ui
-# version: 2.1
-# jobs: 
-#   build:
-#     docker:
-#       - image: circleci/node:12.9.1-browsers
-#     steps:
-#       - checkout
-#       - restore_cache:
-#           key: dependency-cache-{{ checksum "package.json" }}
-#       - run: npm install
-#       - save_cache:
-#           key: dependency-cache-{{ checksum "package.json" }}
-#           paths:
-#             - node_modules
-#             - ~/.npm
-#             - ~/.cache
-#       - run: npm run lint
-#       - run: npm test
+version: 2.1
 
-# doodle-it-api
-# version: 2.1
-# jobs:
-#   build:
-#     docker:
-#       - image: circleci/node:latest
-#       - image: circleci/mongo:latest
-#     steps:
-#       - checkout
-#       - restore_cache:
-#           key: dependency-cache-{{ checksum "package.json" }}
-#       - run: npm install
-#       - save_cache:
-#           paths:
-#             - node_modules
-#             - ~/.npm
-#             - ~/.cache
-#           key: dependency-cache-{{ checksum "package.json" }}
-#       - run: npm run lint
-#       - run: 
-#           environment:
-#             PORT: "8080"
-#             SECRET_KEY: "shhh"
-#             API_LOCK: "123"
-#             TEST_MONGODB_URI: "mongodb://localhost/doodleit_test"
-#           command: npm test
+parameters:
+  # This parameter is used to trigger the main workflow
+  trigger:
+    type: boolean
+    default: true
+
+  # A parameter per package
+  doodle-it-api:
+    type: boolean
+    default: false
+  doodle-it-ui:
+    type: boolean
+    default: false
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:latest
+      - image: circleci/mongo:latest
+
+jobs:
+  trigger-workflows:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Trigger workflows
+          command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
+
+  build:
+    parameters:
+      package_name:
+        type: string
+    executor: node
+    working_directory: ~/project/<< parameters.package_name >>
+    steps:
+      - checkout:
+        path: ~/project
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+      - run: yarn lint
+      - run: 
+          environment:
+            PORT: "8080"
+            SECRET_KEY: "shhh"
+            API_LOCK: "123"
+            TEST_MONGODB_URI: "mongodb://localhost/doodleit"
+          command: yarn test
+
+workflows:
+  version: 2
+
+  # The main workflow responsible for triggering all other workflows
+  ci:
+    when: << pipeline.parameters.trigger >>
+    jobs:
+      - trigger-workflows
+
+  # Workflows defined for each package.
+  doodle-it-api:
+    when: << pipeline.parameters.doodle-it-api >>
+    jobs:
+      - build:
+          name: doodle-it-api-build
+          package_name: doodle-it-api
+  doodle-it-ui:
+    when: << pipeline.parameters.doodle-it-ui >>
+    jobs:
+      - build:
+          name: doodle-it-ui-build
+          package_name: doodle-it-ui
