@@ -50,11 +50,15 @@ jobs:
       - run: yarn lint
       - run: 
           environment:
-            PORT: "8080"
+            PORT: "8000"
             SECRET_KEY: "shhh"
             API_LOCK: "123"
             TEST_MONGODB_URI: "mongodb://localhost/doodleit"
           command: yarn test
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - << parameters.package_name >>
 
 workflows:
   version: 2
