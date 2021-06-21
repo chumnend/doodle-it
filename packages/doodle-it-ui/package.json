@@ -35,7 +35,7 @@
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint ./src",
     "lint:fix": "./node_modules/.bin/eslint ./src --fix && ./node_modules/.bin/prettier --write ./src",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "npm build"
   },
   "browserslist": {
     "production": [
