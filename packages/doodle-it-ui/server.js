@@ -12,7 +12,7 @@ app.get('*', (req, res) => {
 });
 
 // listen to app
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('client started on port', port);
 });
