@@ -22,4 +22,4 @@ server that is built using Express/Node.js and stores data on MongoDB.
 4) Start the application using ```yarn start```
 
 ## Deployment 
-Not currently deployed.
+Deployed on Heroku from ```stable``` branch.
