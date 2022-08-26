@@ -52,7 +52,7 @@ yarn start
 ```
 
 ## Deployment 
-Deployed on Heroku from ```stable``` branch.
+Not deployed.
 
 ## Contact
 Nicholas Chumney - [nicholas.chumney@outlook.com](nicholas.chumney@outlook.com) 
