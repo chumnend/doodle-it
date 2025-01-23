@@ -1,37 +1,39 @@
 # Doodle It: Make Something Wonderful
 
 ## About this project
+
 Doodle It is a web application that allows users to build images
 in thier browser. It utlilizes the [Fabric.js Canvas Library](http://fabricjs.com/)
 to allow drag and drop shapes on a canvas, and runs on React. It is served by an API
 server that is built using Express/Node.js and stores data on MongoDB.
 
 ### Demo
-<p align="center">
-  <img src="doodle-it-capture.gif" alt="animated" />
-</p>
+
+![animated](docs/demo.gif)
 
 ### Built With
+
 - React
 - Node.js
 - MongoDB
 
 ## Getting Started
-1) Clone this repo, 
 
-```
+1) Clone this repo,
+
+```bash
 git clone https://github.com/chumnend/doodle-it.git
 ```
 
-2) Install dependencies with 
+2) Install dependencies with
 
-```
+```bash
 yarn install
 ```
 
 3) Go into the `doodle-it-api` package. Then copy the `env.example` file and fill it out. After return to the project root.
 
-```
+```bash
 cd packages/doodle-it-ui
 cp env.example .env.example
 cd ../..
@@ -39,7 +41,7 @@ cd ../..
 
 4) Go into the `doodle-it-ui` package. Then copy the `env.example` file and fill it out. After return to the project root.
 
-```
+```bash
 cd packages/doodle-it-ui
 cp env.example .env.example
 cd ../..
@@ -47,12 +49,14 @@ cd ../..
 
 5) Start the application,
 
-```
+```bash
 yarn start
 ```
 
-## Deployment 
-Not deployed.
+## Deployment
+
+Not currently deployed.
 
 ## Contact
+
 Nicholas Chumney - [nicholas.chumney@outlook.com](nicholas.chumney@outlook.com) 
