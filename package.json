@@ -1,6 +1,6 @@
 {
-  "private": true,
   "name": "doodle-it",
+  "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -11,6 +11,7 @@
     "start": "concurrently --kill-others-on-fail \"yarn client\"  \"yarn server\""
   },
   "dependencies": {
+    "@changesets/cli": "^2.27.11",
     "concurrently": "^6.2.0"
   }
 }

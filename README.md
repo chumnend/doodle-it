@@ -28,18 +28,18 @@ git clone https://github.com/chumnend/doodle-it.git
 2) Install dependencies with
 
 ```bash
-yarn install
+yarn
 ```
 
-3) Go into the `doodle-it-api` package. Then copy the `env.example` file and fill it out. After return to the project root.
+3) Go into the `doodle-it-api` app. Then copy the `env.example` file and fill it out. After return to the project root.
 
 ```bash
-cd apps/doodle-it-ui
+cd apps/doodle-it-api
 cp env.example .env.example
 cd ../..
 ```
 
-4) Go into the `doodle-it-ui` package. Then copy the `env.example` file and fill it out. After return to the project root.
+4) Go into the `doodle-it-ui` app. Then copy the `env.example` file and fill it out. After return to the project root.
 
 ```bash
 cd apps/doodle-it-ui
