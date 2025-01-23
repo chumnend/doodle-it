@@ -34,7 +34,7 @@ yarn install
 3) Go into the `doodle-it-api` package. Then copy the `env.example` file and fill it out. After return to the project root.
 
 ```bash
-cd packages/doodle-it-ui
+cd apps/doodle-it-ui
 cp env.example .env.example
 cd ../..
 ```
@@ -42,7 +42,7 @@ cd ../..
 4) Go into the `doodle-it-ui` package. Then copy the `env.example` file and fill it out. After return to the project root.
 
 ```bash
-cd packages/doodle-it-ui
+cd apps/doodle-it-ui
 cp env.example .env.example
 cd ../..
 ```
@@ -59,4 +59,4 @@ Not currently deployed.
 
 ## Contact
 
-Nicholas Chumney - [nicholas.chumney@outlook.com](nicholas.chumney@outlook.com) 
+Nicholas Chumney - [nicholas.chumney@outlook.com](nicholas.chumney@outlook.com)
