@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "doodle-it-api",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
