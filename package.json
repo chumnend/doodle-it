@@ -8,7 +8,10 @@
   "scripts": {
     "client": "yarn workspace doodle-it-ui start",
     "server": "yarn workspace doodle-it-api start",
-    "start": "concurrently --kill-others-on-fail \"yarn client\"  \"yarn server\""
+    "start": "concurrently --kill-others-on-fail \"yarn client\"  \"yarn server\"",
+    "client:dev": "yarn workspace doodle-it-ui dev",
+    "server:dev": "yarn workspace doodle-it-api dev",
+    "dev": "concurrently --kill-others-on-fail \"yarn client:dev\"  \"yarn server:dev\""
   },
   "dependencies": {
     "@changesets/cli": "^2.27.11",
