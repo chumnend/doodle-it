@@ -1,5 +1,5 @@
 export const path = {
-  landing: '',
+  landing: '/',
   home: '/home',
   designer: '/design/:id?',
   designer_new: '/design',
