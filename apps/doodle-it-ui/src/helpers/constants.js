@@ -1,8 +1,10 @@
-export const LANDING = '/';
-export const HOME = '/home';
-export const DESIGNER = '/design/:id?';
-export const DESIGNER_NEW = '/design';
-export const DESIGNER_WITH_ID = (id) => `/design/${id}`;
-export const REGISTER = '/register';
-export const LOGIN = '/login';
-export const LOGOUT = '/logout';
+export const path = {
+  landing: '',
+  home: '/home',
+  designer: '/design/:id?',
+  designer_new: '/design',
+  designer_with_id: (id) => `/design/${id}`,
+  register: '/register',
+  login: '/login',
+  logout: '/logout',
+}

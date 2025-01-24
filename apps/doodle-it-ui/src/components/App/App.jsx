@@ -8,16 +8,16 @@ import Login from '../Login';
 import Logout from '../Logout';
 import NotFound from '../NotFound';
 
-import * as PATH from '../../helpers/constants';
+import { path } from '../../helpers/constants';
 
 const App = () => {
   return (
     <Routes>
-      <Route path={PATH.HOME} element={< Home />} />
-      <Route path={PATH.DESIGNER} element={<Designer />} />
-      <Route path={PATH.REGISTER} element={<Register />} />
-      <Route path={PATH.LOGIN} element={<Login />} />
-      <Route path={PATH.LOGOUT} element={<Logout />} />
+      <Route path={path.home} element={< Home />} />
+      <Route path={path.designer} element={<Designer />} />
+      <Route path={path.register} element={<Register />} />
+      <Route path={path.login} element={<Login />} />
+      <Route path={path.logout} element={<Logout />} />
       <Route index element={<Landing />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
