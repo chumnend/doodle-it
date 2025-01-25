@@ -47,10 +47,10 @@ cp env.example .env.example
 cd ../..
 ```
 
-5) Start the application,
+5) Start the application in dev mode,
 
 ```bash
-yarn start
+yarn dev
 ```
 
 ## Deployment
