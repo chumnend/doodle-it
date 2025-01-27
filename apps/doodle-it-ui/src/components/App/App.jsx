@@ -13,7 +13,7 @@ import NotFound from '../NotFound';
 import { path } from '../../helpers/constants';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(false);
@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <>
-      <Navigation isLoggedIn={true} />
+      <Navigation isLoggedIn={false} />
       {!isLoading && (
           <Routes>
             <Route path={path.home} element={< Home />} />
