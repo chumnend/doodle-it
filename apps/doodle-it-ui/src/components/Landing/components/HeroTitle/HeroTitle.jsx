@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import * as Styles from './styles';
 
 const HeroTitle = (props) => {
