@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { color, layout } from '../../../../helpers/themes';
+import { color, layout } from '../../../helpers/themes';
 
-export const Hero = styled.div`
+export const StyledHero = styled.div`
   width: 100%;
   height: calc(100vh - ${layout.navHeight});
   background-color: ${color.blue};
@@ -12,7 +13,7 @@ export const Hero = styled.div`
   align-items: center;
 `;
 
-export const Container = styled.div`
+export const StyledContainer = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 4rem 2rem;
@@ -24,3 +25,18 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+
+const Hero = (props) => {
+  return (
+    <StyledHero>
+      <StyledContainer>{props.children}</StyledContainer>
+    </StyledHero>
+  );
+};
+
+Hero.propTypes = {
+  children: PropTypes.node,
+};
+
+export default Hero;

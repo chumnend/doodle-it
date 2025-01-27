@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { color, device, layout } from '../../../../helpers/themes';
+import { color, device, layout } from '../../../helpers/themes';
 
-export const Container = styled.div`
+export const StyledOuterContainer = styled.div`
   width: 100%;
   background: ${color.white};
   padding: 2rem 1rem;
@@ -13,7 +14,7 @@ export const Container = styled.div`
   }
 `;
 
-export const InnerContainer = styled.div`
+export const StyledInnerContainer = styled.div`
   margin: 0 auto;
   width: 100%;
 
@@ -29,3 +30,17 @@ export const InnerContainer = styled.div`
     width: 50%;
   }
 `;
+
+const Container = (props) => {
+  return (
+    <StyledOuterContainer >
+      <StyledInnerContainer>{props.children}</StyledInnerContainer>
+    </StyledOuterContainer>
+  );
+};
+
+Container.propTypes = {
+  children: PropTypes.node,
+};
+
+export default Container;

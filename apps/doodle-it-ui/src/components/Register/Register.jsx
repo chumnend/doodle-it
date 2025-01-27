@@ -78,7 +78,7 @@ function Register() {
           Register
         </Button>
         <p>
-          Already have an account? <Link to={path.login}>Sign In</Link>
+          Already have an account? <Link href={path.login}>Sign In</Link>
         </p>
       </Form>
     </>
