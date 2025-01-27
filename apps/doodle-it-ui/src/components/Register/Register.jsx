@@ -1,14 +1,17 @@
 import { useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
 
 import Button from './components/Button';
 import Form from './components/Form';
-// import FormError from './components/FormError';
 import FormGroup from './components/FormGroup';
+// import FormError from './components/FormError';
 import FormTitle from './components/FormTitle';
 import Link from './components/Link';
-import { path } from '../../helpers/constants';
 
-function Register() {
+import { path } from '../../helpers/constants';
+// import { authRequestRegister } from '../../store/actions';
+
+const Register = () => {
   // const auth = useSelector((state) => state.auth);
   // const dispatch = useDispatch();
   // const registerUser = useCallback(
@@ -34,14 +37,14 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('registering');
+    // registerUser(username, email, password1);
   };
 
   return (
     <>
       <Form submit={handleSubmit}>
         <FormTitle>{"Let's Get Started!"}</FormTitle>
-        {/*auth.error && <FormError>{auth.error.message}</FormError>*/}
+        {/* auth.error && <FormError>{auth.error.message}</FormError> */}
         <FormGroup
           label="Email"
           inputType="email"
@@ -74,15 +77,15 @@ function Register() {
           placeholder="Confirm Password"
           changed={(e) => setPassword2(e.target.value)}
         />
-        <Button disabled={/*auth.authenticating ||*/ !validateForm()}>
+        <Button disabled={/* auth.authenticating || */ !validateForm()}>
           Register
         </Button>
         <p>
-          Already have an account? <Link href={path.login}>Sign In</Link>
+          Already have an account? <Link to={path.login}>Sign In</Link>
         </p>
       </Form>
     </>
   );
-}
+};
 
-export default Register
+export default Register;
