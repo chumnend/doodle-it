@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { path } from '../../../../../helpers/constants';
-import { color, device } from '../../../../../helpers/themes';
+import { path } from '../../../helpers/constants';
+import { color, device } from '../../../helpers/themes';
 
 export const StyledDrawer = styled.div`
   width: ${props => props.width};

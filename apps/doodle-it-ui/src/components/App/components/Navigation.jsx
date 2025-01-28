@@ -2,11 +2,11 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Drawer from './components/Drawer';
-import Navbar from './components/Navbar';
+import Drawer from './Drawer';
+import Navbar from './Navbar';
 
-import { path } from '../../../../helpers/constants';
-import { color, layout } from '../../../../helpers/themes';
+import { path } from '../../../helpers/constants';
+import { color, layout } from '../../../helpers/themes';
 
 export const StyledOuterDiv = styled.div`
   width: 100%;

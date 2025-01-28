@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { path } from '../../../../../helpers/constants';
-import { device, color } from '../../../../../helpers/themes';
+import { path } from '../../../helpers/constants';
+import { device, color } from '../../../helpers/themes';
 
 export const StyledMenu = styled.span`
   font-size: 2rem;
