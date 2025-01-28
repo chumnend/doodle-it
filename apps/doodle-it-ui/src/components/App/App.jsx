@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router';
 
-import Navigation from './components/Navigation/Navigation';
+import Navigation from './components/Navigation';
+import ProtectedRoute from './components/ProtectedRoute';
 import Landing from '../Landing';
 import Designer from '../Designer';
 import Home from '../Home';
@@ -34,12 +35,45 @@ const App = () => {
       <Navigation isLoggedIn={!!auth.token} />
       {!isLoading && (
           <Routes>
-            <Route path={path.home} element={< Home />} />
-            <Route path={path.designer} element={<Designer />} />
-            <Route path={path.register} element={<Register />} />
-            <Route path={path.login} element={<Login />} />
+            {/* Authenticated Routes */}
+            <Route path={path.home} element={
+              <ProtectedRoute
+                condition={!!auth.token}
+                redirect={path.login}
+                element={<Home />}
+              />
+            }/>
+            <Route path={path.designer} element={
+              <ProtectedRoute
+                condition={!!auth.token}
+                redirect={path.login}
+                element={<Designer />}
+              />
+            }/>
+            {/* Unauthenticated Routes */}
+            <Route path={path.register} element={
+              <ProtectedRoute
+                condition={!auth.token}
+                redirect={path.home}
+                element={<Register />}
+              />
+            }/>
+            <Route path={path.login} element={
+              <ProtectedRoute
+                condition={!auth.token}
+                redirect={path.home}
+                element={<Login />}
+              />
+            }/>
+            <Route path={path.landing} element={
+              <ProtectedRoute
+                condition={!auth.token}
+                redirect={path.home}
+                element={<Landing />}
+              />
+            }/>     
+            {/* Public Routes */}
             <Route path={path.logout} element={<Logout />} />
-            <Route index element={<Landing />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
       )}
