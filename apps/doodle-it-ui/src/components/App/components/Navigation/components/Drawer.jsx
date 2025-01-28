@@ -5,7 +5,7 @@ import { path } from '../../../../../helpers/constants';
 import { color, device } from '../../../../../helpers/themes';
 
 export const StyledDrawer = styled.div`
-  width: ${(props) => (props.show ? '100%' : '0')};
+  width: ${props => props.width};
   height: 100vh;
   background: ${color.ebony};
   color: ${color.white};
@@ -26,7 +26,7 @@ export const StyledCloseContainer = styled.div`
   width: 100%;
   padding: 1rem;
   display: flex;
-  visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
+  visibility: ${props => props.visibility};
   flex-direction: row-reverse;
 `;
 
@@ -59,8 +59,8 @@ export const StyledNavItem = styled.a`
 
 const Drawer = (props) => {
   return (
-    <StyledDrawer show={props.show}>
-      <StyledCloseContainer show={props.show}>
+    <StyledDrawer width={props.show ? '100%' : '0'}>
+      <StyledCloseContainer visibility={props.show ? 'visible' : 'hidden'}>
         <StyledCloseIcon className="material-icons" onClick={props.close}>
           close
         </StyledCloseIcon>
