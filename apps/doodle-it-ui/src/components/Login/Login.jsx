@@ -1,23 +1,23 @@
-import { useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Button from './components/Button';
 import Form from './components/Form';
 import FormGroup from './components/FormGroup';
-// import FormError from './components/FormError';
+import FormError from './components/FormError';
 import FormTitle from './components/FormTitle';
 import Link from './components/Link';
 
 import { path } from '../../helpers/constants';
-// import { authRequestLogin } from '../../store/actions';
+import { authRequestLogin } from '../../helpers/store/actions';
 
 const Login = () => {
-  // const auth = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
-  // const loginUser = useCallback(
-  //   (login, password) => dispatch(authRequestLogin(login, password)),
-  //   [dispatch],
-  // );
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const loginUser = useCallback(
+    (login, password) => dispatch(authRequestLogin(login, password)),
+    [dispatch],
+  );
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -28,14 +28,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // loginUser(login, password);
+    loginUser(login, password);
   };
 
   return (
     <>
       <Form submit={handleSubmit}>
         <FormTitle>Welcome Back!</FormTitle>
-        {/* auth.error && <FormError>{auth.error.message}</FormError> */}
+        {auth.error && <FormError>{auth.error.message}</FormError>}
         <FormGroup
           label="Username or Email"
           inputType="text"
@@ -52,7 +52,7 @@ const Login = () => {
           placeholder="Password"
           changed={(e) => setPassword(e.target.value)}
         />
-        <Button disabled={/*auth.authenticating || */ !validateForm()}>Login</Button>
+        <Button disabled={auth.authenticating || !validateForm()}>Login</Button>
         <p>
           Need an account? <Link to={path.register}>Sign Up</Link>
         </p>

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router';
 
 import Navigation from './components/Navigation';
@@ -11,17 +12,26 @@ import Logout from '../Logout';
 import NotFound from '../NotFound';
 
 import { path } from '../../helpers/constants';
+import { authRequestValidate } from '../../helpers/store/actions';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const validateUser = useCallback(
+    () => dispatch(authRequestValidate()),
+    [dispatch],
+  );
 
   useEffect(() => {
+    validateUser();
     setIsLoading(false);
-  }, []);
+  }, [validateUser]);
 
   return (
     <>
-      <Navigation isLoggedIn={false} />
+      <Navigation isLoggedIn={!!auth.token} />
       {!isLoading && (
           <Routes>
             <Route path={path.home} element={< Home />} />

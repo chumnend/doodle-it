@@ -1,24 +1,24 @@
-import { useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Button from './components/Button';
 import Form from './components/Form';
 import FormGroup from './components/FormGroup';
-// import FormError from './components/FormError';
+import FormError from './components/FormError';
 import FormTitle from './components/FormTitle';
 import Link from './components/Link';
 
 import { path } from '../../helpers/constants';
-// import { authRequestRegister } from '../../store/actions';
+import { authRequestRegister } from '../../helpers/store/actions';
 
 const Register = () => {
-  // const auth = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
-  // const registerUser = useCallback(
-  //   (username, email, password) =>
-  //     dispatch(authRequestRegister(username, email, password)),
-  //   [dispatch],
-  // );
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const registerUser = useCallback(
+    (username, email, password) =>
+      dispatch(authRequestRegister(username, email, password)),
+    [dispatch],
+  );
 
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -37,14 +37,14 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // registerUser(username, email, password1);
+    registerUser(username, email, password1);
   };
 
   return (
     <>
       <Form submit={handleSubmit}>
         <FormTitle>{"Let's Get Started!"}</FormTitle>
-        {/* auth.error && <FormError>{auth.error.message}</FormError> */}
+        {auth.error && <FormError>{auth.error.message}</FormError>}
         <FormGroup
           label="Email"
           inputType="email"
@@ -77,7 +77,7 @@ const Register = () => {
           placeholder="Confirm Password"
           changed={(e) => setPassword2(e.target.value)}
         />
-        <Button disabled={/* auth.authenticating || */ !validateForm()}>
+        <Button disabled={auth.authenticating || !validateForm()}>
           Register
         </Button>
         <p>
