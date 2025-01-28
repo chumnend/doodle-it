@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router';
 
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation/Navigation';
 import Landing from '../Landing';
 import Designer from '../Designer';
 import Home from '../Home';
