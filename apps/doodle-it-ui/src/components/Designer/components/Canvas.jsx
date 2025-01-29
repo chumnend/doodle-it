@@ -1,11 +1,15 @@
-import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 
-const Canvas = (props, ref) => {
+const Canvas = (props) => {
   return (
     <div onClick={(e) => e.stopPropagation()}>
-      <canvas ref={ref}>Not supported by browser.</canvas>
+      <canvas id={props.id}>Not supported by browser.</canvas>
     </div>
   );
 };
 
-export default forwardRef(Canvas);
+Canvas.propTypes = {
+  id: PropTypes.string,
+}
+
+export default Canvas;

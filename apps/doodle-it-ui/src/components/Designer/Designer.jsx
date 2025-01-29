@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { fabric } from 'fabric';
 import { useParams, useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -46,6 +46,7 @@ const ModalTypes = {
 };
 
 // globally accessible fabricCanvas instance
+const canvasId = 'fabricCanvas';
 const fabricCanvas = new fabric.Canvas();
 
 const selectAuthAndCanvas = createSelector(
@@ -55,7 +56,6 @@ const selectAuthAndCanvas = createSelector(
 );
 
 const Designer = () => {
-  const canvasRef = useRef();
   const params = useParams();
   const navigate = useNavigate();
 
@@ -100,7 +100,7 @@ const Designer = () => {
       navigate(`/design/${canvas.data.id}`);
     } else if (params.id && canvas.data) {
       // intialize canvas with loaded doodle
-      fabricCanvas.initialize(canvasRef.current, {
+      fabricCanvas.initialize(canvasId, {
         width: canvas.data.width,
         height: canvas.data.height,
         preserveObjectStacking: true,
@@ -112,7 +112,7 @@ const Designer = () => {
       fabricCanvas.loadFromJSON(canvas.data.content);
     } else {
       // initialize default canvas
-      fabricCanvas.initialize(canvasRef.current, {
+      fabricCanvas.initialize(canvasId, {
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT,
         backgroundColor: DEFAULT_BACKGROUND_COLOR,
@@ -141,7 +141,6 @@ const Designer = () => {
   // clear canvas redux on page change
   useEffect(() => {
     return () => {
-      canvasRef.current = null;
       clearCanvasState();
     };
   }, [clearCanvasState]);
@@ -287,7 +286,7 @@ const Designer = () => {
   };
 
   const download = () => {
-    const img = canvasRef.current.toDataURL({ format: 'jpeg', quality: 0.8 });
+    const img = fabricCanvas.toDataURL({ format: 'jpeg', quality: 0.8 });
     const link = document.createElement('a');
     link.setAttribute('href', img);
     link.setAttribute('download', `${title}.png`);
@@ -395,7 +394,7 @@ const Designer = () => {
             removeObject={removeObject}
           />
           <CanvasArea handleClick={deselectObjects}>
-            <Canvas ref={canvasRef}>Not supported by browser.</Canvas>
+            <Canvas id={canvasId}>Not supported by browser.</Canvas>
           </CanvasArea>
         </Workspace>
       </Page>
