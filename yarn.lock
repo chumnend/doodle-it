@@ -4842,7 +4842,7 @@ react-dom@^18.3.1:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
-react-input-slider@^6.0.1:
+react-input-slider@^6.0.0:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/react-input-slider/-/react-input-slider-6.0.1.tgz#e866993796e9c25366f7960e7f6bd7c1838316ca"
   integrity sha512-WASm/k0rVw3cXzvfkoUa4wMnF74SbifeuwSmjPC+zanhV4W9KAmPM+H6yXhIZAjJL4TU+sUw/pgyUyAt/txvIw==
