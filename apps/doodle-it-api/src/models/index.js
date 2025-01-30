@@ -8,8 +8,6 @@ const url = config.db;
 const opts = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
   keepAlive: true,
 };
 

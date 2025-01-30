@@ -4,7 +4,6 @@ List of todo items to get this application updated and running
 
 [BE]
 
-- update packages for api app
 - add missing tests
 
 [FE]
