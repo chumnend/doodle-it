@@ -246,6 +246,12 @@ const Designer = () => {
     setHeight(height);
     fabricCanvas.fire('save');
 
+    // with fabric canvas the outer canvas-container does not get resized, so need to do it manually
+    document.getElementsByClassName('canvas-container').forEach(element => {
+      element.style.width = `${width}px`
+      element.style.height = `${height}px`
+    });;
+
     // close modal window
     closeModal();
   };
