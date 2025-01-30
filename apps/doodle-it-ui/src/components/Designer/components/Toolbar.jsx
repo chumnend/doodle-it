@@ -69,6 +69,18 @@ const Toolbar = (props) => {
           </StyledToolbarIcon>
           <StyledToolbarName>Color</StyledToolbarName>
         </ToolbarButton>
+        <ToolbarButton clicked={props.zoomIn} title="Zoom into the canvas">
+          <StyledToolbarIcon className="material-icons">
+            zoom_in
+          </StyledToolbarIcon>
+          <StyledToolbarName>Zoom In</StyledToolbarName>
+        </ToolbarButton>
+        <ToolbarButton clicked={props.zoomOut} title="Zoom out of the canvas">
+          <StyledToolbarIcon className="material-icons">
+            zoom_out
+          </StyledToolbarIcon>
+          <StyledToolbarName>Zoom Out</StyledToolbarName>
+        </ToolbarButton>
         <ToolbarButton
           clicked={props.openResizeModal}
           title="Modify canvas size"
@@ -109,6 +121,8 @@ Toolbar.propTypes = {
   openSaveModal: PropTypes.func,
   openBackgroundModal: PropTypes.func,
   openResizeModal: PropTypes.func,
+  zoomIn: PropTypes.func,
+  zoomOut: PropTypes.func,
   download: PropTypes.func,
 };
 

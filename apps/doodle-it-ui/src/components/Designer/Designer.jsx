@@ -34,6 +34,7 @@ const DEFAULT_HEIGHT = calcSize;
 const DEFAULT_COLOR = '#000002';
 const DEFAULT_BACKGROUND_COLOR = '#f2f2f2';
 const DEFAULT_PEN_THICKNESS = 2;
+const DEFAULT_ZOOM_LEVEL = 1;
 
 // enumeration for Modal
 const ModalTypes = {
@@ -70,6 +71,7 @@ const Designer = () => {
   );
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [penWidth, setPenWidth] = useState(DEFAULT_PEN_THICKNESS);
+  const [zoomLevel, setZoomLevel] = useState(DEFAULT_ZOOM_LEVEL);
   const [modalType, setModalType] = useState(ModalTypes.NONE);
 
   const [auth, canvas] = useSelector(selectAuthAndCanvas);
@@ -238,6 +240,14 @@ const Designer = () => {
     closeModal();
   };
 
+  const zoomIn = () => {
+    setZoomLevel(prevZoomLevel => Math.max(prevZoomLevel + 0.1), 2.0);
+  }
+
+  const zoomOut = () => {
+    setZoomLevel(prevZoomLevel => Math.min(prevZoomLevel - 0.1), 0.1);
+  }
+
   const changeCanvasSize = (width, height) => {
     // change the size of the canvas
     fabricCanvas.setWidth(width);
@@ -247,10 +257,11 @@ const Designer = () => {
     fabricCanvas.fire('save');
 
     // with fabric canvas the outer canvas-container does not get resized, so need to do it manually
-    document.getElementsByClassName('canvas-container').forEach(element => {
-      element.style.width = `${width}px`
-      element.style.height = `${height}px`
-    });;
+    const elements = document.getElementsByClassName('canvas-container');
+    for(let i = 0; i < elements.length; i++) {
+      elements[i].style.width = `${width}px`;
+      elements[i].style.height = `${height}px`;
+    }
 
     // close modal window
     closeModal();
@@ -382,6 +393,8 @@ const Designer = () => {
           openSaveModal={() => setModalType(ModalTypes.SAVE)}
           openBackgroundModal={() => setModalType(ModalTypes.BACKGROUND)}
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
+          zoomIn={zoomIn}
+          zoomOut={zoomOut}
           download={download}
         />
         {(canvas.saving || canvas.loading) && <Loader />}
@@ -399,7 +412,7 @@ const Designer = () => {
             sendObjectBackward={sendObjectBackward}
             removeObject={removeObject}
           />
-          <CanvasArea handleClick={deselectObjects}>
+          <CanvasArea scale={zoomLevel} handleClick={deselectObjects}>
             <Canvas id={canvasId}>Not supported by browser.</Canvas>
           </CanvasArea>
         </Workspace>

@@ -7,6 +7,7 @@ export const StyledToolbarButton = styled.button`
   width: ${layout.toolbarHeight};
   height: ${layout.toolbarHeight};
   color: ${props => props.color};
+  padding: 0 2px;
   font-size: 10px;
   font-family: inherit;
   text-align: center;

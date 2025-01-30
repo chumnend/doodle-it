@@ -11,11 +11,13 @@ export const StyledCanvasArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: scale(${props => props.scale});
+  transform-origin: 0 0;
 `;
 
 const CanvasArea = (props) => {
   return (
-    <StyledCanvasArea onClick={props.handleClick}>
+    <StyledCanvasArea scale={props.scale} onClick={props.handleClick}>
       {props.children}
     </StyledCanvasArea>
   );
@@ -23,6 +25,7 @@ const CanvasArea = (props) => {
 
 CanvasArea.propTypes = {
   children: PropTypes.node,
+  scale: PropTypes.number,
   handleClick: PropTypes.func,
 };
 
