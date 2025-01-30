@@ -10,12 +10,7 @@ List of todo items to get this application updated and running
 
 [FE]
 
-- setup redux store with updated API
-- update packages to most recent
-- recreate the pages for the ui app
+- zoom feature for working with the canvas
 - add test runner to the frontend app
 - convert to typescript
-
-For reference, https://github.com/chumnend/doodle-it/tree/088178b8a40dddfca2d71f4b3f5596045210ec78
-
-Don't forget to use changesets to bump to version 1!
+- update the version of the apps to version 1.0.0
