@@ -14,7 +14,7 @@ export const StyledWorkspace = styled.div`
 `;
 
 const Workspace = (props) => {
-  return <StyledWorkspace>{props.children}</StyledWorkspace>;
+  return <StyledWorkspace data-testid='workspace'>{props.children}</StyledWorkspace>;
 };
 
 Workspace.propTypes = {

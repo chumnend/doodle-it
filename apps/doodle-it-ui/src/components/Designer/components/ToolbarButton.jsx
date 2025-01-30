@@ -37,6 +37,7 @@ const ToolbarButton = (props) => {
     <StyledToolbarButton
       color={iconColor}
       onClick={props.clicked}
+      data-testid='toolbarButton'
     >
       {props.children}
     </StyledToolbarButton>

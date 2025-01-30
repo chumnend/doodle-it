@@ -16,7 +16,7 @@ export const StyledPage = styled.div`
 `;
 
 const Page = (props) => {
-  return <StyledPage>{props.children}</StyledPage>;
+  return <StyledPage data-testid='page'>{props.children}</StyledPage>;
 };
 
 Page.propTypes = {

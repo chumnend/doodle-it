@@ -14,7 +14,7 @@ export const StyledContextbar = styled.div`
 
 const Contextbar = (props) => {
   return (
-    <StyledContextbar>
+    <StyledContextbar data-testid='contextbar'>
       {props.freeMode && (
         <ContextbarFree
           color={props.color}

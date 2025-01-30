@@ -38,7 +38,7 @@ export const StyledToolbarName = styled.p`
 
 const Toolbar = (props) => {
   return (
-    <StyledToolbar>
+    <StyledToolbar data-testid='toolbar'>
       <StyledContainer>
         <ToolbarButton
           toggable

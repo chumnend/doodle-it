@@ -17,7 +17,11 @@ export const StyledCanvasArea = styled.div`
 
 const CanvasArea = (props) => {
   return (
-    <StyledCanvasArea scale={props.scale} onClick={props.handleClick}>
+    <StyledCanvasArea
+      scale={props.scale}
+      onClick={props.handleClick}
+      data-testid='canvasArea'
+    >
       {props.children}
     </StyledCanvasArea>
   );
