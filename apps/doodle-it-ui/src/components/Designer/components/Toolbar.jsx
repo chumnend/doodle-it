@@ -73,13 +73,19 @@ const Toolbar = (props) => {
           <StyledToolbarIcon className="material-icons">
             zoom_in
           </StyledToolbarIcon>
-          <StyledToolbarName>Zoom In</StyledToolbarName>
+          <StyledToolbarName>Zoom +</StyledToolbarName>
         </ToolbarButton>
         <ToolbarButton clicked={props.zoomOut} title="Zoom out of the canvas">
           <StyledToolbarIcon className="material-icons">
             zoom_out
           </StyledToolbarIcon>
-          <StyledToolbarName>Zoom Out</StyledToolbarName>
+          <StyledToolbarName>Zoom -</StyledToolbarName>
+        </ToolbarButton>
+        <ToolbarButton clicked={props.resetZoom} title="Reset to normal zoom">
+          <StyledToolbarIcon className="material-icons">
+            center_focus_strong
+          </StyledToolbarIcon>
+          <StyledToolbarName>Reset</StyledToolbarName>
         </ToolbarButton>
         <ToolbarButton
           clicked={props.openResizeModal}
@@ -123,6 +129,7 @@ Toolbar.propTypes = {
   openResizeModal: PropTypes.func,
   zoomIn: PropTypes.func,
   zoomOut: PropTypes.func,
+  resetZoom: PropTypes.func,
   download: PropTypes.func,
 };
 

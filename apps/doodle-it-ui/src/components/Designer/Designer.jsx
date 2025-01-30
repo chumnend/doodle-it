@@ -248,6 +248,10 @@ const Designer = () => {
     setZoomLevel(prevZoomLevel => Math.min(prevZoomLevel - 0.1), 0.1);
   }
 
+  const resetZoom = () => {
+    setZoomLevel(DEFAULT_ZOOM_LEVEL);
+  }
+
   const changeCanvasSize = (width, height) => {
     // change the size of the canvas
     fabricCanvas.setWidth(width);
@@ -395,6 +399,7 @@ const Designer = () => {
           openResizeModal={() => setModalType(ModalTypes.RESIZE)}
           zoomIn={zoomIn}
           zoomOut={zoomOut}
+          resetZoom={resetZoom}
           download={download}
         />
         {(canvas.saving || canvas.loading) && <Loader />}
