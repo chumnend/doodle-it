@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div data-testid="login">
       <Form submit={handleSubmit}>
         <FormTitle>Welcome Back!</FormTitle>
         {auth.error && <FormError>{auth.error.message}</FormError>}
@@ -57,7 +57,7 @@ const Login = () => {
           Need an account? <Link to={path.register}>Sign Up</Link>
         </p>
       </Form>
-    </>
+    </div>
   );
 };
 

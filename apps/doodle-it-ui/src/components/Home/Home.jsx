@@ -47,10 +47,10 @@ const Home = () => {
   }, [fetchDoodles]);
 
   return (
-    <>
+    <div data-testid="home">
       <Gallery items={doodle.doodles} edit={editDoodle} delete={deleteDoodle} />
       <Fab onClick={gotoDesigner} />
-    </>
+    </div>
   );
 };
 

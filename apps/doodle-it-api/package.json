@@ -8,7 +8,9 @@
     "dev": "nodemon src/app.js",
     "lint": "./node_modules/.bin/eslint ./src",
     "lint:fix": "./node_modules/.bin/eslint ./src --fix && ./node_modules/.bin/prettier --write ./src",
-    "test": "NODE_ENV=test mocha './{,!(node_modules)/**}/*.test.js' --exit"
+    "test": "NODE_ENV=test mocha './{,!(node_modules)/**}/*.test.js' --exit",
+    "coverage": "nyc yarn test",
+    "coverage:report": "nyc report --reporter=text-summary --reporter=html"
   },
   "keywords": [],
   "author": "Nicholas Chumney",
@@ -34,6 +36,7 @@
     "faker": "^4.1.0",
     "mocha": "^8.2.0",
     "nodemon": "^2.0.6",
+    "nyc": "^17.1.0",
     "prettier": "^2.1.2",
     "sinon": "^8.1.1"
   }

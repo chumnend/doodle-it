@@ -9,7 +9,7 @@ import { path } from '../../helpers/constants';
 
 const Landing = () => {
   return (
-    <>
+    <div data-testid="landing">
       <Hero>
         <HeroTitle>Make Something Wonderful!</HeroTitle>
         <HeroSubtitle>
@@ -49,7 +49,7 @@ const Landing = () => {
           <a href="https://github.com/chumnend">chumnend</a>.
         </p>
       </Container>
-    </>
+    </div>
   )
 };
 

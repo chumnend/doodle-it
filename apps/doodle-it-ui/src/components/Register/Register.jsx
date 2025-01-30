@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div data-testid="register">
       <Form submit={handleSubmit}>
         <FormTitle>{"Let's Get Started!"}</FormTitle>
         {auth.error && <FormError>{auth.error.message}</FormError>}
@@ -84,7 +84,7 @@ const Register = () => {
           Already have an account? <Link to={path.login}>Sign In</Link>
         </p>
       </Form>
-    </>
+    </div>
   );
 };
 

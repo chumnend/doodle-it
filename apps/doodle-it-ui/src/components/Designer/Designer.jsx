@@ -383,7 +383,7 @@ const Designer = () => {
   };
 
   return (
-    <>
+    <div data-testid="designer">
       <Page>
         <Toolbar
           freeMode={freeMode}
@@ -436,7 +436,7 @@ const Designer = () => {
         changeTitle={changeTitle}
         saveCanvas={saveCanvas}
       />
-    </>
+    </div>
   );
 };
 

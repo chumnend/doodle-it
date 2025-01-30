@@ -8,14 +8,14 @@ import { path } from '../../helpers/constants';
 
 const NotFound = () => {
   return (
-    <>
+    <div data-testid="notFound">
       <Hero>
         <HeroTitle>Sorry, this page does not exist</HeroTitle>
         <HeroSubtitle>
           <NavLink to={path.landing}>Return to Home</NavLink>
         </HeroSubtitle>
       </Hero>
-    </>
+    </div>
   );
 };
 export default NotFound
