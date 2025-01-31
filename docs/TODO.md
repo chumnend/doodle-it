@@ -1,6 +1,6 @@
 # TODO
 
-List of todo items to get this application updated and running
+List of TODO items that can be worked on for this project
 
 [BE]
 
@@ -8,9 +8,5 @@ List of todo items to get this application updated and running
 
 [FE]
 
-- prevent Canvas from breaking the page when resizing and zooming
+- prevent Canvas component from breaking the page when resizing and zooming
 - add test runner to the frontend app
-
-[All]
-
-- update the version of the apps to version 1.0.0
